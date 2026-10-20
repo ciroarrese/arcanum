@@ -1,12 +1,13 @@
 # ARCANUM VULGARIS
 > *"La Verdad es Observable. La Mentira es Rentable."*
 
-**Versión:** 1.4 (alineada con GDD v1.4)
+**Versión:** 1.5 (alineada con GDD v1.5)
 
 ---
 
 ## Ficha Técnica
 * **Género:** Roguelite de Deducción Psicológica / Lectura de Tarot / Gestión de Riesgo y Tiempo.
+* **Ambientación:** fines del siglo XX (1985–1995), en varios mapas: una metrópolis estadounidense en plena era yuppie, una ciudad latinoamericana en hiperinflación y un puerto de Europa del Este tras la caída del Muro.
 * **Plataformas:** PC (Steam, Steam Deck), Nintendo Switch.
 * **Target / Audiencia:** Jugadores de *Balatro*, *Papers, Please*, *Inscryption*, *Strange Horticulture*, *Return of the Obra Dinn* y amantes de la deducción tensa y la gestión de riesgo. No hace falta saber tarot: el significado de cada carta está en pantalla.
 * **Modelo Comercial:** Premium Single-Player ($14.99 - $19.99 USD) con expansiones de sedes de época.
@@ -45,8 +46,8 @@ Adivinar la verdad es solo el 50% de la sesión. El verdadero juego es qué narr
 ### 6. Deudas de Sangre: la Ruina Nunca es Sorpresiva
 Ofender a un político, a un mafioso o a tu usurero abre un hilo de consecuencias que escala día a día. Siempre hay salidas —pagar, devolver el favor o desviar la culpa hacia otro— pero si acumulás demasiados hilos, la ciudad te cobra la cuenta.
 
-### 7. Ascenso Tripartito y Grados de Infamia
-El progreso entre las 8 sedes exige un balance entre **Dinero**, **Fama** y **Reputación**. Cada victoria desbloquea un **Grado de Infamia** más difícil, y la **Lectura Diaria** con semilla compartida te mide contra todos los tarotistas del mundo.
+### 7. Ascenso, Mapas y Grados de Infamia
+Cada mapa es una ciudad distinta con sus propias 8 sedes: de una manta en la vereda a un penthouse. El progreso exige un balance entre **Dinero**, **Fama** y **Reputación**. Elegís con cuántas cartas jugar (de 36 a las 78 completas), cada victoria desbloquea un **Grado de Infamia** más difícil, y la **Lectura Diaria** con semilla compartida te mide contra todos los tarotistas del mundo.
 
 ---
 

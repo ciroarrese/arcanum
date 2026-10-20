@@ -23,3 +23,7 @@ Decisiones de diseño tomadas, con su razón. Las preguntas abiertas viven en el
 | D-17 | 2026-10-20 | Trucos de prestidigitación iniciales (mirar, invertir, cambiar, forzar, preparar el mazo), 3 ranuras ampliables a 5. Nombres de mazos: **Smith 1909** (base) y **Petit Jeu de la Sibila** (secreto). | Confirmado por el diseñador; "Smith 1909" evita la marca "Rider-Waite". |
 | D-18 | 2026-10-20 | El mazo base usa las **78 cartas**, con invertidas. | Las dignidades elementales necesitan los palos de los Arcanos Menores. |
 | D-19 | 2026-10-20 | Época: **fines del siglo XX**. El escalado va de cosas muy simples a poder, riqueza y lujo. | Decisión del diseñador; escenario concreto en discusión. |
+| D-20 | 2026-10-20 | Rango de fechas: **1985–1995**. | Evita celulares e internet masivos, que romperían la lectura en frío. |
+| D-21 | 2026-10-20 | **Varios mapas** por escenario. Orden: **B** (EE. UU. años 80, MVP) → **A** (Latinoamérica 1985–1995) → **C** (Europa del Este 1989–1993). Comparten los sistemas centrales. | Información de sobra para el MVP en B; A y C amplían la vida útil. |
+| D-22 | 2026-10-20 | **Nivel de Mazo** (Aprendiz 36 / Oficial 50 / Maestro 78 cartas) como curva de aprendizaje y selector de complejidad, disponible desde el inicio, con multiplicador de recompensa. | El jugador experto no queda obligado a empezar con pocas cartas. |
+

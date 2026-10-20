@@ -1,6 +1,6 @@
 # ARCANUM VULGARIS
 ## Game Design Document (GDD) — Manual Operativo y Mecánico
-**Versión:** 1.4.1 (Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
+**Versión:** 1.5 (Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
 **Versión anterior:** 1.3 (ver historial de git)
 **Tesis de Diseño:** *No somos magos con poderes místicos; somos psicólogos callejeros, timadores perceptivos y manipuladores de la desesperación ajena. Las cartas son el vehículo para monetizar verdades deducidas, vender mentiras convenientes y moldear el destino de la ciudad.*
 
@@ -24,6 +24,12 @@
 * **Duración de partida:** larga — horas o días de juego, con guardado del progreso.
 * **Derrota:** permanente, pero **nunca sorpresiva**. Las amenazas graves se anuncian y escalan como Deudas de Sangre (§8), con salidas disponibles. El jugador ve venir su ruina.
 * **Única muerte instantánea:** la Tirada Suicida (§8.4), que el jugador elige conscientemente.
+* **Época:** fines del siglo XX, **1985–1995** (antes de celulares e internet masivos).
+* **Mapas:** el juego tiene varios mapas (escenarios), cada uno con sus 8 sedes, su población y sus reglas propias. Se elige al empezar la partida. Orden de producción:
+  1. **Mapa B — Metrópolis estadounidense ficticia, años 80** (MVP): época yuppie, Wall Street, telepredicadores, líneas de videntes en TV; la victoria encaja con el crac bursátil de 1987.
+  2. **Mapa A — Ciudad latinoamericana ficticia, 1985–1995** (expansión): transición democrática, hiperinflación como mecánica propia, sindicatos, intentos de golpe.
+  3. **Mapa C — Ciudad portuaria de Europa del Este, 1989–1993** (expansión): caída del Muro, mafias, privatizaciones, videntes en TV estatal.
+* **Los mapas comparten** el sistema de tarot, las tiradas, la Resonancia, la prestidigitación y las Deudas de Sangre. **Cambian:** sedes, arte, variantes de arquetipos, eventos, escenas de derrota y una regla propia por mapa.
 * **Al perder se conserva:** solo el conocimiento del jugador, los mazos desbloqueados, los Grados de Infamia alcanzados y el historial de Lecturas Diarias (§10).
 
 ---
@@ -33,7 +39,7 @@
 ### 3.1. Escuelas Adoptadas
 | Rol | Escuela | Gramática de combinación |
 | :--- | :--- | :--- |
-| **Mazo base** | Smith 1909: 78 cartas, con invertidas (tradición Rider-Waite-Smith; arte original de Pamela Colman Smith, de dominio público) | **Dignidades elementales** de la Golden Dawn + reglas de combinación sistémicas (§3.4). |
+| **Mazo base** | Smith 1909: 78 cartas, con invertidas (tradición Rider-Waite-Smith; arte original de Pamela Colman Smith, de dominio público) | **Dignidades elementales** de la Golden Dawn + reglas de combinación sistémicas (§3.5). |
 | **Mazo alternativo (desbloqueable)** | Tarot de Marsella | **Lectura en línea:** las cartas se leen como frase; la dirección de la mirada de las figuras y la adyacencia modifican el sentido. |
 | **Mazo secreto (desbloqueable)** | Inspirado en Lenormand (36 cartas) | **Pares fijos:** cada par adyacente forma una frase. |
 
@@ -50,7 +56,21 @@ Cada carta tiene datos **públicos** en el juego:
 * **Público (tooltip siempre disponible):** significado individual de cada carta, derecha e invertida, su elemento y sus temas.
 * **Aprendido (nunca explicado por el juego):** cómo se combinan las cartas entre sí, qué combinaciones resuenan con cada tipo de situación, y cómo leer el contexto del cliente. Este es el conocimiento que el jugador acumula entre partidas.
 
-### 3.4. Reglas de Combinación (Gramática del Mazo Base)
+### 3.4. Nivel de Mazo (Selector de Complejidad)
+Al empezar la partida, el jugador elige cuántas cartas usa. Sirve como curva de aprendizaje para el novato y como selector de dificultad para el experto, que no queda obligado a empezar con pocas cartas.
+
+| Nivel | Cartas al inicio | Crecimiento durante la partida | Multiplicador de recompensa |
+| :--- | :--- | :--- | :---: |
+| **Aprendiz** | 36: los 22 Arcanos Mayores + 1 palo | Se suma un palo al llegar a las Sedes 3, 5 y 7 | ×1.0 |
+| **Oficial** | 50: los 22 Arcanos Mayores + 2 palos | Se suman los palos restantes en las Sedes 3 y 5 | ×1.25 |
+| **Maestro** | 78: el mazo completo | — | ×1.5 |
+
+* Todos los niveles están disponibles desde la primera partida.
+* El multiplicador de recompensa (valores a calibrar) existe para que elegir más cartas convenga, no solo sea más difícil.
+* El Nivel de Mazo es un eje **independiente** de los Grados de Infamia (§10.3): el Nivel de Mazo mide complejidad; el Grado mide dureza.
+* La Lectura Diaria (§10.4) usa un Nivel de Mazo fijo para que el ranking sea justo.
+
+### 3.5. Reglas de Combinación (Gramática del Mazo Base)
 Todas son reglas reales de la práctica del tarot, aplicadas de forma sistémica:
 1. **Posición:** cada casillero de la tirada pregunta algo distinto (ej.: Pasado = el origen; Presente = el conflicto; Futuro = la sentencia).
 2. **Orientación:** derecha o invertida cambia la palabra clave disponible.
@@ -341,7 +361,7 @@ Los mazos son el principal tipo de partida desbloqueable: cambian la gramática 
 
 | Mazo | Gramática | Desbloqueo |
 | :--- | :--- | :--- |
-| **Smith 1909** | Dignidades elementales (§3.4). | Incluido de inicio. |
+| **Smith 1909** | Dignidades elementales (§3.5). | Incluido de inicio. |
 | **Tarot de Marsella** | Lectura en línea: miradas y adyacencia. | Desbloqueable. |
 | **Petit Jeu de la Sibila** *(inspirado en Lenormand)* | Pares fijos adyacentes. | Secreto. |
 
@@ -454,15 +474,15 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
-1. **Curva de aprendizaje del mazo de 78:** ¿las primeras partidas usan un subconjunto (ej.: Mayores + un palo) para enseñar de a poco?
-2. **Época concreta:** fines del siglo XX confirmado; falta elegir el escenario (ver opciones en discusión).
+1. **Alcance del MVP:** cuántas sedes, arquetipos y tiradas entran en el MVP del Mapa B.
+2. **Elección de mapa:** ¿todos los mapas disponibles desde el inicio o se desbloquean?
 3. **Tells y Pilar 3:** ¿qué efecto mecánico tiene cliquear un tell sin que el juego "anote" por el jugador?
 4. **Tiempo:** ¿las UT corren en tiempo real o se descuentan por acción?
 5. **Métricas del cliente:** definir escalas y reglas de Paciencia, Escepticismo, Fe, Tensión y Credibilidad (o fusionarlas).
 6. **Fama vs. Reputación:** reglas de ganancia y pérdida; qué controla el largo de la fila.
 7. **Economía:** rebalancear tarifas (por arquetipo vs. por sede) y recompensas de Doble Fondo.
 8. **Población por sede:** ¿variantes de los 10 arquetipos o arquetipos nuevos?
-9. **Adaptación a fines del siglo XX:** revisar insumos, espías, artilugios, sedes y escenas de derrota que hoy pertenecen al siglo XIX (velas de sebo, aceite de ballena, telegrafista, cochero, carpa de feria, boticario).
+9. **Adaptación al Mapa B (EE. UU., años 80):** revisar arquetipos (ej.: "golpe de estado" del Político), sedes, insumos, espías, artilugios, sedes y escenas de derrota que hoy pertenecen al siglo XIX (velas de sebo, aceite de ballena, telegrafista, cochero, carpa de feria, boticario).
 10. **Victoria:** diseñar la mecánica de "orquestar el colapso bursátil y la cumbre diplomática".
 11. **Mazos de modificadores** (Hereje, Veneciano, Alquímico): ¿se mantienen dentro de la nueva estructura de mazos?
 
