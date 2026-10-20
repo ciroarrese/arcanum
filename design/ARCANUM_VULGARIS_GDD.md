@@ -1,6 +1,6 @@
 # ARCANUM VULGARIS
 ## Game Design Document (GDD) — Manual Operativo y Mecánico
-**Versión:** 1.7 (Tiempo por acción, métricas del cliente, Fama/Reputación, voces en gibberish; Integra Mapa B "New Carthage"; Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
+**Versión:** 1.8 (Ediciones de mazo; Tiempo por acción, métricas del cliente, Fama/Reputación, voces en gibberish; Integra Mapa B "New Carthage"; Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
 **Versión anterior:** 1.3 (ver historial de git)
 **Tesis de Diseño:** *No somos magos con poderes místicos; somos psicólogos callejeros, timadores perceptivos y manipuladores de la desesperación ajena. Las cartas son el vehículo para monetizar verdades deducidas, vender mentiras convenientes y moldear el destino de la ciudad.*
 
@@ -397,10 +397,10 @@ Los mazos son el principal tipo de partida desbloqueable: cambian la gramática 
 | **Tarot de Marsella** | Lectura en línea: miradas y adyacencia. | Desbloqueable. |
 | **Petit Jeu de la Sibila** *(inspirado en Lenormand)* | Pares fijos adyacentes. | Secreto. |
 
-Los mazos de la v1.3 se conservan como **variantes de modificadores** dentro de una gramática. **[PENDIENTE]** revisar si siguen teniendo sentido (§13):
-* **Mazo del Hereje (Hueso y Tinta):** $+150\%$ al terror y cobro en cartas de desgracia; causa burla inmediata en Intelectuales. Costo: 180 monedas.
-* **Mazo Veneciano (Filigrana de Oro):** Triplica las propinas de Aristócratas y Políticos; indigna a Obreros e Indigentes. Costo: 450 monedas.
-* **Mazo Alquímico Hermético:** Anula el $80\%$ de la Credulidad negativa de Intelectuales; confunde a clientes pobres reduciendo su Credulidad. Costo: 750 monedas.
+**Ediciones de mazo:** los mazos de modificadores de la v1.3 pasan a ser **ediciones** que se compran dentro de una partida. Una edición conserva los significados y la gramática del mazo en uso, pero cambia cómo reaccionan los arquetipos. No forman parte del MVP.
+* **Edición del Hereje (Hueso y Tinta):** $+150\%$ al terror y cobro en cartas de desgracia; causa burla inmediata en Intelectuales. Costo: 180 monedas.
+* **Edición Veneciana (Filigrana de Oro):** Triplica las propinas de Aristócratas y Políticos; indigna a Obreros e Indigentes. Costo: 450 monedas.
+* **Edición Alquímica Hermética:** Anula el $80\%$ de la Credulidad negativa de Intelectuales; confunde a clientes pobres reduciendo su Credulidad. Costo: 750 monedas.
 
 ---
 
@@ -514,9 +514,8 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
 1. **Mapas A y C:** escribir su adaptación cuando se cierre el MVP.
-2. **Economía:** rebalancear tarifas (por arquetipo vs. por sede) y recompensas de Doble Fondo.
+2. **Economía:** números de las Sedes 1–3 para el MVP ahora; rebalanceo completo (tarifas por arquetipo vs. por sede, recompensas de Doble Fondo, Sedes 4–8) con datos del prototipo.
 3. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
-4. **Mazos de modificadores** (Hereje, Veneciano, Alquímico): ¿se mantienen dentro de la nueva estructura de mazos?
 
 ---
 

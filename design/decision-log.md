@@ -35,4 +35,7 @@ Decisiones de diseño tomadas, con su razón. Las preguntas abiertas viven en el
 | D-29 | 2026-10-20 | Métricas del cliente: **Paciencia** (fila), **Credulidad** (-100 a +100) y **Tensión** (0 a 100). Reemplazan a Fe, Escepticismo y Credibilidad. | Cinco métricas superpuestas eran ilegibles. |
 | D-30 | 2026-10-20 | **Fama** = cuántos clientes llegan; **Reputación** = qué clase de clientes llega (% de lecturas exitosas recientes). | Resuelve la contradicción entre GDD y Pitch. |
 | D-31 | 2026-10-20 | **Sin voces reales:** cuadros de diálogo + balbuceo ininteligible (*vocal gibberish*), expresivo según arquetipo y Tensión. | Decisión del diseñador; abarata producción y localización. |
+| D-32 | 2026-10-20 | Los mazos de modificadores de la v1.3 pasan a ser **ediciones** compradas dentro de la partida: mismos significados y gramática, distinta reacción de los arquetipos. Fuera del MVP. | No compiten con los mazos de gramática distinta. |
+| D-33 | 2026-10-20 | **Economía:** se balancean ahora solo las Sedes 1–3 del MVP; el rebalanceo completo se hace con datos de un prototipo jugable. | Balancear 8 sedes en papel antes de medir una lectura real es trabajo descartable. |
+| D-34 | 2026-10-20 | Nivel de exigencia del template: **`modes.rigor: standard`** (5 secciones de GDD por sistema, ADRs críticos, revisión "lean"). | Proyecto comercial con sistemas interconectados; `full` es demasiado para un equipo chico. |
 
