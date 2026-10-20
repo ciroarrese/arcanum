@@ -29,6 +29,8 @@
   1. **Mapa B — Metrópolis estadounidense ficticia, años 80** (MVP): época yuppie, Wall Street, telepredicadores, líneas de videntes en TV; la victoria encaja con el crac bursátil de 1987.
   2. **Mapa A — Ciudad latinoamericana ficticia, 1985–1995** (expansión): transición democrática, hiperinflación como mecánica propia, sindicatos, intentos de golpe.
   3. **Mapa C — Ciudad portuaria de Europa del Este, 1989–1993** (expansión): caída del Muro, mafias, privatizaciones, videntes en TV estatal.
+* **Desbloqueo:** llegar a la Sede 8 de un mapa (sin necesidad de ganar) desbloquea el siguiente. El Mapa B está disponible desde el inicio.
+* **Adaptaciones por mapa:** `design/mapas/`.
 * **Los mapas comparten** el sistema de tarot, las tiradas, la Resonancia, la prestidigitación y las Deudas de Sangre. **Cambian:** sedes, arte, variantes de arquetipos, eventos, escenas de derrota y una regla propia por mapa.
 * **Al perder se conserva:** solo el conocimiento del jugador, los mazos desbloqueados, los Grados de Infamia alcanzados y el historial de Lecturas Diarias (§10).
 
@@ -474,8 +476,8 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
-1. **Alcance del MVP:** cuántas sedes, arquetipos y tiradas entran en el MVP del Mapa B.
-2. **Elección de mapa:** ¿todos los mapas disponibles desde el inicio o se desbloquean?
+1. **Mapa B:** aprobar la propuesta de adaptación en `design/mapas/mapa-b-new-carthage.md` e integrarla al GDD.
+2. **Mapas A y C:** escribir su adaptación cuando se cierre el MVP.
 3. **Tells y Pilar 3:** ¿qué efecto mecánico tiene cliquear un tell sin que el juego "anote" por el jugador?
 4. **Tiempo:** ¿las UT corren en tiempo real o se descuentan por acción?
 5. **Métricas del cliente:** definir escalas y reglas de Paciencia, Escepticismo, Fe, Tensión y Credibilidad (o fusionarlas).
@@ -493,3 +495,18 @@ Decisiones pendientes que bloquean o condicionan otras partes del diseño:
 * **Derrota por Tirada Suicida:** fallar un "All-in" (§8.4).
 * **Victoria:** Sobrevivir 7 jornadas consecutivas en el *Penthouse Internacional* (Nivel 8), orquestando el colapso bursátil y la cumbre diplomática mediante la última gran tirada. **[PENDIENTE: mecánica de la tirada final]**
 * **Victoria en Grado de Infamia:** desbloquea el siguiente Grado (§10.3).
+
+---
+
+## 15. Alcance del MVP
+Versión mínima para validar que leer cartas es divertido, en el Mapa B:
+* **Sedes:** 1 a 3.
+* **Arquetipos:** 5.
+* **Tiradas:** Carta Única y Tres Tiempos.
+* **Nivel de Mazo:** Aprendiz.
+* **Trucos:** 3.
+* **Deudas de Sangre:** El Usurero + 1 hilo de arquetipo.
+* **Fuera del MVP:** Cruz Celta y demás tiradas, mazos alternativos, Grados de Infamia, Lectura Diaria, Sedes 4–8, Mapas A y C.
+
+Detalle del recorte: `design/mapas/mapa-b-new-carthage.md` §8.
+
