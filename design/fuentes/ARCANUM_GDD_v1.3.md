@@ -1,4 +1,4 @@
-# ARCANUM VULGARIS
+# ARCANUM
 ## Game Design Document (GDD) — Manual Operativo y Mecánico
 **Versión:** 1.3 (Revisada — Dinámica de Fama, Reputación y Demografía Contextual)  
 **Tesis de Diseño:** *No somos magos con poderes místicos; somos psicólogos callejeros, timadores perceptivos y manipuladores de la desesperación ajena. Las cartas son el vehículo para monetizar verdades deducidas, vender mentiras convenientes y moldear el destino de la ciudad.*

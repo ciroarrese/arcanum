@@ -1,4 +1,4 @@
-# ARCANUM VULGARIS
+# ARCANUM
 > *"La Verdad es Observable. La Mentira es Rentable."*
 
 ---
@@ -17,7 +17,7 @@ Un roguelike arcade de deducción psicológica y humor negro donde encarnás a u
 ---
 
 ## 2. Visión y Pilares de Experiencia
-El tarot en los videojuegos siempre se ha tratado como magia fidedigna o como un simple combate numérico por turnos. **ARCANUM VULGARIS** subvierte esa fantasía: las cartas no tienen poderes sobrenaturales; el poder real reside en el sesgo de confirmación, la desesperación humana y la lectura en frío (*cold reading*). 
+El tarot en los videojuegos siempre se ha tratado como magia fidedigna o como un simple combate numérico por turnos. **ARCANUM** subvierte esa fantasía: las cartas no tienen poderes sobrenaturales; el poder real reside en el sesgo de confirmación, la desesperación humana y la lectura en frío (*cold reading*). 
 
 Sos un timador profesional que utiliza técnicas forenses de observación para vaciar billeteras, tejer conspiraciones políticas y comprar su supervivencia un día a la vez.
 
