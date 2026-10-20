@@ -28,4 +28,6 @@ Decisiones de diseño tomadas, con su razón. Las preguntas abiertas viven en el
 | D-22 | 2026-10-20 | **Nivel de Mazo** (Aprendiz 36 / Oficial 50 / Maestro 78 cartas) como curva de aprendizaje y selector de complejidad, disponible desde el inicio, con multiplicador de recompensa. | El jugador experto no queda obligado a empezar con pocas cartas. |
 | D-23 | 2026-10-20 | **MVP:** Mapa B, Sedes 1–3, 5 arquetipos, Carta Única y Tres Tiempos, nivel Aprendiz, 3 trucos, Usurero + 1 hilo. | Validar el núcleo (leer cartas) antes de invertir en contenido. |
 | D-24 | 2026-10-20 | Los mapas **se desbloquean jugando**: llegar a la Sede 8 del mapa anterior, sin necesidad de ganar. | Objetivo para el jugador nuevo; enseña los sistemas en el mapa más legible. |
+| D-25 | 2026-10-20 | **Mapa B "New Carthage" aprobado**: regla del Ticker, 8 sedes, pieles de arquetipos (+ Yuppie y Telepredicador), trastienda de los 80 y victoria del Lunes Negro. La población de cada sede son variantes de los 10 arquetipos + 2 exclusivos por mapa. | Aprobado por el diseñador. |
+| D-26 | 2026-10-20 | El MVP termina al alcanzar la Sede 3 y sobrevivir N jornadas, sin victoria completa. | Suficiente para validar el núcleo. |
 

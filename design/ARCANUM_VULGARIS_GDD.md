@@ -1,6 +1,6 @@
 # ARCANUM VULGARIS
 ## Game Design Document (GDD) — Manual Operativo y Mecánico
-**Versión:** 1.5 (Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
+**Versión:** 1.6 (Integra Mapa B "New Carthage"; Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
 **Versión anterior:** 1.3 (ver historial de git)
 **Tesis de Diseño:** *No somos magos con poderes místicos; somos psicólogos callejeros, timadores perceptivos y manipuladores de la desesperación ajena. Las cartas son el vehículo para monetizar verdades deducidas, vender mentiras convenientes y moldear el destino de la ciudad.*
 
@@ -207,6 +207,8 @@ Todos los valores numéricos de esta sección son **perillas de ajuste** a calib
 ## 6. Matriz Paramétrica de Arquetipos y Doble Fondo
 Probabilidad base de subversión: $P_{\text{DF}} = 30\%$ (modificada por eventos del día).
 
+> **Arquetipos de sistema:** la tabla usa nombres genéricos. Cada mapa les da su propia piel (nombre, fachada, secretos); la población de cada sede son variantes de estos 10 arquetipos más 2 arquetipos exclusivos por mapa. Pieles del Mapa B: `design/mapas/mapa-b-new-carthage.md` §4.
+>
 > **Nota v1.4:** el Doble Fondo de cada arquetipo ya no es único. La columna "Doble Fondo" muestra el ejemplo original; cada arquetipo tendrá un pool de secretos posibles (§5.3). La columna "Reacción al Rechazo" pasa a ser la **primera etapa de la Deuda de Sangre** que abre ese arquetipo (§8).
 
 | # | Arquetipo | Fachada Visible | Doble Fondo (ejemplo) | Punto Ciego Vulnerable | Deuda de Sangre que abre (etapa 1) |
@@ -218,7 +220,7 @@ Probabilidad base de subversión: $P_{\text{DF}} = 30\%$ (modificada por eventos
 | **5** | **El Policía** | Placa de bronce, libreta, tono autoritario. | **Cómplice Extorsionado:** Acorralado por una banda criminal rival; busca una salida desesperada. | Prisión y deshonor militar | Acta de inspección punitiva al día siguiente (-UT). |
 | **6** | **El Jugador** | Ojos inyectados en sangre, humo, manos trémulas. | **Informante del Inframundo:** Paga con dossiers de inteligencia sobre futuros clientes de élite. | Ruina total inminente | Intento de hurto menor en la caja al salir. |
 | **7** | **El Intelectual** | Escéptico, pedante, busca humillar al farsante. | **Ocultista Reprimido:** Aterrado por pesadillas lúcidas y visiones que su razón no explica. | Locura irracional / Miedo al ridículo | Columna satírica demoledora en la gaceta local. |
-| **8** | **El Político** | Sonrisa ensayada, oratoria ambigua. | **Conspirador Acorralado:** Prepara o teme un golpe de estado; paga fortunas por saber de espías. | Traición de aliados cercanos | Inspección administrativa (escala a clausura). |
+| **8** | **El Político** | Sonrisa ensayada, oratoria ambigua. | **Conspirador Acorralado:** Prepara o teme una traición o conspiración (en el Mapa B: una investigación federal); paga fortunas por saber de espías. | Traición de aliados cercanos | Inspección administrativa (escala a clausura). |
 | **9** | **El Obrero** | Ropa tiznada, manos encallecidas, sumiso. | **Saboteador Sindical:** Prepara un paro fabril y caza al delator infiltrado en su cuadrilla. | Despido y hambre familiar | Boicot gremial que vacía de clientes la cuadra. |
 | **10** | **El Espejo** | Modales neutros, expresión completamente plana. | **Tarotista Rival / Infiltrado:** Viene a evaluar el truco, copiar métodos o tender una trampa. | Ser desenmascarado en público | Sabotaje nocturno a tus mazos o herramientas. |
 
@@ -263,13 +265,15 @@ Donde:
 | **El Espejo** | 50 - 100 | $0.0\times$ | Desbloqueo de cartas prohibidas del rival. |
 
 ### 7.4. Estructura de Costos Diarios
+> Los nombres de insumos e informantes son los del **Mapa B**; cada mapa los adapta a su época.
+
 1. **Renta Fija de la Sede ($CF_{\text{renta}}$):** de 5 a 2.800 monedas según sede.
 2. **Peaje de Protección o Soborno Policial ($CF_{\text{seguridad}}$):** en sedes bajas, la patota de la esquina; en sedes altas, el comisario o inspector. Si no se paga, abre una Deuda de Sangre.
 3. **Consumibles de Sesión ($CV_{\text{insumos}}$):**
-   * *Velas de Sebo / Aceite de Ballena:* 1 por día obligatoria (2 a 50 monedas según la sede).
-   * *Dosis de Té con Solanáceas:* 3 monedas por cliente.
-   * *Carbón y Beleño para el Brasero:* 5 monedas por jornada activada.
-4. **Información de Redes Previas ($CI_{\text{espías}}$):** pilluelo (2), cochero (15) o telegrafista (150) por dossiers previos.
+   * *Velas* (de supermercado en sedes bajas, aromáticas importadas en sedes altas): 1 por día obligatoria (2 a 50 monedas según la sede).
+   * *Té de la Casa* ("relajante"): 3 monedas por cliente.
+   * *Sahumerio de pachulí:* 5 monedas por jornada activada.
+4. **Información de Redes Previas ($CI_{\text{espías}}$):** lustrabotas (2), taxista (15) o técnico de la telefónica (150) por dossiers previos. Revisar la basura del cliente es gratis pero cuesta UT del día siguiente.
 
 #### Ecuación del Balance Diario
 $$\text{Balance}_{\text{Final}} = \text{Saldo}_{\text{Anterior}} + \sum I_{\text{sesiones}} - (CF_{\text{renta}} + CF_{\text{seguridad}} + CV_{\text{insumos}} + CI_{\text{espías}})$$
@@ -278,18 +282,18 @@ Un balance negativo al cierre abre la Deuda de Sangre **"El Usurero"** (§8.3).
 
 ### 7.5. Parámetros Económicos y Umbrales de Ascenso por Sede
 
-| Nivel / Sede | Costo Mudanza | Fama Req. | Reputación Req. | Renta Diaria | Soborno / Peaje | Tarifa Media | Fila Base (Fama 0) | Fila Desbordada (Alta Fama) | Población Contextual Dominante |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **1. Callejón del Ahorcado** | 0 | 0 | 0% | 5 | 2 | 4 - 8 | 2 - 3 | 7 - 9 | Mendigos, rateros, borrachos, peones portuarios. |
-| **2. Sótano de Taberna** | 50 | 15 | 30% | 18 | 6 | 10 - 20 | 3 - 4 | 7 - 10 | Contrabandistas, marineros prófugos, tahúres de dados. |
-| **3. Trastienda del Boticario** | 150 | 35 | 45% | 45 | 15 | 25 - 50 | 4 - 5 | 8 - 11 | Boticarios celosos, viudas envenenadoras, policías barriales. |
-| **4. Carpa de Feria** | 350 | 55 | 55% | 90 | 30 | 40 - 80 | 5 - 6 | 9 - 12 | Comerciantes, feriantes, burgueses curiosos de incógnito. |
-| **5. Salón del Barrio Rojo** | 800 | 70 | 65% | 200 | 70 | 80 - 160 | 6 - 7 | 10 - 13 | Madamas, usureros, sicarios profesionales, detectives corruptos. |
-| **6. Estudio Distrito Artístico** | 1.800 | 85 | 75% | 450 | 150 | 180 - 350 | 6 - 8 | 10 - 14 | Intelectuales bohemios, artistas quebrados, herederos rebeldes. |
-| **7. Gabinete Financiero** | 4.500 | 92 | 85% | 1.000 | 350 | 400 - 900 | 7 - 9 | 11 - 15 | Corredores de bolsa, jueces comisionados, directores de banco. |
-| **8. Penthouse Internacional** | 12.000 | 98 | 92% | 2.800 | 1.000 | 1.200 - 3.500 | 8 - 10 | 12 - 16 | Ministros de guerra, diplomáticos extranjeros, magnates globales. |
+Valores económicos comunes a todos los mapas; nombres de sede del **Mapa B**. Población, amenazas y escenas de derrota de cada sede: `design/mapas/mapa-b-new-carthage.md` §3.
 
-> **[PENDIENTE]** La población contextual de cada sede (madamas, banqueros, diplomáticos…) no coincide con los 10 arquetipos. Decidir si son variantes visuales de los arquetipos o arquetipos nuevos (§13).
+| Nivel / Sede (Mapa B) | Costo Mudanza | Fama Req. | Reputación Req. | Renta Diaria | Soborno / Peaje | Tarifa Media | Fila Base (Fama 0) | Fila Desbordada (Alta Fama) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **1. La Boca del Subte** | 0 | 0 | 0% | 5 | 2 | 4 - 8 | 2 - 3 | 7 - 9 |
+| **2. La Lavandería 24 Horas** | 50 | 15 | 30% | 18 | 6 | 10 - 20 | 3 - 4 | 7 - 10 |
+| **3. El Local de la Galería** | 150 | 35 | 45% | 45 | 15 | 25 - 50 | 4 - 5 | 8 - 11 |
+| **4. El Stand del Paseo Marítimo** | 350 | 55 | 55% | 90 | 30 | 40 - 80 | 5 - 6 | 9 - 12 |
+| **5. El Reservado del Club Velvet** | 800 | 70 | 65% | 200 | 70 | 80 - 160 | 6 - 7 | 10 - 13 |
+| **6. El Estudio de Radio AM** | 1.800 | 85 | 75% | 450 | 150 | 180 - 350 | 6 - 8 | 10 - 14 |
+| **7. La Oficina del Piso 30** | 4.500 | 92 | 85% | 1.000 | 350 | 400 - 900 | 7 - 9 | 11 - 15 |
+| **8. El Penthouse y el Show de Medianoche** | 12.000 | 98 | 92% | 2.800 | 1.000 | 1.200 - 3.500 | 8 - 10 | 12 - 16 |
 
 ---
 
@@ -305,12 +309,15 @@ Reemplaza a las muertes instantáneas y castigos irreversibles de la v1.3. Toda 
   * **Desviar:** cargarle el problema a otro cliente o facción. Cierra este hilo pero **abre otro**.
 
 ### 8.2. Límite y Game Over
-* **Máximo 3 hilos activos.** Si se abre un cuarto, o si un hilo llega a su etapa final, se ejecuta el **Game Over** temático de la sede actual:
-  * *Sede 1 (Callejón):* Arrojado al río atado dentro de una alfombra raída.
-  * *Sede 2-3 (Taberna/Boticario):* Te quiebran los dedos de la mano diestra y te arrojan al muladar municipal.
-  * *Sede 4-5 (Feria/Barrio Rojo):* Linchamiento público o redada de la brigada de defraudaciones.
-  * *Sede 6-7 (Distrito Artístico/Financiero):* Cárcel de deudores por decreto judicial irrevocable.
-  * *Sede 8 (Penthouse):* "Suicidio" asistido: arrojado desde el balcón del piso 50.
+* **Máximo 3 hilos activos.** Si se abre un cuarto, o si un hilo llega a su etapa final, se ejecuta el **Game Over** temático de la sede actual. Cada mapa define sus escenas; en el **Mapa B**:
+  * *Sede 1 (La Boca del Subte):* Arrojado al río desde el muelle, envuelto en una alfombra.
+  * *Sede 2 (La Lavandería):* Te quiebran los dedos de la mano diestra y te tiran a un contenedor.
+  * *Sede 3 (El Local de la Galería):* Incendio "accidental" del local con vos adentro.
+  * *Sede 4 (El Stand del Paseo Marítimo):* Redada por fraude postal y telefónico; cárcel estatal.
+  * *Sede 5 (El Club Velvet):* Desaparecido en el baúl de un auto de lujo.
+  * *Sede 6 (El Estudio de Radio AM):* Desenmascarado en vivo; demanda colectiva y ruina pública.
+  * *Sede 7 (La Oficina del Piso 30):* Prisión federal por fraude de valores.
+  * *Sede 8 (El Penthouse):* "Suicidio" desde el balcón del piso 50.
 * El HUD muestra siempre los hilos activos y su etapa: **la ruina nunca es sorpresiva**.
 
 ### 8.3. Hilo Especial: "El Usurero" (Morosidad)
@@ -340,12 +347,16 @@ Disponible con cualquier hilo en etapa 3. El jugador fuerza una acusación o ext
 ## 9. Arsenal de Trastienda, Trucos y Mazos
 
 ### 9.1. Artilugios Físicos de Puesta en Escena
+Artilugios del **Mapa B** (costos a calibrar en el rebalanceo):
 * **Silla con Pata Trunca (-3mm):** Delata el momento exacto en que el cliente se inclina hacia adelante para mentir ($+30\%$ tiempo de detección de tell). Costo: 35 monedas.
-* **Té de Cortesía con Solanáceas:** Dilata pupilas y reseca la garganta, facilitando la lectura de tics ($+1.3\ \text{s}$ a la ventana activa). Costo por dosis: 3 monedas.
-* **Brasero de Beleño Aromático:** Ralentiza el crecimiento del Escepticismo en un $25\%$. Instalación: 60 monedas; recarga: 5 monedas/día.
-* **Reloj de Péndulo Desincronizado:** Desquicia a Intelectuales y Políticos (pierden $20\%$ de paciencia base). Costo: 90 monedas.
-* **Pedal Crujidor Bajo Tarima:** Emite chasquidos lejanos para simular presencia fantasmal ante profecías fatales. Costo: 45 monedas.
-* **Lámpara Focal Verde:** Ciega al cliente y deja al tarotista en penumbra; reduce el riesgo de detección de los trucos. Costo: 120 monedas.
+* **Parlante Escondido** con cinta de ruidos: simula presencia "fantasmal" ante profecías fatales. Costo: 45 monedas.
+* **Reloj Digital que Parpadea 12:00:** Desquicia a Escépticos y Senadores (pierden $20\%$ de paciencia base). Costo: 90 monedas.
+* **Luz Negra y Reflector:** Encandila al cliente y deja al tarotista en penumbra; reduce el riesgo de detección de los trucos. Costo: 120 monedas.
+* **El Audífono:** un cómplice en la sala de espera escucha las charlas de la fila y te las sopla: pistas extra en la mirilla. Riesgo de detección alto con el Escéptico.
+* **Grabador de Casete** bajo la mesa: las sesiones grabadas mejoran el éxito de Extorsionar. Si te lo encuentran, abre una Deuda de Sangre.
+* **Circuito Cerrado** en la sala de espera: ves el comportamiento de los clientes que esperan.
+
+Los insumos de sesión (Té de la Casa, Sahumerio) están en §7.4.
 
 ### 9.2. Trucos de Prestidigitación (Comodines)
 Se compran en la trastienda y se equipan en las ranuras de truco (máximo 3, ampliable a 5). Cada uno tiene cargas por jornada y riesgo de detección. Lista inicial propuesta (valores a calibrar):
@@ -476,24 +487,22 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
-1. **Mapa B:** aprobar la propuesta de adaptación en `design/mapas/mapa-b-new-carthage.md` e integrarla al GDD.
-2. **Mapas A y C:** escribir su adaptación cuando se cierre el MVP.
-3. **Tells y Pilar 3:** ¿qué efecto mecánico tiene cliquear un tell sin que el juego "anote" por el jugador?
-4. **Tiempo:** ¿las UT corren en tiempo real o se descuentan por acción?
-5. **Métricas del cliente:** definir escalas y reglas de Paciencia, Escepticismo, Fe, Tensión y Credibilidad (o fusionarlas).
-6. **Fama vs. Reputación:** reglas de ganancia y pérdida; qué controla el largo de la fila.
-7. **Economía:** rebalancear tarifas (por arquetipo vs. por sede) y recompensas de Doble Fondo.
-8. **Población por sede:** ¿variantes de los 10 arquetipos o arquetipos nuevos?
-9. **Adaptación al Mapa B (EE. UU., años 80):** revisar arquetipos (ej.: "golpe de estado" del Político), sedes, insumos, espías, artilugios, sedes y escenas de derrota que hoy pertenecen al siglo XIX (velas de sebo, aceite de ballena, telegrafista, cochero, carpa de feria, boticario).
-10. **Victoria:** diseñar la mecánica de "orquestar el colapso bursátil y la cumbre diplomática".
-11. **Mazos de modificadores** (Hereje, Veneciano, Alquímico): ¿se mantienen dentro de la nueva estructura de mazos?
+1. **Mapas A y C:** escribir su adaptación cuando se cierre el MVP.
+2. **Tells y Pilar 3:** ¿qué efecto mecánico tiene cliquear un tell sin que el juego "anote" por el jugador?
+3. **Tiempo:** ¿las UT corren en tiempo real o se descuentan por acción?
+4. **Métricas del cliente:** definir escalas y reglas de Paciencia, Escepticismo, Fe, Tensión y Credibilidad (o fusionarlas).
+5. **Fama vs. Reputación:** reglas de ganancia y pérdida; qué controla el largo de la fila.
+6. **Economía:** rebalancear tarifas (por arquetipo vs. por sede) y recompensas de Doble Fondo.
+7. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
+8. **Mazos de modificadores** (Hereje, Veneciano, Alquímico): ¿se mantienen dentro de la nueva estructura de mazos?
 
 ---
 
 ## 14. Condiciones de Victoria y Derrota
 * **Derrota por Deudas de Sangre:** abrir un cuarto hilo activo o que un hilo llegue a su etapa final. Incluye la quiebra (hilo "El Usurero"), la prisión (hilos de policías y políticos) y la violencia (hilos de sicarios y bandas).
 * **Derrota por Tirada Suicida:** fallar un "All-in" (§8.4).
-* **Victoria:** Sobrevivir 7 jornadas consecutivas en el *Penthouse Internacional* (Nivel 8), orquestando el colapso bursátil y la cumbre diplomática mediante la última gran tirada. **[PENDIENTE: mecánica de la tirada final]**
+* **Victoria (Mapa B — el Lunes Negro):** en la Sede 8, sobrevivir 7 jornadas de euforia bursátil que terminan en el crac. La última gran tirada es una Cruz Celta para el magnate más poderoso de la ciudad; su decisión define quién se hunde. Se gana sobreviviendo al Lunes Negro con la fortuna por encima de un umbral y sin hilos en etapa final. Detalle: `design/mapas/mapa-b-new-carthage.md` §7. **[PENDIENTE: diseño detallado de la tirada final]**
+* **Victoria en otros mapas:** cada mapa define su propio clímax.
 * **Victoria en Grado de Infamia:** desbloquea el siguiente Grado (§10.3).
 
 ---

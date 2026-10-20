@@ -1,13 +1,13 @@
 # ARCANUM VULGARIS
 > *"La Verdad es Observable. La Mentira es Rentable."*
 
-**Versión:** 1.5 (alineada con GDD v1.5)
+**Versión:** 1.6 (alineada con GDD v1.6)
 
 ---
 
 ## Ficha Técnica
 * **Género:** Roguelite de Deducción Psicológica / Lectura de Tarot / Gestión de Riesgo y Tiempo.
-* **Ambientación:** fines del siglo XX (1985–1995), en varios mapas: una metrópolis estadounidense en plena era yuppie, una ciudad latinoamericana en hiperinflación y un puerto de Europa del Este tras la caída del Muro.
+* **Ambientación:** fines del siglo XX (1985–1995), en varios mapas: **New Carthage**, una metrópolis estadounidense en plena era yuppie que se encamina al crac de 1987; una ciudad latinoamericana en hiperinflación y un puerto de Europa del Este tras la caída del Muro.
 * **Plataformas:** PC (Steam, Steam Deck), Nintendo Switch.
 * **Target / Audiencia:** Jugadores de *Balatro*, *Papers, Please*, *Inscryption*, *Strange Horticulture*, *Return of the Obra Dinn* y amantes de la deducción tensa y la gestión de riesgo. No hace falta saber tarot: el significado de cada carta está en pantalla.
 * **Modelo Comercial:** Premium Single-Player ($14.99 - $19.99 USD) con expansiones de sedes de época.

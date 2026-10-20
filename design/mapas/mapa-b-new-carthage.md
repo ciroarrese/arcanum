@@ -1,6 +1,6 @@
 # Mapa B — New Carthage (EE. UU., 1985–1995)
 
-> **Estado: PROPUESTA.** Pendiente de aprobación antes de integrarse al GDD. Los valores económicos se heredan de la tabla de sedes del GDD (§7.5), que todavía tiene un rebalanceo pendiente.
+> **Estado: APROBADO** (2026-10-20, D-25). Integrado al GDD v1.6. Los valores económicos se heredan de la tabla de sedes del GDD (§7.5), que todavía tiene un rebalanceo pendiente.
 
 ## 1. Concepto
 **New Carthage** es una metrópolis portuaria ficticia de la costa este de EE. UU., en plena era yuppie. Wall Street en euforia, la mafia controlando los muelles y los clubes, telepredicadores en la TV de madrugada, líneas 1-900 de videntes y una clase política que consulta astrólogos en secreto. Como la Cartago histórica, es un imperio comercial que no sabe que va a caer.
@@ -41,7 +41,7 @@ Un índice bursátil ficticio, el **Carthage Composite**, aparece cada mañana e
 | **7** | **La Oficina del Piso 30** | Consultorio "de coaching" en el distrito financiero, con vista a la bolsa. | Corredores de bolsa, banqueros, jueces, abogados. | Demandas, auditorías y el regulador de valores. | Prisión federal por fraude de valores. |
 | **8** | **El Penthouse y el Show de Medianoche** | Penthouse en la torre de un magnate y programa de TV de medianoche. | Senadores, magnates, diplomáticos, el círculo íntimo del poder. | La prensa nacional, investigaciones federales y atentados. | "Suicidio" desde el balcón del piso 50. |
 
-**Opcional, post-MVP:** en la Sede 6, una línea 1-900 donde algunas consultas llegan por teléfono: sin sprite, solo voz. Los tells pasan a ser auditivos (pausas, respiración, ruido de fondo). Es una mecánica distinta y cara; se evalúa después del MVP.
+**Opcional, post-MVP — La Línea Telefónica:** en la Sede 6, además de los clientes que llegan al estudio, suena el teléfono de una línea paga de videntes. En esas consultas no hay cliente sentado a la mesa: no hay cara, ropa ni gestos que observar. Solo se oye su voz, así que las pistas pasan a ser sonoras (silencios, respiración, ruido de fondo, cambios en el tono). Exige grabar voces y diseñar un sistema de pistas sonoras aparte, por eso queda para después del MVP.
 
 ---
 
