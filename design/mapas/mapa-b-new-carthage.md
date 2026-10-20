@@ -41,7 +41,7 @@ Un índice bursátil ficticio, el **Carthage Composite**, aparece cada mañana e
 | **7** | **La Oficina del Piso 30** | Consultorio "de coaching" en el distrito financiero, con vista a la bolsa. | Corredores de bolsa, banqueros, jueces, abogados. | Demandas, auditorías y el regulador de valores. | Prisión federal por fraude de valores. |
 | **8** | **El Penthouse y el Show de Medianoche** | Penthouse en la torre de un magnate y programa de TV de medianoche. | Senadores, magnates, diplomáticos, el círculo íntimo del poder. | La prensa nacional, investigaciones federales y atentados. | "Suicidio" desde el balcón del piso 50. |
 
-**Opcional, post-MVP — La Línea Telefónica:** en la Sede 6, además de los clientes que llegan al estudio, suena el teléfono de una línea paga de videntes. En esas consultas no hay cliente sentado a la mesa: no hay cara, ropa ni gestos que observar. Solo se oye su voz, así que las pistas pasan a ser sonoras (silencios, respiración, ruido de fondo, cambios en el tono). Exige grabar voces y diseñar un sistema de pistas sonoras aparte, por eso queda para después del MVP.
+**Opcional, post-MVP — La Línea Telefónica:** en la Sede 6, además de los clientes que llegan al estudio, suena el teléfono de una línea paga de videntes. En esas consultas no hay cliente sentado a la mesa: no hay cara, ropa ni gestos que observar. Solo hay texto y el balbuceo del cliente (GDD §11.1), así que las pistas pasan a ser sonoras: silencios, respiración, ruido de fondo y cambios de tono y velocidad del balbuceo. Como no hay voces grabadas, el costo es menor, pero exige diseñar un sistema de pistas sonoras aparte del visual; queda para después del MVP.
 
 ---
 

@@ -30,4 +30,9 @@ Decisiones de diseño tomadas, con su razón. Las preguntas abiertas viven en el
 | D-24 | 2026-10-20 | Los mapas **se desbloquean jugando**: llegar a la Sede 8 del mapa anterior, sin necesidad de ganar. | Objetivo para el jugador nuevo; enseña los sistemas en el mapa más legible. |
 | D-25 | 2026-10-20 | **Mapa B "New Carthage" aprobado**: regla del Ticker, 8 sedes, pieles de arquetipos (+ Yuppie y Telepredicador), trastienda de los 80 y victoria del Lunes Negro. La población de cada sede son variantes de los 10 arquetipos + 2 exclusivos por mapa. | Aprobado por el diseñador. |
 | D-26 | 2026-10-20 | El MVP termina al alcanzar la Sede 3 y sobrevivir N jornadas, sin victoria completa. | Suficiente para validar el núcleo. |
+| D-27 | 2026-10-20 | Cliquear un tell **no guarda nada**: sube la Tensión del cliente y abre una pregunta de seguimiento. | Respeta el Pilar 3 (memoria del jugador). |
+| D-28 | 2026-10-20 | La vela se consume **por acción**; solo las ventanas de tell son en tiempo real. | No castigar la interpretación de las cartas; mejor para Switch y accesibilidad. |
+| D-29 | 2026-10-20 | Métricas del cliente: **Paciencia** (fila), **Credulidad** (-100 a +100) y **Tensión** (0 a 100). Reemplazan a Fe, Escepticismo y Credibilidad. | Cinco métricas superpuestas eran ilegibles. |
+| D-30 | 2026-10-20 | **Fama** = cuántos clientes llegan; **Reputación** = qué clase de clientes llega (% de lecturas exitosas recientes). | Resuelve la contradicción entre GDD y Pitch. |
+| D-31 | 2026-10-20 | **Sin voces reales:** cuadros de diálogo + balbuceo ininteligible (*vocal gibberish*), expresivo según arquetipo y Tensión. | Decisión del diseñador; abarata producción y localización. |
 

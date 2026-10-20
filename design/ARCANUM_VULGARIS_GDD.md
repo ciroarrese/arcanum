@@ -1,6 +1,6 @@
 # ARCANUM VULGARIS
 ## Game Design Document (GDD) — Manual Operativo y Mecánico
-**Versión:** 1.6 (Integra Mapa B "New Carthage"; Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
+**Versión:** 1.7 (Tiempo por acción, métricas del cliente, Fama/Reputación, voces en gibberish; Integra Mapa B "New Carthage"; Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
 **Versión anterior:** 1.3 (ver historial de git)
 **Tesis de Diseño:** *No somos magos con poderes místicos; somos psicólogos callejeros, timadores perceptivos y manipuladores de la desesperación ajena. Las cartas son el vehículo para monetizar verdades deducidas, vender mentiras convenientes y moldear el destino de la ciudad.*
 
@@ -118,7 +118,12 @@ El tiempo de la jornada se mide en **Unidades de Tiempo (UT)**, visualizadas med
 * **Paciencia de la Fila:**
   $$P_{\text{cliente}} = P_{\text{base}} - (t_{\text{espera}} \times \lambda_{\text{arquetipo}})$$
   Si $P_{\text{cliente}} \le 0$, el cliente se marcha furioso y abre o agrava una Deuda de Sangre según su arquetipo.
-* **[PENDIENTE]** Si las UT corren en tiempo real o se descuentan por acción (§13).
+* **Tiempo por acción:** la vela no se consume sola; cada acción descuenta UT. Valores iniciales a calibrar:
+  * Inspección pasiva (hover sobre el cliente): gratis.
+  * Pregunta capciosa: 5 UT.
+  * Truco de prestidigitación: 2 UT.
+  * Tirada: según §5.4.
+* **Lo único en tiempo real** son las ventanas de los tells (§5.2). Mientras el jugador interpreta las cartas, el reloj no corre: pensar la lectura nunca se castiga.
 
 ### 5.2. Sistema de Detección: Ojos, Provocación y "Tells"
 * **Las Tres Capas de la Mirada:**
@@ -129,8 +134,8 @@ El tiempo de la jornada se mide en **Unidades de Tiempo (UT)**, visualizadas med
   Lanzar una afirmación capciosa provoca al cliente. Si golpea su punto vulnerable, detona un *Tell Somático* animado durante una ventana crítica:
   $$T_{\text{Tell}} = 2.5\ \text{s} + \text{Bonificador}_{\text{Artilugios}} - \text{Resistencia}_{\text{Arquetipo}}$$
 * **Hurtboxes Somáticas:** El sprite cuenta con 4 áreas interactivas: *Ojos/Mirada*, *Cuello/Garganta*, *Pecho/Respiración*, *Manos/Bolsillos*.
-  * **[PENDIENTE]** Qué efecto mecánico tiene cliquear un tell sin contradecir el Pilar 3 (§13).
-* **Fallo de Provocación:** Si se pregunta por un tema insensible, no hay tell y el Escepticismo del cliente sube en $+15$ pts.
+  * **Cliquear un tell no guarda nada:** el juego no registra qué pista viste. Es una acción sobre el cliente: nota que lo descubriste, su **Tensión** sube y se abre una **pregunta de seguimiento** sobre ese tema. Recordar qué significaba sigue siendo tarea del jugador (Pilar 3).
+* **Fallo de Provocación:** Si se pregunta por un tema insensible, no hay tell y la Credulidad del cliente baja $15$ pts.
 
 ### 5.3. La Situación del Cliente (Generación Combinatoria)
 Cada cliente se genera combinando:
@@ -156,7 +161,7 @@ La cantidad de cartas depende del **motivo** del cliente, de su **estatus** (lo 
 | **Cruz Celta** | 10 | Las 10 posiciones clásicas | 45 | Clientes VIP, asuntos graves | Sedes altas |
 
 **Reglas:**
-* El motivo del cliente sugiere una tirada. Usar la **tirada esperada** da un bono de credibilidad; usar otra sube el Escepticismo, salvo que el jugador la justifique con una buena lectura.
+* El motivo del cliente sugiere una tirada. Usar la **tirada esperada** da un bono de Credulidad; usar otra la baja, salvo que el jugador la justifique con una buena lectura.
 * **Más cartas = más información y más riesgo:** más combinaciones posibles a favor, pero también más cartas contradictorias que explicar, más tiempo gastado y más oportunidades de que el cliente note un truco.
 
 ### 5.5. Robo, Prestidigitación e Interpretación
@@ -165,7 +170,7 @@ La cantidad de cartas depende del **motivo** del cliente, de su **estatus** (lo 
    * Máximo de **3 ranuras de truco** equipadas (ampliable a 5 con mejoras).
    * Cada truco tiene **cargas por jornada**.
    * Cada uso tiene un **riesgo de detección** que depende del arquetipo (alto en El Espejo y El Intelectual, bajo en El Indigente y El Obrero) y de los artilugios activos (la Lámpara Focal Verde lo reduce).
-   * Ser descubierto: el Escepticismo sube al máximo, se pierde la tarifa y se abre una Deuda de Sangre de descrédito.
+   * Ser descubierto: la Credulidad cae al mínimo, se pierde la tarifa y se abre una Deuda de Sangre de descrédito.
 3. **Interpretación:** por cada posición, el jugador elige qué palabra clave de la carta enfatizar (de las públicas, según su orientación) y la conecta con lo que dedujo del cliente.
 
 ### 5.6. La Sentencia: Las 4 Intenciones Retóricas
@@ -178,12 +183,26 @@ Tras interpretar la tirada, el jugador elige una **Intención Retórica** para l
    * *Fallo:* Decepción; cobro exclusivo de tarifa base.
 3. **Sembrar Paranoia:** Convence al cliente de amenazas y traiciones inminentes.
    * *Éxito:* Fidelización compulsiva; venta de amuletos de la trastienda.
-   * *Fallo:* Escepticismo masivo; abre una Deuda de Sangre de descrédito en la zona.
+   * *Fallo:* la Credulidad del cliente se desploma; abre una Deuda de Sangre de descrédito en la zona.
 4. **Extorsionar:** Comercia el silencio del tarotista a cambio de favores.
    * *Éxito:* Inmunidad judicial, salvoconductos o favores políticos (pueden saldar Deudas de Sangre).
    * *Fallo:* Abre una Deuda de Sangre grave con el cliente (empieza en etapa 2).
 
-### 5.7. Resolución: la Resonancia
+### 5.7. Métricas del Cliente y del Tarotista
+
+**Del cliente** (reemplazan a Fe, Escepticismo y Credibilidad de la v1.3):
+
+| Métrica | Escala | Cuándo existe | Qué hace |
+| :--- | :---: | :--- | :--- |
+| **Paciencia** | 0 a 100 | Solo en la fila | Baja con la espera (§5.1). En 0 el cliente se va y abre o agrava una Deuda de Sangre. |
+| **Credulidad** | -100 a +100 | En la mesa | De escepticismo total (-100) a fe ciega (+100). Sube con aciertos y puesta en escena; baja con preguntas fallidas, tiradas inadecuadas y trucos descubiertos. Modifica el umbral de la Resonancia y, si es positiva, la propina. |
+| **Tensión** | 0 a 100 | En la mesa | Los nervios del cliente. Sube con preguntas que golpean y tells cliqueados. Más Tensión = tells más largos y visibles; en 100 el cliente estalla en furia y la sesión termina en fallo. |
+
+**Del tarotista:**
+* **Fama:** cuánta gente sabe que existís. Controla **cuántos** clientes hacen fila. Sube con cada cliente atendido, rumores, prensa y también con escándalos; baja lentamente con días sin atender.
+* **Reputación:** porcentaje de lecturas exitosas sobre las últimas N lecturas. Controla **qué clase** de clientes llega: más Reputación atrae arquetipos más ricos y peligrosos.
+
+### 5.8. Resolución: la Resonancia
 El éxito de la lectura se calcula con la **Resonancia** ($R$): qué tan bien encaja lo que el jugador dijo con la verdad oculta del cliente.
 
 $$R = \sum_{p \in \text{posiciones}} \left( \text{Match}_p \times D_p \right) + B_{\text{combinación}} + B_{\text{tirada}} - \text{Contradicciones}$$
@@ -196,7 +215,7 @@ Donde:
 * $\text{Contradicciones}$: penalización por cartas cuyo sentido choca con la narrativa elegida y que el jugador no reinterpretó.
 
 **Resultado:**
-* Si $R \ge U_{\text{arquetipo}}$ (umbral del arquetipo, modificado por Escepticismo) **y** la intención es coherente con el estado real del cliente → **Éxito**.
+* Si $R \ge U_{\text{arquetipo}}$ (umbral del arquetipo, modificado por la Credulidad) **y** la intención es coherente con el estado real del cliente → **Éxito**.
 * Si $R$ alcanza el umbral pero la intención no es coherente (ej.: Acusar a un inocente) → **Fallo de intención**.
 * Si $R < U_{\text{arquetipo}}$ → **Fallo de lectura**.
 
@@ -227,7 +246,7 @@ Probabilidad base de subversión: $P_{\text{DF}} = 30\%$ (modificada por eventos
 ---
 
 ## 7. Sistema Detallado de Economía y Balance
-> **[PENDIENTE] Rebalanceo completo (§13):** la v1.3 tiene inconsistencias conocidas que se conservan aquí hasta decidir: (a) un solo Doble Fondo del Indigente (120–250) paga entre 15 y 25 días de la Sede 1 o las mudanzas a las Sedes 2 y 3; (b) la tarifa base por arquetipo (§7.3) contradice la tarifa media por sede (§7.6); (c) Fama y Reputación no tienen reglas de ganancia y pérdida.
+> **[PENDIENTE] Rebalanceo completo (§13):** la v1.3 tiene inconsistencias conocidas que se conservan aquí hasta decidir: (a) un solo Doble Fondo del Indigente (120–250) paga entre 15 y 25 días de la Sede 1 o las mudanzas a las Sedes 2 y 3; (b) la tarifa base por arquetipo (§7.3) contradice la tarifa media por sede (§7.6); (c) calibrar Fama y Reputación (§5.7) contra la tabla de sedes.
 
 ### 7.1. La Moneda del Juego y Escala de Riqueza
 La economía se expresa en **Monedas** (unidad estándar abstracta que representa el poder adquisitivo de la época).
@@ -247,7 +266,7 @@ Donde:
   * *Cualquier Intención en Fallo:* $0\times$ o tarifa de limosna ($0.2\times$).
 * **$M_{\text{DF}}$ (Multiplicador de Doble Fondo):** si el jugador descubre y explota con éxito el Doble Fondo, $M_{\text{DF}} = 2.5\times$ a $4.0\times$.
 * **Propina:**
-  $$\text{Propina} = T_{\text{base}} \times \frac{\text{Fe Resultante}}{100} \times K_{\text{arquetipo}} \times K_{\text{mazo}} \times K_{\text{trastienda}}$$
+  $$\text{Propina} = T_{\text{base}} \times \frac{\max(0,\ \text{Credulidad}_{\text{final}})}{100} \times K_{\text{arquetipo}} \times K_{\text{mazo}} \times K_{\text{trastienda}}$$
 
 ### 7.3. Tabla de Tarifas Base y Propinas por Arquetipo
 
@@ -381,7 +400,7 @@ Los mazos son el principal tipo de partida desbloqueable: cambian la gramática 
 Los mazos de la v1.3 se conservan como **variantes de modificadores** dentro de una gramática. **[PENDIENTE]** revisar si siguen teniendo sentido (§13):
 * **Mazo del Hereje (Hueso y Tinta):** $+150\%$ al terror y cobro en cartas de desgracia; causa burla inmediata en Intelectuales. Costo: 180 monedas.
 * **Mazo Veneciano (Filigrana de Oro):** Triplica las propinas de Aristócratas y Políticos; indigna a Obreros e Indigentes. Costo: 450 monedas.
-* **Mazo Alquímico Hermético:** Anula el $80\%$ del escepticismo de Intelectuales; confunde a clientes pobres reduciendo su fe. Costo: 750 monedas.
+* **Mazo Alquímico Hermético:** Anula el $80\%$ de la Credulidad negativa de Intelectuales; confunde a clientes pobres reduciendo su Credulidad. Costo: 750 monedas.
 
 ---
 
@@ -397,7 +416,7 @@ Los mazos de la v1.3 se conservan como **variantes de modificadores** dentro de 
 La situación de cada cliente se genera por combinación (§5.3) y las cartas salen al azar (§5.5). Ninguna lectura es igual a otra; el conocimiento se aplica, no se memoriza.
 
 ### 10.3. Grados de Infamia (Dificultad Ascendente)
-Cada victoria desbloquea el siguiente Grado, que agrega una regla más dura a todas las partidas (ej.: más escepticismo base, menos ranuras de truco, hilos que escalan más rápido, menos UT). "Ser el mejor tarotista" se mide por el **Grado más alto vencido**.
+Cada victoria desbloquea el siguiente Grado, que agrega una regla más dura a todas las partidas (ej.: menor Credulidad inicial, menos ranuras de truco, hilos que escalan más rápido, menos UT). "Ser el mejor tarotista" se mide por el **Grado más alto vencido**.
 
 ### 10.4. Lectura Diaria
 Una partida corta con semilla compartida, igual para todos los jugadores ese día, con ranking global.
@@ -405,6 +424,13 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 ---
 
 ## 11. Game Feel y Juiciness (Respuestas Sensoriales)
+
+### 11.1. Diálogos y Voces
+* **Ningún personaje habla con voz real.** Todo el diálogo aparece en **cuadros de texto** acompañados de **balbuceo ininteligible** (*vocal gibberish*): sílabas sin sentido que imitan el ritmo del habla.
+* El balbuceo es **expresivo**: cada arquetipo tiene su timbre, y la **Tensión** del cliente modifica tono, velocidad y pausas. Un cambio en el balbuceo puede ser una pista más.
+* Ventajas: no hay grabación ni actuación de voz, la localización es solo de texto y todo el diálogo está siempre escrito (accesibilidad).
+
+### 11.2. Respuestas Sensoriales
 * **El Golpe del Arcano (*Card Slam*):** Audio contundente de madera pesada contra terciopelo con *screen shake* sutil (3px, 80ms).
 * **Hitstop de Revelación Crítica:** Congelamiento visual de 150ms al ejecutar una deducción sinérgica de 3 pistas, con iluminación colapsando en haz cenital.
 * **Tells Somáticos Vivos:** Dilatación física de pupilas en el sprite, sudor con brillo especular de un frame y crispación mandibular.
@@ -470,7 +496,7 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 +-------------------------------------------------------------------------+
 |                       [ SPRITE DEL CLIENTE ]                            |
 |             (Hurtboxes interactivas: Ojos, Cuello, Pecho, Manos)        |
-|      [Tensión / Sospecha]  [||||||||............]                       |
+|  [CREDULIDAD: -|----●-----|+]   [TENSIÓN: ||||||........]              |
 +-------------------------------------------------------------------------+
 | [PREGUNTAS CAPCIOSAS]       |   TAPETE — TIRADA: TRES TIEMPOS           |
 | > ¿Familia y lealtades?     |  +----------+  +----------+  +----------+ |
@@ -488,13 +514,9 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
 1. **Mapas A y C:** escribir su adaptación cuando se cierre el MVP.
-2. **Tells y Pilar 3:** ¿qué efecto mecánico tiene cliquear un tell sin que el juego "anote" por el jugador?
-3. **Tiempo:** ¿las UT corren en tiempo real o se descuentan por acción?
-4. **Métricas del cliente:** definir escalas y reglas de Paciencia, Escepticismo, Fe, Tensión y Credibilidad (o fusionarlas).
-5. **Fama vs. Reputación:** reglas de ganancia y pérdida; qué controla el largo de la fila.
-6. **Economía:** rebalancear tarifas (por arquetipo vs. por sede) y recompensas de Doble Fondo.
-7. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
-8. **Mazos de modificadores** (Hereje, Veneciano, Alquímico): ¿se mantienen dentro de la nueva estructura de mazos?
+2. **Economía:** rebalancear tarifas (por arquetipo vs. por sede) y recompensas de Doble Fondo.
+3. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
+4. **Mazos de modificadores** (Hereje, Veneciano, Alquímico): ¿se mantienen dentro de la nueva estructura de mazos?
 
 ---
 
