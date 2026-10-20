@@ -514,8 +514,9 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
 1. **Mapas A y C:** escribir su adaptación cuando se cierre el MVP.
-2. **Economía:** números de las Sedes 1–3 para el MVP ahora; rebalanceo completo (tarifas por arquetipo vs. por sede, recompensas de Doble Fondo, Sedes 4–8) con datos del prototipo.
-3. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
+2. **Economía:** propuesta del MVP (Sedes 1–3) en `design/balance/economia-mvp.md`, pendiente de aprobación; rebalanceo completo (Sedes 4–8) con datos del prototipo.
+3. **Pago por calidad:** la simulación muestra que el pago debe escalar con la calidad de la Resonancia, no solo con acertar o fallar (ver `design/balance/economia-mvp.md` §6).
+4. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
 
 ---
 
