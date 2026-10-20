@@ -1,6 +1,6 @@
 # ARCANUM VULGARIS
 ## Game Design Document (GDD) — Manual Operativo y Mecánico
-**Versión:** 1.4 (Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
+**Versión:** 1.4.1 (Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
 **Versión anterior:** 1.3 (ver historial de git)
 **Tesis de Diseño:** *No somos magos con poderes místicos; somos psicólogos callejeros, timadores perceptivos y manipuladores de la desesperación ajena. Las cartas son el vehículo para monetizar verdades deducidas, vender mentiras convenientes y moldear el destino de la ciudad.*
 
@@ -20,7 +20,7 @@
 ---
 
 ## 2. Estructura de Partida y Género
-* **Género:** Roguelite de deducción psicológica y gestión de riesgo. *(Ver §13: confirmar si se abandona la etiqueta "arcade".)*
+* **Género:** Roguelite de deducción psicológica y gestión de riesgo.
 * **Duración de partida:** larga — horas o días de juego, con guardado del progreso.
 * **Derrota:** permanente, pero **nunca sorpresiva**. Las amenazas graves se anuncian y escalan como Deudas de Sangre (§8), con salidas disponibles. El jugador ve venir su ruina.
 * **Única muerte instantánea:** la Tirada Suicida (§8.4), que el jugador elige conscientemente.
@@ -33,7 +33,7 @@
 ### 3.1. Escuelas Adoptadas
 | Rol | Escuela | Gramática de combinación |
 | :--- | :--- | :--- |
-| **Mazo base** | Tarot Smith de 1909 (tradición Rider-Waite-Smith; arte original de Pamela Colman Smith, de dominio público) | **Dignidades elementales** de la Golden Dawn + reglas de combinación sistémicas (§3.4). |
+| **Mazo base** | Smith 1909: 78 cartas, con invertidas (tradición Rider-Waite-Smith; arte original de Pamela Colman Smith, de dominio público) | **Dignidades elementales** de la Golden Dawn + reglas de combinación sistémicas (§3.4). |
 | **Mazo alternativo (desbloqueable)** | Tarot de Marsella | **Lectura en línea:** las cartas se leen como frase; la dirección de la mirada de las figuras y la adyacencia modifican el sentido. |
 | **Mazo secreto (desbloqueable)** | Inspirado en Lenormand (36 cartas) | **Pares fijos:** cada par adyacente forma una frase. |
 
@@ -341,7 +341,7 @@ Los mazos son el principal tipo de partida desbloqueable: cambian la gramática 
 
 | Mazo | Gramática | Desbloqueo |
 | :--- | :--- | :--- |
-| **Tarot Smith de 1909** | Dignidades elementales (§3.4). | Incluido de inicio. |
+| **Smith 1909** | Dignidades elementales (§3.4). | Incluido de inicio. |
 | **Tarot de Marsella** | Lectura en línea: miradas y adyacencia. | Desbloqueable. |
 | **Petit Jeu de la Sibila** *(inspirado en Lenormand)* | Pares fijos adyacentes. | Secreto. |
 
@@ -454,15 +454,15 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
-1. **Etiqueta de género:** ¿se abandona "arcade" en favor de "roguelite de deducción"?
-2. **Tamaño del mazo base:** ¿22 Arcanos Mayores o las 78 cartas? ¿Cartas invertidas desde el inicio?
+1. **Curva de aprendizaje del mazo de 78:** ¿las primeras partidas usan un subconjunto (ej.: Mayores + un palo) para enseñar de a poco?
+2. **Época concreta:** fines del siglo XX confirmado; falta elegir el escenario (ver opciones en discusión).
 3. **Tells y Pilar 3:** ¿qué efecto mecánico tiene cliquear un tell sin que el juego "anote" por el jugador?
 4. **Tiempo:** ¿las UT corren en tiempo real o se descuentan por acción?
 5. **Métricas del cliente:** definir escalas y reglas de Paciencia, Escepticismo, Fe, Tensión y Credibilidad (o fusionarlas).
 6. **Fama vs. Reputación:** reglas de ganancia y pérdida; qué controla el largo de la fila.
 7. **Economía:** rebalancear tarifas (por arquetipo vs. por sede) y recompensas de Doble Fondo.
 8. **Población por sede:** ¿variantes de los 10 arquetipos o arquetipos nuevos?
-9. **Época y ambientación:** definir el período (hoy mezcla luz de gas y telégrafo con un penthouse en el piso 50 y un colapso bursátil global).
+9. **Adaptación a fines del siglo XX:** revisar insumos, espías, artilugios, sedes y escenas de derrota que hoy pertenecen al siglo XIX (velas de sebo, aceite de ballena, telegrafista, cochero, carpa de feria, boticario).
 10. **Victoria:** diseñar la mecánica de "orquestar el colapso bursátil y la cumbre diplomática".
 11. **Mazos de modificadores** (Hereje, Veneciano, Alquímico): ¿se mantienen dentro de la nueva estructura de mazos?
 
