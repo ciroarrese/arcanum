@@ -1,6 +1,6 @@
 # Economía del MVP — Mapa B, Sedes 1 a 3
 
-> **Estado: PROPUESTA** (D-33). Números provisorios para el prototipo; el rebalanceo completo se hace con datos de juego real.
+> **Estado: APROBADO** (D-35). Números provisorios para el prototipo; el rebalanceo completo se hace con datos de juego real.
 > **Simulación:** `tools/balance/economia_mvp.py` (Monte Carlo, 2.000 partidas por perfil). Si un valor cambia acá, cambia en el script.
 
 ## 1. Regla de Tarifas (resuelve la contradicción de la v1.3)

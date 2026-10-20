@@ -1,6 +1,6 @@
 # ARCANUM VULGARIS
 ## Game Design Document (GDD) — Manual Operativo y Mecánico
-**Versión:** 1.8 (Ediciones de mazo; Tiempo por acción, métricas del cliente, Fama/Reputación, voces en gibberish; Integra Mapa B "New Carthage"; Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
+**Versión:** 1.9 (Economía del MVP y pago por calidad; Ediciones de mazo; Tiempo por acción, métricas del cliente, Fama/Reputación, voces en gibberish; Integra Mapa B "New Carthage"; Mapas por época, Nivel de Mazo; Tarot real como núcleo, tiradas variables, prestidigitación, Deudas de Sangre y meta-progresión)
 **Versión anterior:** 1.3 (ver historial de git)
 **Tesis de Diseño:** *No somos magos con poderes místicos; somos psicólogos callejeros, timadores perceptivos y manipuladores de la desesperación ajena. Las cartas son el vehículo para monetizar verdades deducidas, vender mentiras convenientes y moldear el destino de la ciudad.*
 
@@ -219,6 +219,8 @@ Donde:
 * Si $R$ alcanza el umbral pero la intención no es coherente (ej.: Acusar a un inocente) → **Fallo de intención**.
 * Si $R < U_{\text{arquetipo}}$ → **Fallo de lectura**.
 
+**Calidad de la lectura:** la Resonancia no solo decide éxito o fallo; su margen sobre el umbral define el **factor de calidad** $Q_{\text{Resonancia}}$ que multiplica el ingreso (§7.2). Valores iniciales: lectura floja 0.9, correcta 1.0, excelente 1.3. Sin este factor, investigar a fondo no rinde (ver `design/balance/economia-mvp.md` §6).
+
 Todos los valores numéricos de esta sección son **perillas de ajuste** a calibrar en prototipo.
 
 ---
@@ -246,7 +248,7 @@ Probabilidad base de subversión: $P_{\text{DF}} = 30\%$ (modificada por eventos
 ---
 
 ## 7. Sistema Detallado de Economía y Balance
-> **[PENDIENTE] Rebalanceo completo (§13):** la v1.3 tiene inconsistencias conocidas que se conservan aquí hasta decidir: (a) un solo Doble Fondo del Indigente (120–250) paga entre 15 y 25 días de la Sede 1 o las mudanzas a las Sedes 2 y 3; (b) la tarifa base por arquetipo (§7.3) contradice la tarifa media por sede (§7.6); (c) calibrar Fama y Reputación (§5.7) contra la tabla de sedes.
+> **Economía del MVP aprobada (D-35):** valores de las Sedes 1–3 y su simulación en `design/balance/economia-mvp.md`. Las Sedes 4–8 y las tarifas de arquetipos fuera del MVP conservan los valores de la v1.3 hasta el rebalanceo con datos del prototipo (§13).
 
 ### 7.1. La Moneda del Juego y Escala de Riqueza
 La economía se expresa en **Monedas** (unidad estándar abstracta que representa el poder adquisitivo de la época).
@@ -254,10 +256,11 @@ La economía se expresa en **Monedas** (unidad estándar abstracta que represent
 * En el Nivel 8, una sola lectura de Estado puede mover miles de monedas.
 
 ### 7.2. Ecuación de Ingresos por Sesión
-$$I_{\text{sesion}} = (T_{\text{base}} \times M_{\text{intencion}} \times M_{\text{DF}}) + \text{Propina}$$
+$$I_{\text{sesion}} = \left[(T_{\text{base}} \times M_{\text{intencion}} \times M_{\text{DF}}) + \text{Propina}\right] \times Q_{\text{Resonancia}}$$
 
 Donde:
-* **$T_{\text{base}}$ (Tarifa Base):** Valor predeterminado por el estatus socioeconómico del cliente y el nivel de la sede en que se atiende.
+* **$T_{\text{base}}$ (Tarifa Base):** $T_{\text{base}} = \text{Tarifa}_{\text{sede}} \times \text{Estatus}_{\text{arquetipo}}$. Así un mismo arquetipo paga más en una sede más cara.
+* **$Q_{\text{Resonancia}}$ (Calidad):** factor por calidad de la lectura (§5.8).
 * **$M_{\text{intencion}}$ (Multiplicador de Intención Retórica):**
   * *Consolar (Éxito):* $1.0\times$ a la tarifa base, pero habilita el multiplicador máximo de propina.
   * *Acusar (Éxito):* $3.0\times$ (pago extorsivo por miedo al escándalo).
@@ -269,6 +272,7 @@ Donde:
   $$\text{Propina} = T_{\text{base}} \times \frac{\max(0,\ \text{Credulidad}_{\text{final}})}{100} \times K_{\text{arquetipo}} \times K_{\text{mazo}} \times K_{\text{trastienda}}$$
 
 ### 7.3. Tabla de Tarifas Base y Propinas por Arquetipo
+> Valores del MVP (Estatus, K de propina y recompensas de Doble Fondo de Vagabundo, Estibador, Apostador, Viuda y Detective): `design/balance/economia-mvp.md` §3. La tabla de abajo es la de la v1.3, pendiente de convertir a Estatus en el rebalanceo completo.
 
 | Arquetipo | Tarifa Base ($T_{\text{base}}$) | Multiplicador Propina ($K_{\text{arq}}$) | Recompensa Típica por Doble Fondo |
 | :--- | :---: | :---: | :--- |
@@ -306,8 +310,8 @@ Valores económicos comunes a todos los mapas; nombres de sede del **Mapa B**. P
 | Nivel / Sede (Mapa B) | Costo Mudanza | Fama Req. | Reputación Req. | Renta Diaria | Soborno / Peaje | Tarifa Media | Fila Base (Fama 0) | Fila Desbordada (Alta Fama) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **1. La Boca del Subte** | 0 | 0 | 0% | 5 | 2 | 4 - 8 | 2 - 3 | 7 - 9 |
-| **2. La Lavandería 24 Horas** | 50 | 15 | 30% | 18 | 6 | 10 - 20 | 3 - 4 | 7 - 10 |
-| **3. El Local de la Galería** | 150 | 35 | 45% | 45 | 15 | 25 - 50 | 4 - 5 | 8 - 11 |
+| **2. La Lavandería 24 Horas** | 100 | 20 | 30% | 18 | 6 | 10 - 20 | 3 - 4 | 7 - 10 |
+| **3. El Local de la Galería** | 350 | 45 | 45% | 45 | 15 | 25 - 50 | 4 - 5 | 8 - 11 |
 | **4. El Stand del Paseo Marítimo** | 350 | 55 | 55% | 90 | 30 | 40 - 80 | 5 - 6 | 9 - 12 |
 | **5. El Reservado del Club Velvet** | 800 | 70 | 65% | 200 | 70 | 80 - 160 | 6 - 7 | 10 - 13 |
 | **6. El Estudio de Radio AM** | 1.800 | 85 | 75% | 450 | 150 | 180 - 350 | 6 - 8 | 10 - 14 |
@@ -514,9 +518,8 @@ Una partida corta con semilla compartida, igual para todos los jugadores ese dí
 ## 13. Preguntas Abiertas
 Decisiones pendientes que bloquean o condicionan otras partes del diseño:
 1. **Mapas A y C:** escribir su adaptación cuando se cierre el MVP.
-2. **Economía:** propuesta del MVP (Sedes 1–3) en `design/balance/economia-mvp.md`, pendiente de aprobación; rebalanceo completo (Sedes 4–8) con datos del prototipo.
-3. **Pago por calidad:** la simulación muestra que el pago debe escalar con la calidad de la Resonancia, no solo con acertar o fallar (ver `design/balance/economia-mvp.md` §6).
-4. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
+2. **Economía:** rebalanceo completo (Sedes 4–8, tarifas de todos los arquetipos) con datos del prototipo.
+3. **Victoria del Mapa B:** diseñar en detalle la tirada final del Lunes Negro.
 
 ---
 

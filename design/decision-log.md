@@ -38,4 +38,6 @@ Decisiones de diseño tomadas, con su razón. Las preguntas abiertas viven en el
 | D-32 | 2026-10-20 | Los mazos de modificadores de la v1.3 pasan a ser **ediciones** compradas dentro de la partida: mismos significados y gramática, distinta reacción de los arquetipos. Fuera del MVP. | No compiten con los mazos de gramática distinta. |
 | D-33 | 2026-10-20 | **Economía:** se balancean ahora solo las Sedes 1–3 del MVP; el rebalanceo completo se hace con datos de un prototipo jugable. | Balancear 8 sedes en papel antes de medir una lectura real es trabajo descartable. |
 | D-34 | 2026-10-20 | Nivel de exigencia del template: **`modes.rigor: standard`** (5 secciones de GDD por sistema, ADRs críticos, revisión "lean"). | Proyecto comercial con sistemas interconectados; `full` es demasiado para un equipo chico. |
+| D-35 | 2026-10-20 | **Economía del MVP aprobada:** tarifa = tarifa de sede × estatus del arquetipo; Doble Fondo reducido; mudanzas 100 y 350; Fama requerida 20 y 45. | Simulación Monte Carlo en `design/balance/economia-mvp.md`. |
+| D-36 | 2026-10-20 | **Pago por calidad:** el ingreso se multiplica por $Q_{\text{Resonancia}}$ (0.9 / 1.0 / 1.3 según la calidad de la lectura). | Sin él, investigar a fondo no rinde: el experto avanzaba igual que el jugador medio. |
 
