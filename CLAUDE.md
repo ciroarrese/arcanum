@@ -1,3 +1,28 @@
+# Arcanum Vulgaris — Estado del Proyecto
+
+Roguelite de deducción: un tarotista estafador lee cartas de tarot reales a
+clientes generados por combinación (Mapa B "New Carthage", EE. UU. 1985–1995).
+Equipo: 1 persona. Idioma de trabajo y de los documentos: español rioplatense.
+
+**Leé esto antes de cualquier tarea de diseño** (por sección, no enteros):
+- `design/ARCANUM_VULGARIS_GDD.md` — GDD maestro (fuente de verdad del diseño)
+- `design/decision-log.md` — decisiones tomadas y su razón (no relitigarlas)
+- `design/gdd/systems-index.md` — 37 sistemas, dependencias y orden de diseño
+- `design/mapas/mapa-b-new-carthage.md` — mapa del MVP
+- `design/balance/economia-mvp.md` — economía de las Sedes 1–3
+- `design/ARCANUM_VULGARIS_Pitch.md` — pitch
+
+**Próximo paso:** diseñar el núcleo de lectura con `/design-system`, en este
+orden: Taxonomía de Temas y Roles → Base de Datos de Cartas → Tiradas →
+Generador de Situaciones → Resonancia y Resolución. Después, `/prototype` del
+núcleo antes de diseñar el resto del MVP.
+
+**Pendientes:** `design/gdd/game-concept.md` y `design/gdd/game-pillars.md`
+(derivarlos del GDD maestro antes del primer `/gate-check`). Motor sin elegir
+(se decide al cerrar los documentos base; considerar el port a Switch).
+
+---
+
 # Claude Code Game Studios -- Game Studio Agent Architecture
 
 Indie game development managed through 49 coordinated Claude Code subagents.
