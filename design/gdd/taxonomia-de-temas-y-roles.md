@@ -1,6 +1,6 @@
 # Taxonomía de Temas y Roles
 
-> **Status**: In Design
+> **Status**: In Review
 > **Author**: Ciro + agentes
 > **Last Updated**: 2026-10-22
 > **Last Verified**: 2026-10-22
@@ -47,14 +47,14 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
    |---|---|---|---|
    | Emoción | Copas / Agua | lo que se siente | amor, culpa, duelo, deseo |
    | Bienes | Oros / Tierra | lo que se tiene o se pierde | deuda, fortuna, enfermedad, hogar |
-   | Conflicto | Espadas / Aire | lo que se enfrenta | traición, ley, violencia, engaño |
+   | Conflicto | Espadas / Aire | lo que se enfrenta | traición, ley, violencia, engaño, secreto |
    | Ambición | Bastos / Fuego | lo que se busca | poder, rivalidad, fama, riesgo |
-   | Destino | Arcanos Mayores | lo que no se controla | muerte, secreto, locura |
+   | Destino | Arcanos Mayores | lo que no se controla | muerte, locura |
 
-   Son 19 temas e incluyen los diez de ejemplo del GDD §3.2.
+   Son 19 temas e incluyen los diez de ejemplo del GDD §3.2. *Secreto* va en Conflicto y no en Destino: el secreto es algo que el cliente controla y esconde (el Doble Fondo), no algo que le pasa.
 2. Cada tema pertenece a **exactamente una familia**. Una carta puede llevar temas de cualquier familia: un Cinco de Copas puede hablar de *deuda*.
 3. Cada tema tiene un **identificador estable** (por ejemplo `traicion`), separado del nombre que se muestra, que se traduce. El identificador nunca se renombra ni se borra: si un tema deja de usarse, se marca como deprecado.
-4. Los mapas pueden **agregar temas**, siempre dentro de una de las 5 familias. Ningún mapa cambia temas existentes.
+4. Los mapas pueden **agregar temas**. Ningún mapa cambia temas existentes. Cada tema de mapa declara un **tema base equivalente**, que tiene que ser un tema base activo (no otro tema de mapa). El tema de mapa **no declara familia**: toma la de su equivalente.
 
 **Comparación (la regla que usa la Resonancia)**
 
@@ -70,7 +70,9 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
 
 7. Roles del MVP: **origen**, **conflicto** y **desenlace**. Roles planificados para después del MVP *(provisorios hasta el GDD de Tiradas)*: **el otro**, **camino A** y **camino B**.
 8. Cada posición de una tirada se traduce a **un rol o a "libre"**. Una posición libre no se compara contra la verdad, pero sus cartas cuentan para la gramática de combinación. Esto permite agregar tiradas grandes, como la Cruz Celta, sin inventar un rol por casillero.
-9. El Generador asigna **un tema a cada rol activo**, porque todavía no sabe qué tirada se va a usar.
+9. El Generador asigna **un tema a cada rol activo**, porque todavía no sabe qué tirada se va a usar. Un rol es **activo** si el catálogo lo marca como producido por el Generador en la build actual. Es un dato del catálogo, como el estado de los temas. En el MVP los activos son origen, conflicto y desenlace; los roles planificados existen como identificadores pero no están activos.
+
+   La Taxonomía **no restringe qué temas van juntos** en una situación: si dos roles pueden repetir tema o si los temas deben ser coherentes entre sí lo define el Generador.
 
 **Motivo de consulta**
 
@@ -94,6 +96,8 @@ Fuera de este ciclo de vida, la taxonomía no cambia durante la partida: es un c
 | Sistema | Qué recibe de la Taxonomía | Qué le devuelve o aporta |
 |---|---|---|
 | Base de Datos de Cartas | Lista de temas | Cada palabra clave, asociada a un tema |
+| Interpretación y Sentencia | Tema de cada palabra clave | La palabra clave elegida por posición, que define el tema leído (R6) |
+| Tapete y Tooltips de Cartas | Nombre visible y familia de cada tema, y su marca | Nada; los muestra en el tooltip |
 | Generador de Situaciones | Temas, familias, roles activos y formas de pregunta | Un tema por rol, más el motivo (tema y forma) |
 | Tiradas | Roles | La traducción de cada posición a un rol o a "libre" |
 | Resonancia y Resolución | La regla de comparación (exacto, parcial, ninguno) | Nada; la consume |
@@ -107,12 +111,12 @@ Fuera de este ciclo de vida, la taxonomía no cambia durante la partida: es un c
 
 1. **Una palabra clave sin tema, con dos temas, o un tema en dos familias.** Es un error de datos. El juego no arranca y nombra la carta o el tema mal cargado. Nunca se resuelve en silencio.
 2. **La situación tiene un rol que la tirada no cubre** (por ejemplo, Carta Única frente a un cliente con origen, conflicto y desenlace). Solo se comparan los roles que la tirada cubre; los demás no suman ni restan. Qué rol cubre cada posición lo define el GDD de Tiradas.
-3. **Una posición pide un rol que la situación no tiene** (roles posteriores al MVP, como "el otro"). La posición se trata como **libre**: no se compara, pero sus cartas cuentan para la gramática.
+3. **Una posición pide un rol que la situación no tiene** (un rol no activo, como "el otro" en el MVP). La posición se trata como **libre**: no se compara, pero sus cartas cuentan para la gramática.
 4. **Dos posiciones con el mismo rol** (por ejemplo, en la Cruz Celta). Las dos se comparan contra el mismo tema verdadero. Está permitido.
 5. **El jugador no elige palabra clave para una carta.** El resultado es **ninguno**. No hay castigo extra.
 6. **Una partida guardada con un tema deprecado.** Se carga y resuelve normal. El tema deja de aparecer solo en situaciones nuevas.
-7. **Temas propios de un mapa.** Las cartas se comparten entre mapas, así que usan solo temas base. Cada tema de mapa declara un **tema base equivalente** (por ejemplo, *hiperinflación* → *deuda*). Leer el tema base contra la verdad del tema de mapa cuenta como **exacto**. Los textos muestran el nombre del tema de mapa.
-8. **La familia Destino es heterogénea.** Que *muerte* contra *locura* cuente como parcial tiene menos sentido que *traición* contra *engaño*. Se acepta en el MVP y se mide en el prototipo; si se siente arbitrario, se revisa antes de sumar más temas a Destino.
+7. **Temas propios de un mapa.** Las cartas se comparten entre mapas, así que usan solo temas base. Para comparar, un tema de mapa se reemplaza por su equivalente (por ejemplo, *hiperinflación* → *deuda*, familia Bienes): leer `deuda` da **exacto**, leer otro tema de Bienes da **parcial** y leer uno de otra familia da **ninguno**. Los textos muestran el nombre del tema de mapa.
+8. **La familia Destino es la más débil.** Sin palo propio y con dos temas, que *muerte* contra *locura* cuente como parcial tiene menos base que *traición* contra *engaño*. Se acepta en el MVP y se mide en el prototipo. Revisarlo es barato: las cartas y las situaciones referencian temas por identificador, así que cambiar la familia de un tema base no toca sus datos.
 
 ## Dependencies
 
@@ -123,6 +127,8 @@ Fuera de este ciclo de vida, la taxonomía no cambia durante la partida: es un c
 | Sistema | Tipo | Qué usa |
 |---|---|---|
 | Base de Datos de Cartas | Dura | Asocia cada palabra clave a un tema |
+| Interpretación y Sentencia | Dura | El tema de la palabra clave elegida es el tema leído |
+| Tapete y Tooltips de Cartas | Blanda | Nombre visible, familia y marca de cada tema |
 | Generador de Situaciones | Dura | Temas por rol, motivo (tema y forma de pregunta) |
 | Tiradas | Dura | Traduce cada posición a un rol o a "libre" |
 | Resonancia y Resolución | Dura | Regla de comparación exacto / parcial / ninguno |
@@ -130,8 +136,9 @@ Fuera de este ciclo de vida, la taxonomía no cambia durante la partida: es un c
 | Textos por Plantillas | Dura | Nombres visibles de temas y roles |
 | Gramática de Combinación | Blanda | Familia de cada palo, para el palo dominante |
 | Preguntas Capciosas | Blanda, indirecta | Pregunta por temas a través del Generador y de Textos |
+| Inspección y Tells | Blanda, indirecta | Los tells apuntan a los temas de la verdad, a través del Generador |
 
-**Bidireccionalidad:** ninguno de estos sistemas tiene GDD todavía. La sección Dependencies de cada uno tiene que nombrar a la Taxonomía cuando se escriba. Resonancia y Gramática de Combinación se agregan como dependientes directos en `systems-index.md`.
+**Bidireccionalidad:** ninguno de estos sistemas tiene GDD todavía. La sección Dependencies de cada uno tiene que nombrar a la Taxonomía cuando se escriba. En `systems-index.md` figuran como dependientes directos todos los de tipo dura o blanda; los indirectos llegan por el Generador.
 
 ## Visual/Audio Requirements
 
@@ -169,18 +176,21 @@ Sin sección Formulas (la Taxonomía no define reglas numéricas): los criterios
 
 > Criterios revisados con `qa-lead` (modo Lean, sección de alto riesgo).
 
+Los errores de datos se prueban contra el **validador del catálogo**, una función que recibe los datos y devuelve la lista de errores. Que el juego no arranque cuando esa lista no está vacía se prueba una sola vez (AC-25).
+
 **Datos del catálogo**
-- **AC-01** (R1) — GIVEN el catálogo del MVP, WHEN se carga, THEN hay exactamente 5 familias y 19 temas: Emoción `amor`, `culpa`, `duelo`, `deseo`; Bienes `deuda`, `fortuna`, `enfermedad`, `hogar`; Conflicto `traicion`, `ley`, `violencia`, `engano`; Ambición `poder`, `rivalidad`, `fama`, `riesgo`; Destino `muerte`, `secreto`, `locura`.
+- **AC-01** (R1) — GIVEN el catálogo del MVP, WHEN se carga, THEN hay exactamente 5 familias y 19 temas: Emoción `amor`, `culpa`, `duelo`, `deseo`; Bienes `deuda`, `fortuna`, `enfermedad`, `hogar`; Conflicto `traicion`, `ley`, `violencia`, `engano`, `secreto`; Ambición `poder`, `rivalidad`, `fama`, `riesgo`; Destino `muerte`, `locura`.
 - **AC-02** (R3) — GIVEN dos tablas de nombres visibles de prueba (español y una segunda de prueba), WHEN se cambia de tabla, THEN el identificador de cada tema no cambia y su nombre visible sí.
-- **AC-03** (R6, E1) — GIVEN un archivo de cartas con una palabra clave sin tema o con dos, WHEN se carga, THEN el juego no arranca y muestra un error que nombra la carta y la palabra clave.
-- **AC-04** (R2, E1) — GIVEN un catálogo con un tema en dos familias, WHEN se carga, THEN el juego no arranca y muestra un error que nombra el tema.
-- **AC-05** (R3, States) — GIVEN un tema nuevo con el mismo identificador que uno deprecado, WHEN se carga, THEN el juego no arranca y muestra un error que nombra el identificador.
+- **AC-03** (R6, E1) — GIVEN un archivo de cartas con una palabra clave sin tema o con dos, WHEN se valida, THEN el validador devuelve un error que nombra la carta y la palabra clave.
+- **AC-04** (R2, E1) — GIVEN un catálogo con un tema en dos familias, WHEN se valida, THEN el validador devuelve un error que nombra el tema.
+- **AC-05** (R3, States) — GIVEN un tema nuevo con el mismo identificador que uno deprecado, WHEN se valida, THEN el validador devuelve un error que nombra el identificador.
+- **AC-25** (E1) — GIVEN un catálogo para el que el validador devuelve al menos un error, WHEN se lanza el juego, THEN no pasa del arranque y muestra en pantalla los errores del validador.
 
 **Comparación**
 - **AC-06** (R5) — GIVEN leído `traicion` y verdadero `traicion`, WHEN se comparan, THEN el resultado es exacto.
 - **AC-07** (R5) — GIVEN leído `engano` y verdadero `traicion`, WHEN se comparan, THEN el resultado es parcial.
 - **AC-08** (R5) — GIVEN leído `amor` y verdadero `deuda`, WHEN se comparan, THEN el resultado es ninguno.
-- **AC-09** (R5, E8; regresión) — GIVEN leído `muerte` y verdadero `locura`, WHEN se comparan, THEN el resultado es parcial.
+- **AC-09** (R5, E8; aceptado en MVP, cambia si E8 se revisa) — GIVEN leído `muerte` y verdadero `locura`, WHEN se comparan, THEN el resultado es parcial.
 - **AC-10** (R6) — GIVEN una carta cuyas palabras clave derecha e invertida tienen temas distintos, WHEN la invertida es la seleccionada, THEN el tema que entra a la comparación es el de la invertida.
 - **AC-11** (E5) — GIVEN una posición comparable sin palabra clave seleccionada, WHEN se resuelve, THEN el resultado es ninguno.
 
@@ -197,17 +207,18 @@ Sin sección Formulas (la Taxonomía no define reglas numéricas): los criterios
 
 **Ciclo de vida y mapas**
 - **AC-19** (E6; *provisorio hasta Guardado*) — GIVEN una situación cargada cuyo tema verdadero está deprecado, WHEN se lee ese tema, THEN da exacto; WHEN se lee otro de su familia, THEN da parcial; y no hay error.
-- **AC-20** (R4) — GIVEN un tema de mapa de prueba *hiperinflación* en la familia Bienes, con equivalente `deuda`, WHEN se carga, THEN se acepta; GIVEN uno sin familia o sin equivalente, THEN el juego no arranca y muestra un error que lo nombra.
-- **AC-21** (R4) — GIVEN un mapa que cambia la familia de un tema base, WHEN se carga, THEN el juego no arranca y muestra un error que nombra el tema.
-- **AC-22** (E7) — GIVEN leído `deuda` y verdadero *hiperinflación*, WHEN se comparan, THEN el resultado es exacto.
-- **AC-23** (E7) — GIVEN una palabra clave de carta asociada a un tema de mapa, WHEN se carga, THEN el juego no arranca y muestra un error que nombra la carta.
+- **AC-20** (R4) — GIVEN un tema de mapa de prueba *hiperinflación* con equivalente `deuda`, WHEN se valida, THEN se acepta y su familia es Bienes; GIVEN uno sin equivalente, uno cuyo equivalente es otro tema de mapa, uno cuyo equivalente está deprecado o uno que declara familia propia, THEN el validador devuelve un error que lo nombra.
+- **AC-21** (R4) — GIVEN un mapa que cambia la familia de un tema base, WHEN se valida, THEN el validador devuelve un error que nombra el tema.
+- **AC-22** (E7) — GIVEN verdadero *hiperinflación* (equivalente `deuda`), WHEN se compara contra leído `deuda`, `fortuna` y `amor`, THEN los resultados son exacto, parcial y ninguno.
+- **AC-23** (E7) — GIVEN una palabra clave de carta asociada a un tema de mapa, WHEN se valida, THEN el validador devuelve un error que nombra la carta.
 - **AC-24** (E7; *provisorio hasta Textos por Plantillas*) — GIVEN una sentencia cuyo tema verdadero es *hiperinflación*, WHEN se arma el texto, THEN muestra el nombre del tema de mapa, no el de `deuda`.
 
 ## Open Questions
 
 | Pregunta | Responsable | Cuándo |
 |---|---|---|
-| ¿Un parcial en Destino (*muerte* contra *locura*) se siente arbitrario? Umbral propuesto (a calibrar, sin fuente): se revisa si más del 30 % de los testers lo marca como injusto | Diseñador | Prototipo del núcleo |
+| ¿Un parcial en Destino (*muerte* contra *locura*) se siente arbitrario? Umbral propuesto (a calibrar, sin fuente): se revisa si más del 30 % de los testers lo marca como injusto. Con pocos testers la muestra es chica: tomarlo como señal, no como prueba | Diseñador | Prototipo del núcleo |
+| Carta Única cubre un solo rol de tres: dos tercios de la verdad quedan fuera de esa tirada. ¿Qué rol cubre "Respuesta"? ¿Qué es la verdad de una pregunta *sí o no*, si la verdad se expresa en temas? El umbral de Resonancia tiene que escalar con los roles cubiertos, no ser absoluto | GDD de Tiradas, Generador y Resonancia | Al diseñar esos sistemas |
 | La exigencia "cada tema aparece en al menos una carta del nivel Aprendiz" | GDD de Cartas | Al diseñar Cartas |
 | Roles posteriores al MVP (el otro, camino A y B) y su mapeo a posiciones | GDD de Tiradas | Al diseñar Tiradas |
-| El motivo de consulta en el GDD maestro §5.3 sigue escrito como lista única | Diseñador | Próxima versión del GDD maestro |
+| El GDD maestro está desfasado con esta Taxonomía en cuatro puntos:<br>- El motivo de consulta (§5.3) sigue escrito como lista única y mezcla temas con cosas que no lo son: *dinero* (¿`fortuna` o `deuda`?), *salud* (`enfermedad`), *peligro* (¿`riesgo` o `violencia`?) y *decisión*, que es una forma de pregunta.<br>- §5.3, §5.8 y D-15 hablan de "temas por posición", y desde D-37 son temas por rol.<br>- §3.5 llama "la sentencia" al Futuro, y el rol es `desenlace`; "sentencia" ya es la intención retórica. | Diseñador | Próxima versión del GDD maestro |

@@ -27,7 +27,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 
 | # | System Name | Category | Priority | Status | Design Doc | Depends On |
 |---|-------------|----------|----------|--------|------------|------------|
-| 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | Designed | [taxonomia-de-temas-y-roles.md](taxonomia-de-temas-y-roles.md) | — |
+| 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | In Review | [taxonomia-de-temas-y-roles.md](taxonomia-de-temas-y-roles.md) | — |
 | 2 | Modificadores (inferred) | Core | MVP | Not Started | — | — |
 | 3 | Base de Datos de Cartas | Core | MVP | Not Started | — | Taxonomía de Temas y Roles |
 | 4 | RNG con Semilla (inferred) | Core | MVP | Not Started | — | — |
@@ -43,7 +43,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 | 14 | Guardado de Partida y Perfil (inferred) | Persistence | MVP | Not Started | — | Flujo de Jornada |
 | 15 | Inspección y Tells | Gameplay | MVP | Not Started | — | Generador de Situaciones, Métricas del Cliente, Reloj de Vela, Textos por Plantillas |
 | 16 | Preguntas Capciosas | Gameplay | MVP | Not Started | — | Generador de Situaciones, Métricas del Cliente, Inspección y Tells, Reloj de Vela, Textos por Plantillas |
-| 17 | Interpretación y Sentencia | Gameplay | MVP | Not Started | — | Tiradas, Base de Datos de Cartas, Textos por Plantillas |
+| 17 | Interpretación y Sentencia | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Tiradas, Base de Datos de Cartas, Textos por Plantillas |
 | 18 | Resonancia y Resolución | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Generador de Situaciones, Tiradas, Gramática de Combinación, Interpretación y Sentencia, Métricas del Cliente |
 | 19 | Prestidigitación | Gameplay | MVP | Not Started | — | Mazo y Robo, Tiradas, Métricas del Cliente, Reloj de Vela |
 | 20 | Economía de Sesión y Cierre de Caja | Economy | MVP | Not Started | — | Resonancia y Resolución, Arquetipos y Pieles de Mapa, Modificadores |
@@ -51,7 +51,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 | 22 | Fila y Mirilla | Gameplay | MVP | Not Started | — | Generador de Situaciones, Métricas del Cliente, Reloj de Vela, Fama, Reputación y Ascenso de Sede |
 | 23 | Deudas de Sangre | Gameplay | MVP | Not Started | — | Arquetipos y Pieles de Mapa, Resonancia y Resolución, Economía de Sesión y Cierre de Caja, Modificadores |
 | 24 | Trastienda | Economy | MVP | Not Started | — | Economía de Sesión y Cierre de Caja, Prestidigitación, Modificadores |
-| 25 | Tapete y Tooltips de Cartas (inferred) | UI | MVP | Not Started | — | Base de Datos de Cartas, Tiradas, Interpretación y Sentencia |
+| 25 | Tapete y Tooltips de Cartas (inferred) | UI | MVP | Not Started | — | Taxonomía de Temas y Roles, Base de Datos de Cartas, Tiradas, Interpretación y Sentencia |
 | 26 | HUD de Mesa (inferred) | UI | MVP | Not Started | — | Reloj de Vela, Métricas del Cliente, Deudas de Sangre, Prestidigitación, Fama, Reputación y Ascenso de Sede |
 | 27 | Pantallas de Gestión (inferred) | UI | MVP | Not Started | — | Economía de Sesión y Cierre de Caja, Trastienda, Deudas de Sangre, Fama, Reputación y Ascenso de Sede |
 | 28 | Informantes y Dossiers | Economy | Vertical Slice | Not Started | — | Economía de Sesión y Cierre de Caja, Generador de Situaciones |
@@ -124,7 +124,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 
 1. Inspección y Tells — depends on: Generador, Métricas, Reloj, Textos
 2. Preguntas Capciosas — depends on: Generador, Métricas, Tells, Reloj, Textos
-3. Interpretación y Sentencia — depends on: Tiradas, Cartas, Textos
+3. Interpretación y Sentencia — depends on: Taxonomía (tema de cada palabra clave), Tiradas, Cartas, Textos
 4. Prestidigitación — depends on: Mazo, Tiradas, Métricas, Reloj
 5. Resonancia y Resolución — depends on: Taxonomía (regla de comparación), Generador, Tiradas, Gramática, Interpretación, Métricas
 6. Economía de Sesión y Cierre de Caja — depends on: Resonancia, Arquetipos, Modificadores
@@ -141,7 +141,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 ### Presentation Layer (depends on features)
 
 1. HUD de Mesa — depends on: Reloj, Métricas, Deudas, Prestidigitación, Fama/Reputación
-2. Tapete y Tooltips de Cartas — depends on: Cartas, Tiradas, Interpretación
+2. Tapete y Tooltips de Cartas — depends on: Taxonomía (tema, familia y marca), Cartas, Tiradas, Interpretación
 3. Pantallas de Gestión — depends on: Economía, Trastienda, Informantes, Deudas, Ascenso
 4. Menú e Inicio de Partida — depends on: Meta-progresión, Mazo, Guardado
 5. Voces en Balbuceo — depends on: Arquetipos, Métricas, Textos
@@ -229,7 +229,7 @@ Effort estimates: S = 1 session, M = 2-3 sessions, L = 4+ sessions.
 |--------|-------|
 | Total systems identified | 37 |
 | Design docs started | 1 |
-| Design docs reviewed | 0 |
+| Design docs reviewed | 1 |
 | Design docs approved | 0 |
 | MVP systems designed | 1/27 |
 | Vertical Slice systems designed | 0/6 |

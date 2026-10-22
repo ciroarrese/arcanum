@@ -65,7 +65,159 @@ last_updated: "2026-10-22"
 # Attribute fields: any key stats that could appear in another GDD
 #   (health, damage, drops, faction, etc.)
 
-entities: []
+entities:
+  - name: tema_amor
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Emoción
+    added: 2026-10-22
+    revised: ""
+  - name: tema_culpa
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Emoción
+    added: 2026-10-22
+    revised: ""
+  - name: tema_duelo
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Emoción
+    added: 2026-10-22
+    revised: ""
+  - name: tema_deseo
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Emoción
+    added: 2026-10-22
+    revised: ""
+  - name: tema_deuda
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Bienes
+    added: 2026-10-22
+    revised: ""
+  - name: tema_fortuna
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Bienes
+    added: 2026-10-22
+    revised: ""
+  - name: tema_enfermedad
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Bienes
+    added: 2026-10-22
+    revised: ""
+  - name: tema_hogar
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Bienes
+    added: 2026-10-22
+    revised: ""
+  - name: tema_traicion
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Conflicto
+    added: 2026-10-22
+    revised: ""
+  - name: tema_ley
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Conflicto
+    added: 2026-10-22
+    revised: ""
+  - name: tema_violencia
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Conflicto
+    added: 2026-10-22
+    revised: ""
+  - name: tema_engano
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Conflicto
+    added: 2026-10-22
+    revised: ""
+  - name: tema_secreto
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Conflicto
+    added: 2026-10-22
+    revised: ""
+  - name: tema_poder
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Ambición
+    added: 2026-10-22
+    revised: ""
+  - name: tema_rivalidad
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Ambición
+    added: 2026-10-22
+    revised: ""
+  - name: tema_fama
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Ambición
+    added: 2026-10-22
+    revised: ""
+  - name: tema_riesgo
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Ambición
+    added: 2026-10-22
+    revised: ""
+  - name: tema_muerte
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Destino
+    added: 2026-10-22
+    revised: ""
+  - name: tema_locura
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Destino
+    added: 2026-10-22
+    revised: ""
 
 # Example (remove when first real entry is added):
 #
