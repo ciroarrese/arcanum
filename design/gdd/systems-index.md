@@ -3,7 +3,7 @@
 > **Status**: Approved
 > **Created**: 2026-10-20
 > **Last Updated**: 2026-10-20
-> **Source Concept**: design/ARCANUM_VULGARIS_GDD.md (GDD maestro v1.9; `design/gdd/game-concept.md` todavía no existe)
+> **Source Concept**: design/ARCANUM_VULGARIS_GDD.md (GDD maestro v1.9; síntesis en `design/gdd/game-concept.md`)
 
 ---
 
@@ -216,7 +216,7 @@ Effort estimates: S = 1 session, M = 2-3 sessions, L = 4+ sessions.
 |--------|-----------|-----------------|------------|
 | Generador de Situaciones | Design | Producir de forma automática situaciones coherentes y deducibles (pistas → secreto → tells → temas por rol). Si falla, la deducción se siente arbitraria. | Prototipo descartable del núcleo antes de diseñar el resto; empezar con pools chicos (5 arquetipos, ~15 temas). |
 | Resonancia y Resolución | Design | Que el resultado se sienta justo y explicable; que el pago por calidad recompense la investigación sin volver la lectura un cálculo. | Prototipo con el Generador; mostrar al jugador por qué resonó o no la lectura. |
-| Taxonomía de Temas y Roles | Scope / Design | Cuello de botella: 8 sistemas dependen de ella. Un vocabulario mal cortado contamina cartas, situaciones y textos. | Diseñarla primero; crecer por mapa sin renombrar temas existentes. |
+| Taxonomía de Temas y Roles | Scope / Design | Cuello de botella: 5 sistemas dependen directamente de ella (Cartas, Arquetipos, Tiradas, Generador, Textos) y casi todo el resto a través de ellos. Un vocabulario mal cortado contamina cartas, situaciones y textos. | Diseñarla primero; crecer por mapa sin renombrar temas existentes. |
 | Textos por Plantillas | Technical | Plantillas que se rompen al traducir (género, número, concordancia). | Diseñar el sistema de plantillas con la localización desde el inicio (localization-lead). |
 | Base de Datos de Cartas | Scope | 78 cartas × palabras clave derechas e invertidas × temas: mucho contenido a escribir y validar. | El MVP usa 36 cartas (nivel Aprendiz). |
 | Deudas de Sangre | Design | Espiral de muerte si se acumulan hilos sin salida. | Tope de 3 hilos, al menos dos salidas por hilo, visibles en el HUD. |
@@ -241,7 +241,7 @@ Effort estimates: S = 1 session, M = 2-3 sessions, L = 4+ sessions.
 - [x] Review and approve this systems enumeration
 - [ ] Design the reading core first (★): Taxonomía → Cartas → Tiradas → Generador → Resonancia (`/design-system [system-name]`)
 - [ ] Prototype the reading core (`/prototype`) before designing the rest of the MVP
-- [ ] Generate `design/gdd/game-concept.md` and `design/gdd/game-pillars.md` from the GDD maestro (required by `/gate-check`)
+- [x] Generate `design/gdd/game-concept.md` from the GDD maestro (pillars included; `game-pillars.md` optional at `standard`)
 - [ ] Design the remaining MVP-tier systems
 - [ ] Run `/design-review` on each completed GDD
 - [ ] Run `/gate-check technical-setup` when MVP systems are designed

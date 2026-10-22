@@ -17,9 +17,10 @@ orden: Taxonomía de Temas y Roles → Base de Datos de Cartas → Tiradas →
 Generador de Situaciones → Resonancia y Resolución. Después, `/prototype` del
 núcleo antes de diseñar el resto del MVP.
 
-**Pendientes:** `design/gdd/game-concept.md` y `design/gdd/game-pillars.md`
-(derivarlos del GDD maestro antes del primer `/gate-check`). Motor sin elegir
-(se decide al cerrar los documentos base; considerar el port a Switch).
+**Pendientes:** motor sin elegir (`/setup-engine`; Unity es candidato fuerte por
+el port a Switch). Validar el paso a 2D del arte sobre el boceto 3D de la Sede 1
+(`prototypes/arte-sede1/`, D-39). `design/gdd/game-concept.md` ya existe (síntesis
+del GDD maestro, con los pilares adentro).
 
 ---
 
