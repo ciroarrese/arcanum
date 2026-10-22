@@ -2,7 +2,7 @@
 
 > **Status**: Approved
 > **Created**: 2026-10-20
-> **Last Updated**: 2026-10-20
+> **Last Updated**: 2026-10-22
 > **Source Concept**: design/ARCANUM_VULGARIS_GDD.md (GDD maestro v1.9; síntesis en `design/gdd/game-concept.md`)
 
 ---
@@ -27,7 +27,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 
 | # | System Name | Category | Priority | Status | Design Doc | Depends On |
 |---|-------------|----------|----------|--------|------------|------------|
-| 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | Not Started | — | — |
+| 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | Designed | [taxonomia-de-temas-y-roles.md](taxonomia-de-temas-y-roles.md) | — |
 | 2 | Modificadores (inferred) | Core | MVP | Not Started | — | — |
 | 3 | Base de Datos de Cartas | Core | MVP | Not Started | — | Taxonomía de Temas y Roles |
 | 4 | RNG con Semilla (inferred) | Core | MVP | Not Started | — | — |
@@ -38,13 +38,13 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 | 9 | Tiradas | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Mazo y Robo |
 | 10 | Generador de Situaciones | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Arquetipos y Pieles de Mapa, RNG con Semilla |
 | 11 | Métricas del Cliente | Gameplay | MVP | Not Started | — | Arquetipos y Pieles de Mapa, Modificadores |
-| 12 | Gramática de Combinación | Gameplay | MVP | Not Started | — | Base de Datos de Cartas, Tiradas |
+| 12 | Gramática de Combinación | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Base de Datos de Cartas, Tiradas |
 | 13 | Textos por Plantillas (inferred) | Narrative | MVP | Not Started | — | Taxonomía de Temas y Roles, Arquetipos y Pieles de Mapa |
 | 14 | Guardado de Partida y Perfil (inferred) | Persistence | MVP | Not Started | — | Flujo de Jornada |
 | 15 | Inspección y Tells | Gameplay | MVP | Not Started | — | Generador de Situaciones, Métricas del Cliente, Reloj de Vela, Textos por Plantillas |
 | 16 | Preguntas Capciosas | Gameplay | MVP | Not Started | — | Generador de Situaciones, Métricas del Cliente, Inspección y Tells, Reloj de Vela, Textos por Plantillas |
 | 17 | Interpretación y Sentencia | Gameplay | MVP | Not Started | — | Tiradas, Base de Datos de Cartas, Textos por Plantillas |
-| 18 | Resonancia y Resolución | Gameplay | MVP | Not Started | — | Generador de Situaciones, Tiradas, Gramática de Combinación, Interpretación y Sentencia, Métricas del Cliente |
+| 18 | Resonancia y Resolución | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Generador de Situaciones, Tiradas, Gramática de Combinación, Interpretación y Sentencia, Métricas del Cliente |
 | 19 | Prestidigitación | Gameplay | MVP | Not Started | — | Mazo y Robo, Tiradas, Métricas del Cliente, Reloj de Vela |
 | 20 | Economía de Sesión y Cierre de Caja | Economy | MVP | Not Started | — | Resonancia y Resolución, Arquetipos y Pieles de Mapa, Modificadores |
 | 21 | Fama, Reputación y Ascenso de Sede | Progression | MVP | Not Started | — | Resonancia y Resolución, Economía de Sesión y Cierre de Caja |
@@ -116,7 +116,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 3. Tiradas — depends on: Taxonomía (roles), Mazo y Robo. Traduce posiciones a roles.
 4. Generador de Situaciones — depends on: Taxonomía, Arquetipos, RNG. Produce temas por **rol**, no por posición, porque la tirada se elige después.
 5. Métricas del Cliente — depends on: Arquetipos, Modificadores
-6. Gramática de Combinación — depends on: Cartas, Tiradas (la forma de la tirada define qué cartas son vecinas)
+6. Gramática de Combinación — depends on: Taxonomía (familias por palo), Cartas, Tiradas (la forma de la tirada define qué cartas son vecinas)
 7. Textos por Plantillas — depends on: Taxonomía, Arquetipos. Sube a Núcleo porque preguntas y sentencias son texto.
 8. Guardado de Partida y Perfil — depends on: Flujo de Jornada. Cada sistema registra su estado con una interfaz común.
 
@@ -126,7 +126,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 2. Preguntas Capciosas — depends on: Generador, Métricas, Tells, Reloj, Textos
 3. Interpretación y Sentencia — depends on: Tiradas, Cartas, Textos
 4. Prestidigitación — depends on: Mazo, Tiradas, Métricas, Reloj
-5. Resonancia y Resolución — depends on: Generador, Tiradas, Gramática, Interpretación, Métricas
+5. Resonancia y Resolución — depends on: Taxonomía (regla de comparación), Generador, Tiradas, Gramática, Interpretación, Métricas
 6. Economía de Sesión y Cierre de Caja — depends on: Resonancia, Arquetipos, Modificadores
 7. Fama, Reputación y Ascenso de Sede — depends on: Resonancia, Economía. Se calcula **en el cierre nocturno**.
 8. Fila y Mirilla — depends on: Generador, Métricas, Reloj, Fama. Lee la Fama **al empezar el día**.
@@ -216,7 +216,7 @@ Effort estimates: S = 1 session, M = 2-3 sessions, L = 4+ sessions.
 |--------|-----------|-----------------|------------|
 | Generador de Situaciones | Design | Producir de forma automática situaciones coherentes y deducibles (pistas → secreto → tells → temas por rol). Si falla, la deducción se siente arbitraria. | Prototipo descartable del núcleo antes de diseñar el resto; empezar con pools chicos (5 arquetipos, ~15 temas). |
 | Resonancia y Resolución | Design | Que el resultado se sienta justo y explicable; que el pago por calidad recompense la investigación sin volver la lectura un cálculo. | Prototipo con el Generador; mostrar al jugador por qué resonó o no la lectura. |
-| Taxonomía de Temas y Roles | Scope / Design | Cuello de botella: 5 sistemas dependen directamente de ella (Cartas, Arquetipos, Tiradas, Generador, Textos) y casi todo el resto a través de ellos. Un vocabulario mal cortado contamina cartas, situaciones y textos. | Diseñarla primero; crecer por mapa sin renombrar temas existentes. |
+| Taxonomía de Temas y Roles | Scope / Design | Cuello de botella: 7 sistemas dependen directamente de ella (Cartas, Arquetipos, Tiradas, Generador, Textos, Gramática, Resonancia) y casi todo el resto a través de ellos. Un vocabulario mal cortado contamina cartas, situaciones y textos. | Diseñarla primero; crecer por mapa sin renombrar temas existentes. |
 | Textos por Plantillas | Technical | Plantillas que se rompen al traducir (género, número, concordancia). | Diseñar el sistema de plantillas con la localización desde el inicio (localization-lead). |
 | Base de Datos de Cartas | Scope | 78 cartas × palabras clave derechas e invertidas × temas: mucho contenido a escribir y validar. | El MVP usa 36 cartas (nivel Aprendiz). |
 | Deudas de Sangre | Design | Espiral de muerte si se acumulan hilos sin salida. | Tope de 3 hilos, al menos dos salidas por hilo, visibles en el HUD. |
@@ -228,10 +228,10 @@ Effort estimates: S = 1 session, M = 2-3 sessions, L = 4+ sessions.
 | Metric | Count |
 |--------|-------|
 | Total systems identified | 37 |
-| Design docs started | 0 |
+| Design docs started | 1 |
 | Design docs reviewed | 0 |
 | Design docs approved | 0 |
-| MVP systems designed | 0/27 |
+| MVP systems designed | 1/27 |
 | Vertical Slice systems designed | 0/6 |
 
 ---

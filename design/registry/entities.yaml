@@ -54,7 +54,7 @@
 #   in any other shape is reported as unsupported layout, with its number.
 
 version: 1
-last_updated: ""
+last_updated: "2026-10-22"
 
 # ─── ENTITIES ────────────────────────────────────────────────────────────────
 # Named game-world objects: enemies, NPCs, characters, factions, bosses.
@@ -156,7 +156,34 @@ formulas: []
 #
 # Required fields: name, status, source, referenced_by, value, unit, added
 
-constants: []
+constants:
+  - name: familias_de_temas
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    value: 5
+    unit: familias
+    added: 2026-10-22
+    revised: ""
+  - name: temas_mvp
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    value: 19
+    unit: temas
+    added: 2026-10-22
+    revised: ""
+  - name: roles_mvp
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    value: 3
+    unit: roles
+    added: 2026-10-22
+    revised: ""
 
 # Example:
 #
