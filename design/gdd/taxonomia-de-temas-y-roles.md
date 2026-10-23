@@ -5,7 +5,7 @@
 > **Last Updated**: 2026-10-23
 > **Last Verified**: 2026-10-23
 > **Implements Pillar**: Regla Cero, Pilar 3 (Memoria Pura), Pilar 6 (No hay Carta Mala)
-> **Creative Director Review (CD-GDD-ALIGN)**: `/design-review` full del 2026-10-23 (tercera pasada), NEEDS REVISION; revisado el mismo día (D-44), pendiente de re-revisión
+> **Creative Director Review (CD-GDD-ALIGN)**: `/design-review` full del 2026-10-23 (tercera pasada), NEEDS REVISION; revisado el mismo día (D-44); `/design-review` lean del 2026-10-23 (cuarta pasada), NEEDS REVISION, corregida (D-45); pendiente de re-revisión
 
 ## Summary
 
@@ -70,7 +70,7 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
    | Tema de mapa | `mapa_<mapa>.` | `^mapa_[a-z0-9]+\.[a-z0-9_]+$` | `mapa_a.hiperinflacion` |
 
    El tipo de una entrada lo da la lista donde está cargada (familias, temas, roles, formas, temas de un mapa), y su prefijo tiene que coincidir. El nombre del mapa (`<mapa>`) no lleva guion bajo, así que el identificador se parte sin ambigüedad en el primer punto. Un identificador que no cumple el formato de su tipo (mayúsculas, tildes, nada después del prefijo, o el prefijo de otro tipo, como un tema cargado como `rol.x`) da `ID_FORMATO`. Cada identificador es único en todo el catálogo. Ningún identificador se renombra ni se borra, sea del tipo que sea: un tema que deja de usarse se marca como deprecado, y un rol o una forma se deshabilita (ver States).
-5. Los mapas pueden **agregar temas**, y solo eso: el archivo de un mapa declara únicamente identificadores con su propio prefijo (`mapa_a.` en el archivo del Mapa A). Si declara un tema base, es `MAPA_SOBREESCRIBE_BASE`, cambie o no algún campo. Cualquier otro identificador ajeno es `MAPA_ID_AJENO`. Cada tema de mapa declara un **tema base equivalente**, que tiene que existir y ser un tema base (no otro tema de mapa). Si el tema de mapa está activo, su equivalente también tiene que estarlo; un tema de mapa deprecado puede apuntar a un equivalente deprecado (ver States). El tema de mapa **no declara familia**: toma la de su equivalente. Varios temas de mapa pueden compartir el mismo equivalente. Los temas de mapa tienen el mismo ciclo de vida que los temas base.
+5. Los mapas pueden **agregar temas**, y solo eso: el archivo de un mapa declara únicamente identificadores con su propio prefijo (`mapa_a.` en el archivo del Mapa A). Si declara un tema base, es `MAPA_SOBREESCRIBE_BASE`, cambie o no algún campo; ese caso **no** da además `ID_DUPLICADO` (la unicidad de R4 se comprueba sin contar las entradas de los archivos de mapa que repiten un identificador base). Cualquier otro identificador ajeno es `MAPA_ID_AJENO`. Cada tema de mapa declara un **tema base equivalente**, que tiene que existir y ser un tema base (no otro tema de mapa). Si el tema de mapa está activo, su equivalente también tiene que estarlo; un tema de mapa deprecado puede apuntar a un equivalente deprecado (ver States). El tema de mapa **no declara familia**: toma la de su equivalente. Varios temas de mapa pueden compartir el mismo equivalente. Los temas de mapa tienen el mismo ciclo de vida que los temas base.
 
 **Comparación (la regla que usa la Resonancia)**
 
@@ -126,7 +126,8 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
     - un identificador del catálogo, tal cual (`tema.deuda`);
     - una palabra clave de carta: `<id de carta>/derecha` o `<id de carta>/invertida`;
     - una tirada: su id; una posición de tirada: `<id de tirada>/<id de posición>`;
-    - una entrada sin identificador utilizable (por ejemplo, vacío): `<archivo>#<índice de la entrada>`.
+    - una entrada sin identificador utilizable (por ejemplo, vacío): `<archivo>#<índice de la entrada>`, con el índice numerado **desde 1**;
+    - un nombre faltante en una tabla de idioma: `<identificador>@<id de la tabla>` (`tema.deuda@es_prueba`).
 
     Con el catálogo anterior, el validador revisa también lo que no puede cambiar entre versiones. Si no se pasa catálogo anterior, o está vacío (primera build), esas reglas no se revisan y no dan errores. Códigos:
 
@@ -136,14 +137,15 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
     | `FAMILIA_EXTRA` | R1: el catálogo declara una familia que no es una de las 5 |
     | `TEMA_SIN_FAMILIA`, `FAMILIA_INEXISTENTE` | R2 |
     | `FAMILIA_BAJO_MINIMO` | R3 |
-    | `NOMBRE_FALTANTE` | R4: falta el nombre visible de un identificador (familia, tema, tema de mapa, rol o forma) en una tabla de idioma |
+    | `CAMPO_INVALIDO` | Esquema: `estado` fuera de {activo, deprecado}, `habilitado` / `habilitada` que no es sí / no, o `afinidad_por_rol` no vacío (reservado). Sujeto: el identificador |
+    | `NOMBRE_FALTANTE` | R4: falta el nombre visible de un identificador (familia, tema, tema de mapa, rol o forma) en una tabla de idioma. Se revisa en cada tabla cargada |
     | `KW_SIN_TEMA`, `KW_TEMAS_MULTIPLES`, `KW_TEMA_INEXISTENTE`, `KW_TEMA_DE_MAPA` | R7, E7 |
     | `MAPA_SIN_EQUIVALENTE`, `MAPA_EQUIV_INEXISTENTE`, `MAPA_EQUIV_ES_DE_MAPA`, `MAPA_EQUIV_DEPRECADO`, `MAPA_DECLARA_FAMILIA`, `MAPA_SOBREESCRIBE_BASE`, `MAPA_ID_AJENO` | R5, States |
     | `SIN_ROLES_HABILITADOS` | R10 |
     | `SIN_FORMAS_HABILITADAS` | R12 |
     | `ROL_INEXISTENTE` | E3: una posición de tirada nombra un rol que no está en el catálogo |
     | `FORMA_INEXISTENTE` | R12: una tirada declara como esperada una forma de pregunta que no está en el catálogo *(provisorio hasta el GDD de Tiradas)* |
-    | `ID_ELIMINADO`, `ID_REACTIVADO`, `DEPRECAR_CON_DEPENDIENTES` | States |
+    | `ID_ELIMINADO`, `ID_REACTIVADO`, `DEPRECAR_CON_DEPENDIENTES`, `FAMILIA_CAMBIADA`, `EQUIV_CAMBIADO` | States |
 
     Si la lista no está vacía, el juego no pasa del arranque y muestra los errores (E1).
 
@@ -170,7 +172,9 @@ Los nombres visibles no están en estas entradas: salen de las tablas de idioma,
 | Activo | Lo pueden usar cartas, situaciones y textos | → Deprecado, si se deja de usar. Un tema base, además, solo si ningún tema de mapa **activo** lo tiene como equivalente y si su familia sigue con el mínimo de R3 |
 | Deprecado | No se generan situaciones nuevas con él. Las partidas guardadas que lo tengan siguen funcionando, y las cartas pueden seguir ofreciéndolo como palabra clave | Fin: nunca vuelve a Activo y su identificador nunca se borra ni se reutiliza |
 
-Para deprecar un tema base que es equivalente de temas de mapa, primero se deprecan o se cambian esos temas de mapa. Un tema de mapa deprecado puede seguir apuntando a un equivalente deprecado, porque las partidas guardadas lo siguen usando; el equivalente nunca se elimina (`ID_ELIMINADO`).
+**La familia de un tema base y el equivalente de un tema de mapa no cambian entre versiones** (D-45): cambiarlos altera el resultado de EXACTO / PARCIAL / NINGUNO de las partidas guardadas. Con catálogo anterior, el validador da `FAMILIA_CAMBIADA` (sujeto: el tema base) o `EQUIV_CAMBIADO` (sujeto: el tema de mapa) si el valor difiere. Si una asignación está mal, se depreca el tema y se crea uno nuevo con otro identificador. Sin catálogo anterior, o vacío, estas reglas no se revisan: mientras no haya build publicada, las asignaciones se pueden corregir directamente.
+
+Para deprecar un tema base que es equivalente de temas de mapa, primero se deprecan esos temas de mapa. Un tema de mapa deprecado puede seguir apuntando a un equivalente deprecado, porque las partidas guardadas lo siguen usando; el equivalente nunca se elimina (`ID_ELIMINADO`).
 
 Un tema base deprecado con un tema de mapa **activo** que lo tiene como equivalente da exactamente un error:
 - `DEPRECAR_CON_DEPENDIENTES` (sujeto: el tema base), si el catálogo anterior lo tenía activo: el error es deprecarlo en esta versión;
@@ -198,6 +202,41 @@ Fuera de este ciclo de vida, la taxonomía no cambia durante la partida: es un c
 
 **Interfaces provisorias:** ninguno de estos sistemas tiene GDD todavía.
 
+## Formulas
+
+La comparación (R6) es categórica y no tiene fórmulas. Lo que sigue es la **línea base de azar** que se deriva del reparto de familias y que usan E8, la meta de Open Questions y el AC-09. No es una regla de juego: la usa el diseño para calibrar.
+
+**Variables**
+
+| Variable | Significado | Valor actual |
+|---|---|---|
+| `T` | Cantidad de temas base activos | 20 (rango: ≥ 2 × cantidad de familias) |
+| `n_f` | Cantidad de temas base activos de la familia `f` | 4 / 4 / 5 / 4 / 3 (Emoción / Bienes / Conflicto / Ambición / Destino) |
+| `n` | `n_f` de la familia del tema **leído** | 3 a 5 |
+| `P_exacto`, `P_parcial(n)` | Probabilidad de EXACTO / PARCIAL si leído y verdadero se eligen al azar, uniformes e independientes | ver abajo |
+| `V(n)` | Valor esperado por posición al azar con el puntaje ilustrativo 2/1/0 (el real lo define Resonancia) | ver abajo |
+
+**Fórmulas**
+
+- `P_exacto = 1 / T`
+- `P_parcial(n) = (n − 1) / T`
+- `V(n) = 2 · P_exacto + 1 · P_parcial(n) = (n + 1) / T`
+- Pares ordenados (leído, verdadero): `T²` en total; `T` EXACTO; `Σ n_f · (n_f − 1)` PARCIAL; el resto NINGUNO.
+
+**Ejemplo con el catálogo base (`T` = 20)**
+
+| Cuenta | Valor |
+|---|---|
+| Pares ordenados | 400 |
+| EXACTO | 20 (5 %) |
+| PARCIAL | 62 (15,5 %) |
+| NINGUNO | 318 |
+| `P_parcial` por familia del leído | 0,20 Conflicto; 0,15 Emoción, Bienes y Ambición; 0,10 Destino |
+| `V` por familia del leído | 0,30 Conflicto; 0,25 Emoción, Bienes y Ambición; 0,20 Destino. Promedio: 0,255 |
+| Desvío respecto del promedio | Conflicto +17,6 %; Destino −21,6 % |
+
+**Rango y degeneración:** `P_parcial` es 0 si `n` = 1, caso que R3 impide. Con el mínimo de R3 (2), `P_parcial` ≥ 1 / T. Si `T` o el reparto cambian, hay que recalcular la tabla y el AC-09 (sus totales son provisorios).
+
 ## Edge Cases
 
 1. **Datos mal cargados** (una palabra clave sin tema o con un tema que no existe, un tema sin familia, un identificador vacío o repetido). Es un error de datos: el validador lo devuelve con su código (R13), el juego no arranca y nombra lo que está mal cargado. Nunca se resuelve en silencio.
@@ -207,7 +246,7 @@ Fuera de este ciclo de vida, la taxonomía no cambia durante la partida: es un c
 5. **El jugador no elige palabra clave en una posición comparable.** El resultado es **NINGUNO**. No hay castigo extra.
 6. **Una partida guardada con un tema deprecado.** Se carga y resuelve normal: las cartas pueden seguir ofreciéndolo, así que el exacto sigue siendo posible. El tema deja de aparecer solo en situaciones nuevas.
 7. **Temas propios de un mapa.** Las cartas se comparten entre mapas, así que usan solo temas base. Para comparar, un tema de mapa se reemplaza por su equivalente (R6). Por ejemplo, con `mapa_a.hiperinflacion` → `tema.deuda` (familia Bienes): leer `deuda` da **EXACTO**, leer otro tema de Bienes da **PARCIAL** y leer uno de otra familia da **NINGUNO**. Los textos muestran el nombre del tema de mapa. Mecánicamente, un tema de mapa se comporta igual que su equivalente; lo que agrega es texto. Hoy el Mapa B no declara temas de mapa, así que esta lógica se prueba con datos de prueba (*hiperinflación* es del Mapa A). Si el Mapa B debería declarar algunos es una pregunta abierta.
-8. **Las familias no tienen el mismo tamaño** (4/4/5/4/3). Si las cartas y la verdad tuvieran los temas repartidos de forma uniforme, de los 400 pares ordenados (leído, verdadero), 20 dan EXACTO (5 %), 62 dan PARCIAL (15,5 %, la suma de n(n − 1) por familia) y 318 dan NINGUNO. Según la familia del tema leído, con n temas, la probabilidad de PARCIAL es (n − 1)/20: 0,20 en Conflicto, 0,15 en Emoción, Bienes y Ambición, y 0,10 en Destino. Con un puntaje ilustrativo de 2/1/0 (el real lo define Resonancia), el valor esperado por posición sería (n + 1)/20: 0,30, 0,25 y 0,20, con un promedio de 0,255. Esta diferencia entre familias es **estructural**, sale del reparto: la meta de sesgo de Open Questions se mide contra estos valores, no contra el promedio. El sesgo real depende también de cómo reparten las familias las Cartas y el Generador, así que se vuelve a medir en el prototipo con los datos reales. Revisar la asignación es barato, porque las cartas y las situaciones referencian temas por identificador.
+8. **Las familias no tienen el mismo tamaño** (4/4/5/4/3). Eso da una ventaja **estructural** a las familias grandes: la probabilidad de PARCIAL y el valor esperado al azar cambian con el tamaño de la familia del tema leído (cifras en Formulas). La meta de sesgo de Open Questions se mide contra la línea base de cada familia, no contra el promedio. El sesgo real depende también de cómo reparten las familias las Cartas y el Generador, así que se vuelve a medir en el prototipo con los datos reales. Mientras no haya build publicada, revisar la asignación es barato, porque las cartas y las situaciones referencian temas por identificador; después, cambiar la familia de un tema está prohibido (States, D-45).
 9. **Una partida guardada cuya situación contiene un rol que ahora está deshabilitado.** La situación ya generada se respeta: contiene ese rol, así que una posición con ese rol se compara normal (R11, paso 2, mira la situación, no el catálogo). Deshabilitar un rol solo cambia lo que genera el Generador de ahí en adelante.
 
 ## Dependencies
@@ -236,8 +275,8 @@ Fuera de este ciclo de vida, la taxonomía no cambia durante la partida: es un c
 
 | Perilla | Valor actual | Rango seguro | Qué afecta |
 |---|---|---|---|
-| Asignación de tema a familia | Tabla de R1 (4/4/5/4/3) | Toda familia con el mínimo de temas activos | Probabilidad de parcial por familia y línea base de E8 |
-| Mínimo de temas activos por familia | 2 (objetivo de diseño: 3) | 2 o más; con 1 no hay parcial posible | Lo que acepta el validador, que lee el valor de acá y no lo tiene fijo en el código |
+| Asignación de tema a familia | Tabla de R1 (4/4/5/4/3) | Toda familia con el mínimo de temas activos | Probabilidad de parcial por familia y línea base de Formulas |
+| Mínimo de temas activos por familia | 2 (objetivo de diseño: 3) | 2 a 3 con el catálogo actual (con 1 no hay parcial posible; con 4 o más Destino, que tiene 3 temas, queda bajo el mínimo y falla AC-01a) | Lo que acepta el validador, que lee el valor de acá y no lo tiene fijo en el código |
 | Roles habilitados | origen, conflicto, desenlace | Al menos 1 | Cuántos temas genera el Generador por situación |
 | Formas de pregunta habilitadas | sí o no, situación general | Al menos 1 | Tiradas esperadas disponibles |
 
@@ -270,11 +309,11 @@ No aplica: la Taxonomía no se opera directamente. El feel del acierto exacto o 
 | GDD §5.4 | Tirada esperada según la forma de pregunta |
 | GDD §5.8 | Match 0/1/2 → exacto / parcial / ninguno |
 | D-08, D-37, D-39 | Significado público; desacople entre Generador y Tiradas; paleta de 1909 |
-| D-42, D-43, D-44 | Criterio Conflicto/Destino; decisiones de las revisiones full |
+| D-42, D-43, D-44, D-45 | Criterio Conflicto/Destino; decisiones de las revisiones full y lean |
 
 ## Acceptance Criteria
 
-Sin sección Formulas: la Taxonomía no define reglas numéricas propias. Las cifras de E8 se derivan del reparto y las prueba AC-09. Los criterios salen de Core Rules, States y Edge Cases.
+Las cifras de Formulas se derivan del reparto y las prueba AC-09. Los criterios salen de Core Rules, States, Formulas y Edge Cases.
 
 Convenciones de prueba:
 - Los errores de datos se prueban contra el validador (R13): cada AC verifica que la lista **contiene** un error con ese código y ese sujeto (formato de R13), nunca el texto. Que el juego no arranque se prueba una sola vez (AC-25a y AC-25b).
@@ -290,8 +329,8 @@ Convenciones de prueba:
 - **AC-01b** (R1; snapshot) — GIVEN el catálogo base, WHEN se carga, THEN sus temas base activos son exactamente: `familia.emocion` `amor`, `culpa`, `duelo`, `deseo`; `familia.bienes` `deuda`, `fortuna`, `hogar`, `trabajo`; `familia.conflicto` `traicion`, `ley`, `violencia`, `engano`, `secreto`; `familia.ambicion` `poder`, `rivalidad`, `fama`, `riesgo`; `familia.destino` `muerte`, `locura`, `enfermedad` (todos con prefijo `tema.`). Este snapshot se actualiza a propósito, junto con la decisión que cambie el catálogo.
 - **AC-01c** (R13; Integration, *provisorio hasta Cartas y Tiradas*) — GIVEN el catálogo base, las cartas, las tiradas, los mapas y la tabla de idioma reales, WHEN se valida, THEN la lista de errores está vacía.
 - **AC-02a** (R4) — GIVEN las tablas de idioma de prueba A y B, con nombres centinela distintos entre sí y distintos del identificador, WHEN se pide el nombre visible de cada tema con cada tabla, THEN devuelve el de esa tabla, nunca el identificador, y el conjunto de identificadores del catálogo es el mismo con las dos.
-- **AC-02b** (R13) — GIVEN una tabla de idioma a la que le falta el nombre de `tema.deuda`, WHEN se valida, THEN la lista contiene `NOMBRE_FALTANTE` con sujeto `tema.deuda`.
-- **AC-02c** (R13; un caso por identificador) — GIVEN una tabla de idioma a la que le falta el nombre de uno de `familia.bienes`, `rol.origen`, `forma.si_o_no` o `mapa_a.hiperinflacion`, WHEN se valida, THEN la lista contiene `NOMBRE_FALTANTE` con ese identificador como sujeto.
+- **AC-02b** (R13) — GIVEN la tabla de idioma `es_prueba` a la que le falta el nombre de `tema.deuda`, WHEN se valida, THEN la lista contiene `NOMBRE_FALTANTE` con sujeto `tema.deuda@es_prueba`.
+- **AC-02c** (R13; un caso por identificador) — GIVEN la tabla de idioma `es_prueba` a la que le falta el nombre de uno de `familia.bienes`, `rol.origen`, `forma.si_o_no` o `mapa_a.hiperinflacion`, WHEN se valida, THEN la lista contiene `NOMBRE_FALTANTE` con sujeto `<ese identificador>@es_prueba`.
 - **AC-03a** (R7, E1) — GIVEN la carta de prueba `carta_prueba` con la palabra clave derecha sin tema, WHEN se valida, THEN la lista contiene `KW_SIN_TEMA` con sujeto `carta_prueba/derecha`.
 - **AC-03b** (R7, E1) — GIVEN `carta_prueba` con la palabra clave invertida apuntando a `tema.inexistente`, WHEN se valida, THEN la lista contiene `KW_TEMA_INEXISTENTE` con sujeto `carta_prueba/invertida`.
 - **AC-03c** (R7) — GIVEN `carta_prueba` con la palabra clave derecha asociada a `tema.deuda` y `tema.fortuna`, WHEN se valida, THEN la lista contiene `KW_TEMAS_MULTIPLES` con sujeto `carta_prueba/derecha`.
@@ -319,6 +358,10 @@ Convenciones de prueba:
 - **AC-28b** (R3; borde) — GIVEN un catálogo de prueba donde `familia.destino` tiene exactamente 2 temas activos, WHEN se valida, THEN la lista no contiene `FAMILIA_BAJO_MINIMO`.
 - **AC-28c** (R3, States) — GIVEN un catálogo de prueba donde `familia.destino` tiene 3 temas, 2 de ellos deprecados, WHEN se valida, THEN la lista contiene `FAMILIA_BAJO_MINIMO` con sujeto `familia.destino`.
 - **AC-28d** (R3) — GIVEN un catálogo de prueba donde `familia.destino` tiene un solo tema base activo y un tema de mapa activo que lo tiene como equivalente, WHEN se valida, THEN la lista contiene `FAMILIA_BAJO_MINIMO` con sujeto `familia.destino`.
+- **AC-02d** (R13) — GIVEN las tablas de idioma `es_prueba` (completa) y `en_prueba` (sin el nombre de `tema.deuda`), WHEN se valida, THEN la lista contiene `NOMBRE_FALTANTE` con sujeto `tema.deuda@en_prueba` y no contiene `tema.deuda@es_prueba`.
+- **AC-35a** (Esquema) — GIVEN un tema `tema.prueba` con `estado` = `pausado`, WHEN se valida, THEN la lista contiene `CAMPO_INVALIDO` con sujeto `tema.prueba`.
+- **AC-35b** (Esquema) — GIVEN un rol `rol.origen` con `habilitado` = `quizás`, WHEN se valida, THEN la lista contiene `CAMPO_INVALIDO` con sujeto `rol.origen`.
+- **AC-35c** (Esquema) — GIVEN un tema `tema.deuda` con `afinidad_por_rol` no vacío, WHEN se valida, THEN la lista contiene `CAMPO_INVALIDO` con sujeto `tema.deuda`. Control: con `afinidad_por_rol` vacío, no lo contiene.
 - **AC-29a** (R10) — GIVEN un catálogo de prueba sin roles habilitados, WHEN se valida, THEN la lista contiene `SIN_ROLES_HABILITADOS`.
 - **AC-29b** (R12) — GIVEN un catálogo de prueba sin formas habilitadas, WHEN se valida, THEN la lista contiene `SIN_FORMAS_HABILITADAS`.
 
@@ -326,7 +369,7 @@ Convenciones de prueba:
 - **AC-06** (R6) — GIVEN leído `tema.traicion` y verdadero `tema.traicion`, WHEN se comparan, THEN el resultado es EXACTO.
 - **AC-07** (R6) — GIVEN leído `tema.engano` y verdadero `tema.traicion`, y también al revés, WHEN se comparan, THEN los dos resultados son PARCIAL.
 - **AC-08** (R6) — GIVEN leído `tema.amor` y verdadero `tema.deuda`, WHEN se comparan, THEN el resultado es NINGUNO.
-- **AC-09** (R6, E8; exhaustivo) — GIVEN el catálogo base, WHEN se compara cada par ordenado (leído, verdadero) de temas base activos, THEN cada resultado es EXACTO si son el mismo tema, PARCIAL si son distintos de la misma familia y NINGUNO si son de familias distintas; y los totales son 20 EXACTO, 62 PARCIAL y 318 NINGUNO. *Los totales son provisorios: cambian si cambia el reparto.*
+- **AC-09** (R6, Formulas; exhaustivo) — GIVEN el catálogo base, WHEN se compara cada par ordenado (leído, verdadero) de temas base activos, THEN cada resultado es EXACTO si son el mismo tema, PARCIAL si son distintos de la misma familia y NINGUNO si son de familias distintas; y los totales son 20 EXACTO, 62 PARCIAL y 318 NINGUNO. *Los totales son provisorios: cambian si cambia el reparto.*
 - **AC-10** (R7) — GIVEN una carta con palabra clave derecha de tema `tema.traicion` e invertida de tema `tema.amor`, WHEN se selecciona la derecha y después la invertida, THEN el tema leído es `tema.traicion` y después `tema.amor`.
 - **AC-11** (R11, E5) — GIVEN una posición `p1` con rol `rol.origen`, una situación que contiene `rol.origen` y ninguna palabra clave elegida, WHEN se resuelve, THEN la lista es [(`p1`, `rol.origen`, NINGUNO)].
 - **AC-30a** (R6) — GIVEN leído `tema.inexistente` y verdadero `tema.traicion`, WHEN se llama a `comparar`, THEN falla con `ID_INEXISTENTE` y no devuelve resultado.
@@ -364,23 +407,26 @@ Convenciones de prueba:
 - **AC-23** (E7) — GIVEN `carta_prueba` con la palabra clave derecha asociada a `mapa_a.hiperinflacion`, WHEN se valida, THEN la lista contiene `KW_TEMA_DE_MAPA` con sujeto `carta_prueba/derecha`.
 - **AC-24a** (E7) — GIVEN una tabla de idioma de prueba con `«MAPA:Hiperinflación»` y `«BASE:Deuda»`, WHEN se pide el nombre visible de `mapa_a.hiperinflacion`, THEN es `«MAPA:Hiperinflación»`.
 - **AC-24b** (E7; Integration, *provisorio hasta Textos por Plantillas*) — GIVEN una plantilla de sentencia con el tema verdadero `mapa_a.hiperinflacion` y la tabla de prueba de AC-24a, WHEN se arma el texto, THEN contiene `«MAPA:Hiperinflación»` y no contiene `«BASE:Deuda»`.
+- **AC-36a** (States, D-45) — GIVEN un catálogo anterior con `tema.hogar` en `familia.bienes` y uno nuevo con `tema.hogar` en `familia.emocion`, WHEN se valida, THEN la lista contiene `FAMILIA_CAMBIADA` con sujeto `tema.hogar`.
+- **AC-36b** (States, D-45) — GIVEN un catálogo anterior con `mapa_a.hiperinflacion` → `tema.deuda` y uno nuevo con `mapa_a.hiperinflacion` → `tema.fortuna`, WHEN se valida, THEN la lista contiene `EQUIV_CAMBIADO` con sujeto `mapa_a.hiperinflacion`.
+- **AC-36c** (States, D-45) — GIVEN un catálogo anterior vacío y el catálogo base, o un catálogo anterior igual al nuevo, WHEN se valida, THEN la lista no contiene `FAMILIA_CAMBIADA` ni `EQUIV_CAMBIADO`.
 - **AC-32** (States) — GIVEN un catálogo anterior con `mapa_a.hiperinflacion` activo → `tema.deuda` activo, y uno nuevo donde `tema.deuda` pasa a deprecado y el tema de mapa sigue activo, WHEN se valida, THEN la lista contiene `DEPRECAR_CON_DEPENDIENTES` con sujeto `tema.deuda` y no contiene `MAPA_EQUIV_DEPRECADO`.
 
 ## Open Questions
 
 | Pregunta | Responsable | Cuándo |
 |---|---|---|
-| ¿El reparto de familias produce un sesgo que se note, además del estructural de E8? Medir en el prototipo, con las cartas y el Generador reales, el puntaje esperado al azar por familia y la frecuencia de "tirada sin jugada útil" por familia verdadera. Meta: ninguna familia se aparta más de ±15 % de **su propio valor de línea base en E8**; el desvío estructural del reparto (Conflicto +17,6 %, Destino −21,6 % sobre el promedio) no cuenta. Si Conflicto domina, la primera palanca es *secreto* (dato nuevo para revisar D-42) | Diseñador | Prototipo del núcleo |
+| ¿El reparto de familias produce un sesgo que se note, además del estructural de Formulas? Medir en el prototipo, con las cartas y el Generador reales, el puntaje esperado al azar por familia y la frecuencia de "tirada sin jugada útil" por familia verdadera. Meta: ninguna familia se aparta más de ±15 % de **su propio valor de línea base en Formulas**; el desvío estructural del reparto (Conflicto +17,6 %, Destino −21,6 % sobre el promedio) no cuenta. Si Conflicto domina, la primera palanca es *secreto* (dato nuevo para revisar D-42) | Diseñador | Prototipo del núcleo |
 | **Doble Fondo:** ¿contra qué rol se compara el tema del motivo? ¿La fachada puede ser de la misma familia que la verdad? (Daría parcial, y el Pilar 4 pide que la fachada rinda poco y seguro.) ¿Todos los clientes tienen Doble Fondo? ¿*Secreto* puede ser la verdad de un rol, o es una tautología con el Doble Fondo? Si no puede, la regla vive en el Generador | GDD del Generador | Al diseñar el Generador |
 | **Coherencia entre roles (obligatoria antes del prototipo):** con 20 temas y 3 roles hay 8.000 tríos y muchos no cuentan una historia. Sin observables que reduzcan los candidatos por rol, el exacto es azar. El Generador tiene que dar una garantía mínima de coherencia; la afinidad de cada tema con cada rol (alta / posible / evitar) va en el campo reservado `afinidad_por_rol` | GDD del Generador | Antes del prototipo |
 | **AC del Generador (ex AC-16 a AC-18):** cada situación tiene un tema por rol habilitado y ningún otro rol; el motivo tiene un tema activo y una forma habilitada; un tema deprecado nunca entra a los candidatos. Escribirlos como contrato sobre la lista de candidatos con un RNG simulado, sin semilla fija. Definir también cómo reparte las familias. Sumar un AC de playtest: los testers justifican sus elecciones por algo observado del cliente, no por azar | GDD del Generador | Al diseñar el Generador |
-| **Agregación y umbral:** cómo se combinan varias posiciones del mismo rol (suma, máximo o promedio); qué pasa si la lista no tiene ningún resultado comparable (0/0); el umbral se calibra contra la línea base de E8, porque sin castigo por error adivinar siempre conviene; ¿el feedback distingue "deduje mal" de "no tenía la carta", y "no elegí" de "elegí mal"? ¿El feedback de un PARCIAL dice que fue por la familia? | GDD de Resonancia | Al diseñar Resonancia |
+| **Agregación y umbral:** cómo se combinan varias posiciones del mismo rol (suma, máximo o promedio); qué pasa si la lista no tiene ningún resultado comparable (0/0); el umbral se calibra contra la línea base de Formulas, porque sin castigo por error adivinar siempre conviene; ¿el feedback distingue "deduje mal" de "no tenía la carta", y "no elegí" de "elegí mal"? ¿El feedback de un PARCIAL dice que fue por la familia? | GDD de Resonancia | Al diseñar Resonancia |
 | Carta Única cubre un solo rol de tres. ¿Qué rol cubre "Respuesta"? ¿Qué es la verdad de una pregunta *sí o no*, si la verdad se expresa en temas? Toda tirada tiene que tener al menos una posición con rol habilitado. ¿Las posiciones libres son una falsa elección para el jugador? ¿Dónde vive el vínculo forma → tirada esperada (`FORMA_INEXISTENTE`)? | GDD de Tiradas | Al diseñar Tiradas |
 | Roles posteriores al MVP (el otro, camino A y B) y su mapeo a posiciones | GDD de Tiradas | Al diseñar Tiradas |
 | La exigencia "cada tema aparece en al menos una carta del nivel Aprendiz". **Invariante del Pilar 6:** toda tirada repartida puede llegar al menos a PARCIAL con alguna elección (por ejemplo, que las dos palabras clave de cada carta sean de familias distintas). ¿"Una palabra clave = un tema" deja poca palanca de lector? ¿Hace falta un tema secundario que puntúe como máximo parcial? Destino representa a los 22 Arcanos Mayores pero tiene 3 temas: ¿cuántas cartas la llevan? | GDD de Cartas | Al diseñar Cartas |
 | ¿Qué señal observable distingue a cada tema de los de su familia? Si los tells no separan temas dentro de una familia, el exacto es azar | GDD de Inspección y Tells | Al diseñar Tells |
 | Guardar la versión del catálogo en la partida, para detectar cambios de familia entre versiones | GDD de Guardado | Al diseñar Guardado |
 | La marca de la familia es el símbolo de un palo: en una carta de otro palo (Cinco de Copas con *deuda*) puede leerse como el palo de la carta. Resolverlo en el spec del tooltip | `/ux-design`, `/art-bible` | Antes de las historias del tooltip |
-| Vocabulario: <br>- Glosario de una línea por tema, con la frontera entre vecinos (deseo/amor, poder/rivalidad, engaño/traición, engaño/secreto).<br>- Nombre visible de Destino. <br>- *Locura*: renombrarla por sensibilidad (estigma de la enfermedad mental), no solo por tono, y pasar el glosario por una lectura de sensibilidad (ESRB/PEGI). <br>- Colisión visible entre la familia "Conflicto" y el rol "conflicto" en el tooltip (D-43 resolvió los ids, no lo que lee el jugador); preferencia: renombrar la familia. <br>- *Fortuna* (¿suerte o dinero?) y *hogar* (¿casa o familia?). <br>- Renombrar *riesgo*, que es una actitud y no un asunto (*apuesta* y *juego* chocan con el "apostar" del Pilar 4). <br>- ¿El equivalente de *hiperinflación* es *deuda* o *fortuna*? | Diseñador | Antes de escribir los datos del catálogo |
+| Vocabulario: <br>- Glosario de una línea por tema, con la frontera entre vecinos (deseo/amor, poder/rivalidad, engaño/traición, engaño/secreto) y la frontera Conflicto/Destino en los casos ambiguos (violencia sufrida / muerte, traición sufrida, ley / enfermedad): D-42 dice quién controla, pero *traición*, *violencia* y *ley* suelen pasarle al cliente. Sin esto, quien asigne temas a las palabras clave de las 78 cartas decide a ojo.<br>- Nombre visible de Destino. <br>- *Locura*: renombrarla por sensibilidad (estigma de la enfermedad mental), no solo por tono, y pasar el glosario por una lectura de sensibilidad (ESRB/PEGI). <br>- Colisión visible entre la familia "Conflicto" y el rol "conflicto" en el tooltip (D-43 resolvió los ids, no lo que lee el jugador); preferencia: renombrar la familia. <br>- *Fortuna* (¿suerte o dinero?) y *hogar* (¿casa o familia?). <br>- Renombrar *riesgo*, que es una actitud y no un asunto (*apuesta* y *juego* chocan con el "apostar" del Pilar 4). <br>- ¿El equivalente de *hiperinflación* es *deuda* o *fortuna*? | Diseñador | Antes de escribir los datos del catálogo |
 | **Mapa B:** ¿declara temas de mapa para su clientela (juego clandestino, adicción, familia, fe, papeles migratorios)? E7 permite ampliar sin tocar los 20 temas base | GDD de Arquetipos y Pieles, `design/mapas/mapa-b-new-carthage.md` | Al diseñar Arquetipos |
 | El GDD maestro está desfasado con esta Taxonomía en cinco puntos:<br>- El motivo de consulta (§5.3) sigue escrito como lista única y mezcla temas con cosas que no lo son: *dinero* (¿`fortuna` o `deuda`?), *salud* (`enfermedad`), *peligro* (¿`riesgo` o `violencia`?) y *decisión*, que es una forma de pregunta.<br>- §5.3, §5.8 y D-15 hablan de "temas por posición", y desde D-37 son temas por rol.<br>- §3.5 llama "la sentencia" al Futuro, y el rol es `desenlace`; "sentencia" ya es la intención retórica.<br>- *Enfermedad* pasó a Destino y se sumó *trabajo* (D-43). | Diseñador | Próxima versión del GDD maestro |
