@@ -42,3 +42,26 @@ Findings:
 - [RECOMMENDED] Disputa sobre sacar secreto del catálogo: no se reabre D-42 sin un dato nuevo; queda como palanca si el prototipo muestra que Conflicto domina.
 - [RECOMMENDED] AC-09 a provisorio, con un parcial por familia — corregido.
 Receipt: sin sello a propósito. El documento se revisó después de esta revisión, y un sello de la versión corregida haría pasar el documento nuevo por el que falló.
+
+## Review — 2026-10-23 — Verdict: NEEDS REVISION
+Review mode: full · Workflow: standard
+Scope signal: M
+Specialists: game-designer, systems-designer, qa-lead, narrative-director, creative-director
+Blocking items: 6 | Recommended: 6
+Summary: La taxonomía como diseño está sana: familias, temas, la frontera de D-42 y los prefijos de D-43 se sostienen. Fallaban el contrato del validador, la máquina de estados de deprecación, la gramática de ids, una meta que se contradecía con su propia línea base y los AC que heredaban esos defectos. Las revisiones se aplicaron el mismo día (D-44); falta una re-revisión completa que decida si se aprueba.
+Prior verdict resolved: Yes — los 5 bloqueantes de la revisión full del 2026-10-22 estaban corregidos.
+Findings:
+- [BLOCKING] Core Rules R13: `validar_catalogo` no recibía tiradas y `ROL_INEXISTENTE` lo dispara una tirada; faltaba código de forma inexistente — corregido (tiradas en la firma, `FORMA_INEXISTENTE`, formato de sujeto).
+- [BLOCKING] States / R5: deprecar mapa → base quedaba trabado por `MAPA_EQUIV_DEPRECADO` — corregido (solo cuentan temas de mapa activos; exactamente un error según el catálogo anterior).
+- [BLOCKING] Core Rules R4: gramática de ids sin formato, sujeto de `ID_VACIO` indefinido, archivo de mapa ajeno — corregido (formato por tipo, `<archivo>#<índice>`, `MAPA_ID_AJENO`).
+- [BLOCKING] Open Questions / E8: la meta de ±15 % la violaba la línea base uniforme (Conflicto +17,6 %, Destino −21,6 %) — corregido (desvío respecto de la línea base de cada familia; 2/1/0 ilustrativo).
+- [BLOCKING] Acceptance Criteria: AC-09 incorrecto, AC-12/13 probaban a la Gramática, AC-27/30/20b..f mezclaban casos, R3 sin borde ni control positivo, E8 sin AC — corregido (AC de un caso, AC-09 exhaustivo, AC-01c, AC-28a..d, provisorios no bloqueantes).
+- [BLOCKING] Core Rules R1: la Regla Cero estaba solo como pregunta de vocabulario — corregido (un tema describe la situación del cliente, nunca una fuerza).
+- [RECOMMENDED] Core Rules R10 / States: "activo" significaba dos cosas — corregido ("habilitado" para roles y formas).
+- [RECOMMENDED] Core Rules: esquema de campos, libre como rol vacío, `KW_TEMAS_MULTIPLES`, `FAMILIA_EXTRA`, catálogo anterior vacío, rol deshabilitado en partida guardada (E9) — corregido.
+- [RECOMMENDED] Open Questions: afinidad tema-rol obligatoria antes del prototipo, con campo reservado — anotado (Generador).
+- [RECOMMENDED] Open Questions: invariante "toda tirada puede llegar a PARCIAL" — anotado (Cartas).
+- [RECOMMENDED] Open Questions: vocabulario (*locura* por sensibilidad, colisión visible Conflicto familia/rol, *fortuna*, *hogar*) y temas de mapa del Mapa B — anotado.
+- [RECOMMENDED] UI: AC del tooltip y de la marca con captura retenida — derivado a /ux-design.
+Disputas no resueltas a favor de un especialista: afinidad tema-rol como bloqueante (game-designer) y cobertura del Mapa B como bloqueante (narrative-director) — creative-director las derivó; *secreto* como tautología — no se reabre D-42, queda en el Generador.
+Receipt: sin sello a propósito. El documento se revisó después de esta revisión, y un sello de la versión corregida haría pasar el documento nuevo por el que falló.
