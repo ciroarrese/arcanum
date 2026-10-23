@@ -54,7 +54,7 @@
 #   in any other shape is reported as unsupported layout, with its number.
 
 version: 1
-last_updated: "2026-10-22"
+last_updated: "2026-10-23"
 
 # ─── ENTITIES ────────────────────────────────────────────────────────────────
 # Named game-world objects: enemies, NPCs, characters, factions, bosses.
@@ -343,6 +343,51 @@ constants:
     value: 3
     unit: roles
     added: 2026-10-22
+    revised: ""
+  - name: cartas_mazo_base
+    status: active
+    source: design/gdd/base-de-datos-de-cartas.md
+    referenced_by:
+      - design/gdd/base-de-datos-de-cartas.md
+    value: 78
+    unit: cartas
+    added: 2026-10-23
+    revised: ""
+  - name: palabras_clave_por_orientacion
+    status: active
+    source: design/gdd/base-de-datos-de-cartas.md
+    referenced_by:
+      - design/gdd/base-de-datos-de-cartas.md
+    value: 3
+    unit: palabras clave
+    added: 2026-10-23
+    revised: ""
+  - name: banda_familia_c_min
+    status: active
+    source: design/gdd/base-de-datos-de-cartas.md
+    referenced_by:
+      - design/gdd/base-de-datos-de-cartas.md
+    value: 36
+    unit: orientaciones (mazo de 36 cartas)
+    added: 2026-10-23
+    revised: ""
+  - name: banda_familia_c_max
+    status: active
+    source: design/gdd/base-de-datos-de-cartas.md
+    referenced_by:
+      - design/gdd/base-de-datos-de-cartas.md
+    value: 50
+    unit: orientaciones (mazo de 36 cartas)
+    added: 2026-10-23
+    revised: ""
+  - name: piso_invertir_u_min
+    status: active
+    source: design/gdd/base-de-datos-de-cartas.md
+    referenced_by:
+      - design/gdd/base-de-datos-de-cartas.md
+    value: 0.75
+    unit: proporción de cartas
+    added: 2026-10-23
     revised: ""
 
 # Example:

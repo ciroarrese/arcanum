@@ -84,3 +84,6 @@ Findings:
 - [RECOMMENDED] E6: una carta con palabra clave de un tema deprecado queda con techo PARCIAL en situaciones nuevas — sin cambio; decidir si algún día se depreca un tema.
 - [NICE] Alcance: los temas de mapa pesan 7 de ~45 códigos y ~20 de ~85 AC y el Mapa B no declara ninguno — decisión del diseñador.
 Receipt: sin sello a propósito. El GDD se editó después de este review (D-46), y un sello de la versión corregida haría pasar el documento nuevo por el que se revisó.
+
+## Nota — 2026-10-23 — Cambio fuera de revisión (D-47)
+No es una revisión. Al diseñar la Base de Datos de Cartas se amplió R13: el sujeto de una palabra clave pasa a ser su id de Cartas (`<carta>/<orientación>/<n>`) y se agregan los sujetos de orientación y de mazo; AC-03a–c y AC-23 cambian de fixture (`carta.copas_05`). El estado vuelve a In Review por decisión del diseñador: el APPROVED del 2026-10-23 no cubre este cambio.

@@ -27,9 +27,9 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 
 | # | System Name | Category | Priority | Status | Design Doc | Depends On |
 |---|-------------|----------|----------|--------|------------|------------|
-| 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | Approved | [taxonomia-de-temas-y-roles.md](taxonomia-de-temas-y-roles.md) | — |
+| 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | In Review | [taxonomia-de-temas-y-roles.md](taxonomia-de-temas-y-roles.md) | — |
 | 2 | Modificadores (inferred) | Core | MVP | Not Started | — | — |
-| 3 | Base de Datos de Cartas | Core | MVP | Not Started | — | Taxonomía de Temas y Roles |
+| 3 | Base de Datos de Cartas | Core | MVP | Designed | [base-de-datos-de-cartas.md](base-de-datos-de-cartas.md) | Taxonomía de Temas y Roles |
 | 4 | RNG con Semilla (inferred) | Core | MVP | Not Started | — | — |
 | 5 | Arquetipos y Pieles de Mapa | Core | MVP | Not Started | — | Taxonomía de Temas y Roles |
 | 6 | Flujo de Jornada (inferred) | Core | MVP | Not Started | — | — |
@@ -228,10 +228,10 @@ Effort estimates: S = 1 session, M = 2-3 sessions, L = 4+ sessions.
 | Metric | Count |
 |--------|-------|
 | Total systems identified | 37 |
-| Design docs started | 1 |
+| Design docs started | 2 |
 | Design docs reviewed | 1 |
 | Design docs approved | 0 |
-| MVP systems designed | 1/27 |
+| MVP systems designed | 2/27 |
 | Vertical Slice systems designed | 0/6 |
 
 ---

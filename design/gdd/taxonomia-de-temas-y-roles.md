@@ -5,7 +5,7 @@
 > **Last Updated**: 2026-10-23
 > **Last Verified**: 2026-10-23
 > **Implements Pillar**: Regla Cero, Pilar 3 (Memoria Pura), Pilar 6 (No hay Carta Mala)
-> **Creative Director Review (CD-GDD-ALIGN)**: `/design-review` full del 2026-10-23 (tercera pasada), NEEDS REVISION; revisado el mismo día (D-44); `/design-review` lean del 2026-10-23 (cuarta pasada), NEEDS REVISION, corregida (D-45); `/design-review` lean del 2026-10-23 (quinta pasada), APPROVED con 8 recomendados, 7 aplicados (D-46)
+> **Creative Director Review (CD-GDD-ALIGN)**: `/design-review` full del 2026-10-23 (tercera pasada), NEEDS REVISION; revisado el mismo día (D-44); `/design-review` lean del 2026-10-23 (cuarta pasada), NEEDS REVISION, corregida (D-45); `/design-review` lean del 2026-10-23 (quinta pasada), APPROVED con 8 recomendados, 7 aplicados (D-46); R13 ampliado por el GDD de Cartas (D-47), pendiente de re-revisión
 
 ## Summary
 
@@ -124,7 +124,9 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
 
     Cada error es `{código, sujeto, detalle}`: el código identifica la regla rota y el sujeto dice qué está mal cargado. Los tests verifican el código y el sujeto, nunca el texto del detalle. Formato del sujeto:
     - un identificador del catálogo, tal cual (`tema.deuda`);
-    - una palabra clave de carta: `<id de carta>/derecha` o `<id de carta>/invertida`;
+    - una palabra clave: su id de Cartas R4, `<id de carta>/<derecha|invertida>/<n>`;
+    - una orientación de carta: `<id de carta>/<derecha|invertida>`;
+    - un mazo y una familia (Cartas, F2 y F3): `<palos del mazo en el orden copas, oros, espadas, bastos, unidos por +>/<familia>`, con los Mayores implícitos (`copas+espadas/familia.destino`);
     - una tirada: su id; una posición de tirada: `<id de tirada>/<id de posición>`;
     - un error de todo el catálogo, sin una entrada concreta (`SIN_ROLES_HABILITADOS`, `SIN_FORMAS_HABILITADAS`): el sujeto fijo `catalogo`;
     - una entrada sin identificador utilizable (por ejemplo, vacío): `<archivo>#<índice de la entrada>`, con el índice numerado **desde 1**;
@@ -333,9 +335,9 @@ Convenciones de prueba:
 - **AC-02a** (R4) — GIVEN las tablas de idioma de prueba A y B, con nombres centinela distintos entre sí y distintos del identificador, WHEN se pide el nombre visible de cada tema con cada tabla, THEN devuelve el de esa tabla, nunca el identificador, y el conjunto de identificadores del catálogo es el mismo con las dos.
 - **AC-02b** (R13) — GIVEN la tabla de idioma `es_prueba` a la que le falta el nombre de `tema.deuda`, WHEN se valida, THEN la lista contiene `NOMBRE_FALTANTE` con sujeto `tema.deuda@es_prueba`.
 - **AC-02c** (R13; un caso por identificador) — GIVEN la tabla de idioma `es_prueba` a la que le falta el nombre de uno de `familia.bienes`, `rol.origen`, `forma.si_o_no` o `mapa_a.hiperinflacion`, WHEN se valida, THEN la lista contiene `NOMBRE_FALTANTE` con sujeto `<ese identificador>@es_prueba`.
-- **AC-03a** (R7, E1) — GIVEN la carta de prueba `carta_prueba` con la palabra clave derecha sin tema, WHEN se valida, THEN la lista contiene `KW_SIN_TEMA` con sujeto `carta_prueba/derecha`.
-- **AC-03b** (R7, E1) — GIVEN `carta_prueba` con la palabra clave invertida apuntando a `tema.inexistente`, WHEN se valida, THEN la lista contiene `KW_TEMA_INEXISTENTE` con sujeto `carta_prueba/invertida`.
-- **AC-03c** (R7) — GIVEN `carta_prueba` con la palabra clave derecha asociada a `tema.deuda` y `tema.fortuna`, WHEN se valida, THEN la lista contiene `KW_TEMAS_MULTIPLES` con sujeto `carta_prueba/derecha`.
+- **AC-03a** (R7, E1) — GIVEN la carta de prueba `carta.copas_05` con la palabra clave derecha sin tema, WHEN se valida, THEN la lista contiene `KW_SIN_TEMA` con sujeto `carta.copas_05/derecha/1`.
+- **AC-03b** (R7, E1) — GIVEN `carta.copas_05` con la palabra clave invertida apuntando a `tema.inexistente`, WHEN se valida, THEN la lista contiene `KW_TEMA_INEXISTENTE` con sujeto `carta.copas_05/invertida/1`.
+- **AC-03c** (R7) — GIVEN `carta.copas_05` con la palabra clave derecha asociada a `tema.deuda` y `tema.fortuna`, WHEN se valida, THEN la lista contiene `KW_TEMAS_MULTIPLES` con sujeto `carta.copas_05/derecha/1`.
 - **AC-04a** (R2, E1) — GIVEN un tema `tema.prueba` sin familia, WHEN se valida, THEN la lista contiene `TEMA_SIN_FAMILIA` con sujeto `tema.prueba`.
 - **AC-04b** (R2, E1) — GIVEN un tema `tema.prueba` con familia `familia.sombra`, que no está declarada, WHEN se valida, THEN la lista contiene `FAMILIA_INEXISTENTE` con sujeto `tema.prueba`.
 - **AC-04c** (R1) — GIVEN un catálogo que declara la familia `familia.sombra` además de las 5, WHEN se valida, THEN la lista contiene `FAMILIA_EXTRA` con sujeto `familia.sombra`.
@@ -411,7 +413,7 @@ Convenciones de prueba:
 - **AC-21c** (R5) — GIVEN el archivo del Mapa A con una entrada `rol.prueba`, WHEN se valida, THEN la lista contiene `MAPA_ID_AJENO` con sujeto `rol.prueba` y no contiene `ID_FORMATO`.
 - **AC-21d** (R5) — GIVEN el archivo del Mapa A con una entrada `mapa_a_b.prueba`, WHEN se valida, THEN la lista contiene `ID_FORMATO` con sujeto `mapa_a_b.prueba` y no contiene `MAPA_ID_AJENO`.
 - **AC-22** (E7, R6) — GIVEN verdadero `mapa_a.hiperinflacion` (equivalente `tema.deuda`), WHEN se compara contra leído `tema.deuda`, `tema.fortuna` y `tema.amor`, THEN los resultados son EXACTO, PARCIAL y NINGUNO.
-- **AC-23** (E7) — GIVEN `carta_prueba` con la palabra clave derecha asociada a `mapa_a.hiperinflacion`, WHEN se valida, THEN la lista contiene `KW_TEMA_DE_MAPA` con sujeto `carta_prueba/derecha`.
+- **AC-23** (E7) — GIVEN `carta.copas_05` con la palabra clave derecha asociada a `mapa_a.hiperinflacion`, WHEN se valida, THEN la lista contiene `KW_TEMA_DE_MAPA` con sujeto `carta.copas_05/derecha/1`.
 - **AC-24a** (E7) — GIVEN una tabla de idioma de prueba con `«MAPA:Hiperinflación»` y `«BASE:Deuda»`, WHEN se pide el nombre visible de `mapa_a.hiperinflacion`, THEN es `«MAPA:Hiperinflación»`.
 - **AC-24b** (E7; Integration, *provisorio hasta Textos por Plantillas*) — GIVEN una plantilla de sentencia con el tema verdadero `mapa_a.hiperinflacion` y la tabla de prueba de AC-24a, WHEN se arma el texto, THEN contiene `«MAPA:Hiperinflación»` y no contiene `«BASE:Deuda»`.
 - **AC-36a** (States, D-45) — GIVEN un catálogo anterior con `tema.hogar` en `familia.bienes` y uno nuevo con `tema.hogar` en `familia.emocion`, WHEN se valida, THEN la lista contiene `FAMILIA_CAMBIADA` con sujeto `tema.hogar`.
@@ -430,7 +432,7 @@ Convenciones de prueba:
 | **Agregación y umbral:** cómo se combinan varias posiciones del mismo rol (suma, máximo o promedio); qué pasa si la lista no tiene ningún resultado comparable (0/0); el umbral se calibra contra la línea base de Formulas, porque sin castigo por error adivinar siempre conviene; ¿el feedback distingue "deduje mal" de "no tenía la carta", y "no elegí" de "elegí mal"? ¿El feedback de un PARCIAL dice que fue por la familia? | GDD de Resonancia | Al diseñar Resonancia |
 | Carta Única cubre un solo rol de tres. ¿Qué rol cubre "Respuesta"? ¿Qué es la verdad de una pregunta *sí o no*, si la verdad se expresa en temas? Toda tirada tiene que tener al menos una posición con rol habilitado. ¿Las posiciones libres son una falsa elección para el jugador? ¿Dónde vive el vínculo forma → tirada esperada (`FORMA_INEXISTENTE`)? | GDD de Tiradas | Al diseñar Tiradas |
 | Roles posteriores al MVP (el otro, camino A y B) y su mapeo a posiciones | GDD de Tiradas | Al diseñar Tiradas |
-| La exigencia "cada tema aparece en al menos una carta del nivel Aprendiz". **Invariante del Pilar 6:** toda tirada repartida puede llegar al menos a PARCIAL con alguna elección (por ejemplo, que las dos palabras clave de cada carta sean de familias distintas). ¿"Una palabra clave = un tema" deja poca palanca de lector? ¿Hace falta un tema secundario que puntúe como máximo parcial? Destino representa a los 22 Arcanos Mayores pero tiene 3 temas: ¿cuántas cartas la llevan? | GDD de Cartas | Al diseñar Cartas |
+| La exigencia "cada tema aparece en al menos una carta del nivel Aprendiz". **Invariante del Pilar 6:** toda tirada repartida puede llegar al menos a PARCIAL con alguna elección (por ejemplo, que las dos palabras clave de cada carta sean de familias distintas). ¿"Una palabra clave = un tema" deja poca palanca de lector? ¿Hace falta un tema secundario que puntúe como máximo parcial? Destino representa a los 22 Arcanos Mayores pero tiene 3 temas: ¿cuántas cartas la llevan? **Resuelta en D-47:** sin tema secundario; el invariante absoluto se reemplaza por cobertura por familia (banda y piso de *invertir*, Cartas F2 y F3); los 22 Mayores cubren los 20 temas y apuntan a cualquier familia | GDD de Cartas | Resuelta (D-47) |
 | ¿Qué señal observable distingue a cada tema de los de su familia? Si los tells no separan temas dentro de una familia, el exacto es azar | GDD de Inspección y Tells | Al diseñar Tells |
 | Guardar la versión del catálogo en la partida. Ya no hace falta para detectar cambios de familia (D-45 los prohíbe entre builds publicadas y el validador los detecta); queda solo si Guardado la quiere para migraciones | GDD de Guardado | Al diseñar Guardado |
 | La marca de la familia es el símbolo de un palo: en una carta de otro palo (Cinco de Copas con *deuda*) puede leerse como el palo de la carta. Resolverlo en el spec del tooltip | `/ux-design`, `/art-bible` | Antes de las historias del tooltip |
