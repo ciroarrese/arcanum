@@ -1,6 +1,6 @@
 # Game Concept: Arcanum Vulgaris
 
-*Created: 2026-10-22*
+*Created: 2026-10-22 · Updated: 2026-10-23 (arte: D-48 a D-51)*
 *Status: Draft*
 
 > **Este documento es una síntesis.** La fuente de verdad del diseño es
@@ -213,7 +213,9 @@ azar.
 
 **Dirección: "La Mesa del Otro Lado"** — propuesta por el art-director (veredicto
 STRONG, 2026-10-22) a partir de la referencia de construcción de mundo de
-*ReStory*, sin su estilo anime.
+*ReStory*; actualizada el 2026-10-23 con el estilo y la producción aprobados
+(D-48 a D-51). Reglas de detalle: `design/art/patron-personajes.md` y
+`design/art/patron-sedes.md`.
 
 **Regla visual:** la luz siempre cae sobre la mesa y sobre la cara del cliente;
 lo que cambia de sede en sede es todo lo que queda fuera de ese círculo.
@@ -223,36 +225,45 @@ lo que cambia de sede en sede es todo lo que queda fuera de ese círculo.
    zona más clara del cuadro en las 8 sedes, incluido el Penthouse.
    *Design test:* captura en gris y desenfocada; si lo más claro no es la cara y
    la mesa, falla.
-2. **La misma pluma.** Clientes y objetos con el mismo contorno de tinta y color
-   plano que las cartas de 1909.
-   *Design test:* una carta al lado del cliente; si parecen de dos juegos, falla.
+2. **La misma pluma.** Clientes, sedes y mesas comparten la tinta de manga seinen,
+   el rayado y la textura de papel; las cartas de 1909 conviven por el contorno de
+   tinta y el color plano.
+   *Design test:* cliente, fondo y una carta juntos; si parecen de dos juegos, falla.
 3. **La interfaz es un objeto.** Vela, caja y herramientas existen sobre la mesa y
    cambian de material con la sede.
    *Design test:* si un dato de la interfaz flota sin objeto que lo sostenga,
    falla (salvo menús fuera de partida).
 
 **Invariante en todas las sedes:** encuadre en primera persona, mesa en el tercio
-inferior, cliente frontal al centro, una abertura al fondo, el círculo de luz, el
-trazo y la posición de cada objeto de interfaz.
-**Variable:** temperatura y alcance de la luz, materiales, objetos, vestuario del
-cliente y vista de la ciudad.
+inferior, cliente frontal al centro con el fondo de tono medio detrás, el elemento
+que identifica la sede a un costado, el círculo de luz, el trazo y la posición de
+cada objeto de interfaz (vela a la derecha, dinero a la izquierda).
+**Variable:** la luz según la hora de la jornada (6 versiones por fondo, D-49), la
+variante de entorno elegida por la semilla (hasta 2 por sede, D-51), materiales,
+objetos y vestuario del cliente.
 
-**Filosofía de color (arco de sedes):** de la Sede 1, lúgubre (vela y sodio, casi
-todo en sombra), a la Sede 8, luminosa (blanco cálido, mármol y oro viejo, el
-lujo por material y reflejo, no por saturación). La saturación nunca supera la
-del pigmento de las cartas. La cabina de neón de la Sede 4 se ve desde adentro:
-el cartel tiñe el fondo, nunca la cara.
+**Filosofía de color:** la luz cambia con la hora de la jornada, de la madrugada a
+la noche, en todas las sedes. El arco de lúgubre (Sede 1) a luminoso (Sede 8) lo
+cargan los **materiales y objetos** (D-50): frazada y lata abajo, mármol, oro viejo
+y plata arriba; el lujo se marca con material y reflejo, no con saturación. Paleta
+apagada de los 80, sin neón. Al mediodía el motor cuida que el cielo no supere a
+la cara. La cabina de neón de la Sede 4 se ve desde adentro: el cartel tiñe el
+fondo, nunca la cara.
 
-**Personajes:** caricatura editorial de los 80, nada de anime. Proporciones
-realistas con rasgos exagerados; el humor negro sale de la dignidad que el
-personaje no tiene. Se arman por capas (cabeza, rasgos, vestuario, accesorios de
-tell), en línea con la generación combinatoria.
+**Personajes (D-48):** ilustración de manga seinen con tinta de grosor variable,
+rayado y textura de papel; reemplaza la caricatura editorial (D-40), que generaba
+rechazo. Edad real, ojos medianos y siempre despejados, sin rasgos fijos que se
+confundan con tells; el estilo no embellece a nadie y la suciedad es del
+personaje, no del dibujo. Cada cliente es una imagen neutra con las manos en una
+línea fija (la mesa es otra capa) y una faceta por tell. Referencia de estilo:
+`assets/art/personajes/vagabundo-variante-viejo.png`.
 
-**Producción (hipótesis pendiente de validar):** entorno 2D en capas de parallax.
-Cada sede se arma primero como boceto 3D por script (composición, cámara y luz) y
-el arte final 2D se pinta o genera sobre ese render. Prueba de la Sede 1 en
-`prototypes/arte-sede1/`: composición y luz funcionan; el paso a 2D no está
-probado.
+**Producción:** arte 2D generado con Recraft. Cada fondo se aprueba una vez y se
+reilumina para las 6 horas, alineado píxel a píxel para el fundido en el motor.
+Clientes, fondo y mesa son capas separadas. El boceto 3D por script
+(`prototypes/arte-sede1/`) queda como guía opcional de composición. La Sede 1
+está aprobada (`assets/art/sede1/`). **Pendiente:** escalar los originales al
+doble y elegir cómo hacer el parallax (capas recortadas o mapa de profundidad).
 
 ---
 
@@ -263,12 +274,12 @@ probado.
 | *Papers, Please* | Inspección bajo presión de tiempo con dilema moral | El "documento" es una tirada al azar que se interpreta, no se valida | Valida que la inspección tensa sostiene un juego |
 | *Balatro* | Azar de cartas con palancas del jugador | No hay puntaje: la carta se lee contra un secreto | Valida el público de cartas con azar y dominio |
 | *Return of the Obra Dinn* | Deducción sin que el juego confirme a medias | La deducción es en vivo y cara a cara | Valida la deducción pura como placer |
-| *ReStory* | Construcción del mundo: primera persona sobre una mesa, cliente enfrente, interfaz diegética | Caricatura con tinta, no anime; arco de luz por sede | Referencia visual del anchor |
+| *ReStory* | Construcción del mundo: primera persona sobre una mesa, cliente enfrente, interfaz diegética | Manga seinen con tinta y rayado, no anime limpio; el fondo cambia con la hora | Referencia visual del anchor |
 
 **Non-game inspirations**: el tarot de Pamela Colman Smith (1909); la lectura en
 frío y el mentalismo; el Wall Street de 1987 y el crac del Lunes Negro; los
-telepredicadores y las líneas de videntes de la TV de los 80; la caricatura
-editorial de la época.
+telepredicadores y las líneas de videntes de la TV de los 80; el manga seinen y la
+historieta de tinta de la época.
 
 ---
 
@@ -294,7 +305,7 @@ editorial de la época.
 | ---- | ---- |
 | **Recommended Engine** | **Sin elegir** (D-13). Candidato fuerte: Unity, por el soporte de Switch; se decide con `/setup-engine` y datos verificados |
 | **Key Technical Challenges** | Generador de situaciones coherentes y deducibles; plantillas de texto que sobrevivan la traducción; tells legibles en Switch portátil; azar reproducible con semilla |
-| **Art Style** | 2D en capas de parallax, con contorno de tinta y color plano; boceto 3D solo como guía de producción |
+| **Art Style** | 2D en capas (fondo por hora, cliente, mesa), manga seinen con tinta, rayado y color plano; parallax pendiente de definir |
 | **Art Pipeline Complexity** | Medium (custom 2D asistido por IA) |
 | **Audio Needs** | Moderate: balbuceo expresivo por arquetipo, sin voces (D-31), feedback sensorial (GDD §11) |
 | **Networking** | Ninguno en partida; ranking online de la Lectura Diaria (Full Vision) |
@@ -322,11 +333,12 @@ editorial de la época.
 ### Scope Risks
 - 1 persona: ~60 sesiones de diseño para el MVP (D-38).
 - Contenido de cartas: 78 × palabras clave derechas e invertidas × temas; el MVP usa 36.
-- Kit de clientes por capas con IA: consistencia de estilo y luz entre piezas.
+- Consistencia de estilo entre clientes generados con IA (mitigación: patrón de personajes).
+- Volumen de fondos: 6 horas × hasta 2 variantes × 8 sedes por mapa.
 
 ### Open Questions
-- ¿El paso 2D sobre el boceto 3D funciona con la herramienta de IA? → prueba con el render de la Sede 1.
-- Ojos chicos de la caricatura frente al tell de pupila en pantalla chica → `/art-bible`.
+- Parallax: capas recortadas o mapa de profundidad → prueba con la Sede 1 antes de generar más sedes.
+- Duración de cada tramo de luz de la jornada → GDD del Reloj de Vela.
 - Motor → `/setup-engine` después de este documento.
 - Timeline por tier → con datos del prototipo del núcleo.
 - Pendientes del GDD §13: Mapas A y C, rebalanceo de economía, tirada final del Lunes Negro.
@@ -363,9 +375,9 @@ Grados de Infamia, Lectura Diaria, Sedes 4–8, Mapas A y C.
 
 ## Next Steps
 
-- [ ] Validar el paso a 2D sobre el render de la Sede 1 (`prototypes/arte-sede1/`)
+- [ ] Escalar el arte aprobado y probar el parallax con la Sede 1
 - [ ] Diseñar el núcleo de lectura (`/design-system`): Taxonomía → Cartas → Tiradas → Generador → Resonancia
 - [ ] Prototipo del núcleo (`/prototype`)
 - [ ] Elegir motor (`/setup-engine`)
-- [ ] Art Bible (`/art-bible`), con la pregunta abierta de los ojos
+- [ ] Art Bible (`/art-bible`), a partir de `design/art/`
 - [ ] Revisar este documento con `/design-review` en una sesión nueva
