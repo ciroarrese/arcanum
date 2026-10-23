@@ -65,3 +65,22 @@ Findings:
 - [RECOMMENDED] UI: AC del tooltip y de la marca con captura retenida — derivado a /ux-design.
 Disputas no resueltas a favor de un especialista: afinidad tema-rol como bloqueante (game-designer) y cobertura del Mapa B como bloqueante (narrative-director) — creative-director las derivó; *secreto* como tautología — no se reabre D-42, queda en el Generador.
 Receipt: sin sello a propósito. El documento se revisó después de esta revisión, y un sello de la versión corregida haría pasar el documento nuevo por el que falló.
+
+## Review — 2026-10-23 — Verdict: APPROVED
+Review mode: lean · Workflow: standard
+Scope signal: M
+Specialists: ninguno (lean)
+Blocking items: 0 | Recommended: 8
+Summary: Sin contradicciones entre reglas, fórmulas, registro y AC; las cifras de Formulas y los 20 temas del registro coinciden. Quedaban huecos de borde del validador (precedencia de errores en archivos de mapa, sujeto de errores de todo el catálogo, rol olvidado tomado por libre). Es una pasada lean: no sustituye una full, y la pasada lean anterior (D-45) no había quedado en este log.
+Prior verdict resolved: Yes — los 6 bloqueantes de la revisión full del 2026-10-23 y los de la pasada lean (D-45) estaban corregidos.
+Findings:
+- [RECOMMENDED] R4/R5: un id ajeno en un archivo de mapa daba dos errores posibles — corregido (precedencia a/b/c, AC-21a..d, D-46).
+- [RECOMMENDED] R13: `SIN_ROLES_HABILITADOS` y `SIN_FORMAS_HABILITADAS` sin sujeto — corregido (`catalogo`).
+- [RECOMMENDED] R9: un rol olvidado se tomaba por libre en silencio — corregido (`libre`, `POSICION_AMBIGUA`, `TIRADA_SIN_COMPARABLES`, AC-37a/b y AC-38; provisorios hasta Tiradas).
+- [RECOMMENDED] Esquema: faltaba el palo de cada familia para la Gramática — corregido (`palo`).
+- [RECOMMENDED] Tuning Knobs: la asignación a familia no aclaraba que D-45 la bloquea tras la primera build — corregido.
+- [RECOMMENDED] Open Questions: guardar la versión del catálogo quedó parcialmente superada por D-45 — corregido.
+- [RECOMMENDED] Log: faltaba la entrada de la pasada lean de D-45 — anotado acá; no se reconstruyó con detalles inventados.
+- [RECOMMENDED] E6: una carta con palabra clave de un tema deprecado queda con techo PARCIAL en situaciones nuevas — sin cambio; decidir si algún día se depreca un tema.
+- [NICE] Alcance: los temas de mapa pesan 7 de ~45 códigos y ~20 de ~85 AC y el Mapa B no declara ninguno — decisión del diseñador.
+Receipt: sin sello a propósito. El GDD se editó después de este review (D-46), y un sello de la versión corregida haría pasar el documento nuevo por el que se revisó.

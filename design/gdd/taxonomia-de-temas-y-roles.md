@@ -5,7 +5,7 @@
 > **Last Updated**: 2026-10-23
 > **Last Verified**: 2026-10-23
 > **Implements Pillar**: Regla Cero, Pilar 3 (Memoria Pura), Pilar 6 (No hay Carta Mala)
-> **Creative Director Review (CD-GDD-ALIGN)**: `/design-review` full del 2026-10-23 (tercera pasada), NEEDS REVISION; revisado el mismo día (D-44); `/design-review` lean del 2026-10-23 (cuarta pasada), NEEDS REVISION, corregida (D-45); pendiente de re-revisión
+> **Creative Director Review (CD-GDD-ALIGN)**: `/design-review` full del 2026-10-23 (tercera pasada), NEEDS REVISION; revisado el mismo día (D-44); `/design-review` lean del 2026-10-23 (cuarta pasada), NEEDS REVISION, corregida (D-45); `/design-review` lean del 2026-10-23 (quinta pasada), APPROVED con 8 recomendados, 7 aplicados (D-46)
 
 ## Summary
 
@@ -69,8 +69,8 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
    | Forma de pregunta | `forma.` | `^forma\.[a-z0-9_]+$` | `forma.si_o_no` |
    | Tema de mapa | `mapa_<mapa>.` | `^mapa_[a-z0-9]+\.[a-z0-9_]+$` | `mapa_a.hiperinflacion` |
 
-   El tipo de una entrada lo da la lista donde está cargada (familias, temas, roles, formas, temas de un mapa), y su prefijo tiene que coincidir. El nombre del mapa (`<mapa>`) no lleva guion bajo, así que el identificador se parte sin ambigüedad en el primer punto. Un identificador que no cumple el formato de su tipo (mayúsculas, tildes, nada después del prefijo, o el prefijo de otro tipo, como un tema cargado como `rol.x`) da `ID_FORMATO`. Cada identificador es único en todo el catálogo. Ningún identificador se renombra ni se borra, sea del tipo que sea: un tema que deja de usarse se marca como deprecado, y un rol o una forma se deshabilita (ver States).
-5. Los mapas pueden **agregar temas**, y solo eso: el archivo de un mapa declara únicamente identificadores con su propio prefijo (`mapa_a.` en el archivo del Mapa A). Si declara un tema base, es `MAPA_SOBREESCRIBE_BASE`, cambie o no algún campo; ese caso **no** da además `ID_DUPLICADO` (la unicidad de R4 se comprueba sin contar las entradas de los archivos de mapa que repiten un identificador base). Cualquier otro identificador ajeno es `MAPA_ID_AJENO`. Cada tema de mapa declara un **tema base equivalente**, que tiene que existir y ser un tema base (no otro tema de mapa). Si el tema de mapa está activo, su equivalente también tiene que estarlo; un tema de mapa deprecado puede apuntar a un equivalente deprecado (ver States). El tema de mapa **no declara familia**: toma la de su equivalente. Varios temas de mapa pueden compartir el mismo equivalente. Los temas de mapa tienen el mismo ciclo de vida que los temas base.
+   El tipo de una entrada lo da la lista donde está cargada (familias, temas, roles, formas, temas de un mapa), y su prefijo tiene que coincidir. El nombre del mapa (`<mapa>`) no lleva guion bajo, así que el identificador se parte sin ambigüedad en el primer punto. Un identificador que no cumple el formato de su tipo (mayúsculas, tildes, nada después del prefijo, o el prefijo de otro tipo, como un tema cargado como `rol.x`) da `ID_FORMATO`. Los archivos de mapa tienen su propia precedencia (R5). Cada identificador es único en todo el catálogo. Ningún identificador se renombra ni se borra, sea del tipo que sea: un tema que deja de usarse se marca como deprecado, y un rol o una forma se deshabilita (ver States).
+5. Los mapas pueden **agregar temas**, y solo eso: el archivo de un mapa declara únicamente identificadores con su propio prefijo (`mapa_a.` en el archivo del Mapa A). Si declara un tema base, es `MAPA_SOBREESCRIBE_BASE`, cambie o no algún campo; ese caso **no** da además `ID_DUPLICADO` (la unicidad de R4 se comprueba sin contar las entradas de los archivos de mapa que repiten un identificador base). Cualquier otro identificador ajeno es `MAPA_ID_AJENO`. En el archivo de un mapa, cada identificador da **un solo** error, según este orden: (a) prefijo `tema.` → `MAPA_SOBREESCRIBE_BASE`; (b) bien formado como tema de mapa pero con el prefijo de otro mapa, o con el prefijo de otro tipo (`rol.`, `forma.`, `familia.`) → `MAPA_ID_AJENO`; (c) cualquier otro → `ID_FORMATO`. Cada tema de mapa declara un **tema base equivalente**, que tiene que existir y ser un tema base (no otro tema de mapa). Si el tema de mapa está activo, su equivalente también tiene que estarlo; un tema de mapa deprecado puede apuntar a un equivalente deprecado (ver States). El tema de mapa **no declara familia**: toma la de su equivalente. Varios temas de mapa pueden compartir el mismo equivalente. Los temas de mapa tienen el mismo ciclo de vida que los temas base.
 
 **Comparación (la regla que usa la Resonancia)**
 
@@ -93,7 +93,7 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
 **Roles**
 
 8. Roles del MVP, habilitados: **origen**, **conflicto** y **desenlace**. Roles planificados para después del MVP *(provisorios hasta el GDD de Tiradas)*, que existen como identificadores deshabilitados: **el otro**, **camino A** y **camino B**.
-9. Cada posición de una tirada se traduce a **un rol o a "libre"**. Una posición libre no se compara contra la verdad, pero sus cartas cuentan para la gramática de combinación. Esto permite agregar tiradas grandes, como la Cruz Celta, sin inventar un rol por casillero. En los datos de una tirada, una posición libre es una posición **sin rol** (campo vacío), nunca un identificador ni una palabra reservada, así que no puede chocar con un rol.
+9. Cada posición de una tirada se traduce a **un rol o a "libre"**. Una posición libre no se compara contra la verdad, pero sus cartas cuentan para la gramática de combinación. Esto permite agregar tiradas grandes, como la Cruz Celta, sin inventar un rol por casillero. En los datos de una tirada, una posición libre se declara con el campo `libre` = sí y **sin rol**; nunca lleva un identificador ni una palabra reservada, así que no puede chocar con un rol. Una posición con rol **y** `libre`, o sin ninguno de los dos (un rol que se olvidó de cargar), da `POSICION_AMBIGUA`: no se toma por libre en silencio. Una tirada sin ninguna posición con rol habilitado da `TIRADA_SIN_COMPARABLES` *(provisorio hasta el GDD de Tiradas)*.
 10. El Generador asigna **un tema a cada rol habilitado**, porque todavía no sabe qué tirada se va a usar. Un rol está **habilitado** si el catálogo lo marca como producido por el Generador en la build actual (campo `habilitado`). *Habilitado* no es lo mismo que *activo*: activo/deprecado es el estado de un tema (States), y habilitado sí/no es un interruptor de roles y formas. En el MVP están habilitados origen, conflicto y desenlace. El catálogo tiene al menos un rol habilitado.
 
     La Taxonomía **no restringe qué temas van juntos** en una situación: si dos roles pueden repetir tema o si los temas deben ser coherentes entre sí lo define el Generador. El esquema reserva el campo `afinidad_por_rol` para eso (ver Open Questions).
@@ -126,6 +126,7 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
     - un identificador del catálogo, tal cual (`tema.deuda`);
     - una palabra clave de carta: `<id de carta>/derecha` o `<id de carta>/invertida`;
     - una tirada: su id; una posición de tirada: `<id de tirada>/<id de posición>`;
+    - un error de todo el catálogo, sin una entrada concreta (`SIN_ROLES_HABILITADOS`, `SIN_FORMAS_HABILITADAS`): el sujeto fijo `catalogo`;
     - una entrada sin identificador utilizable (por ejemplo, vacío): `<archivo>#<índice de la entrada>`, con el índice numerado **desde 1**;
     - un nombre faltante en una tabla de idioma: `<identificador>@<id de la tabla>` (`tema.deuda@es_prueba`).
 
@@ -145,6 +146,7 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
     | `SIN_FORMAS_HABILITADAS` | R12 |
     | `ROL_INEXISTENTE` | E3: una posición de tirada nombra un rol que no está en el catálogo |
     | `FORMA_INEXISTENTE` | R12: una tirada declara como esperada una forma de pregunta que no está en el catálogo *(provisorio hasta el GDD de Tiradas)* |
+    | `POSICION_AMBIGUA`, `TIRADA_SIN_COMPARABLES` | R9: posición con rol y `libre`, o sin ninguno; tirada sin posición con rol habilitado. Sujeto: la posición, o la tirada *(provisorios hasta el GDD de Tiradas)* |
     | `ID_ELIMINADO`, `ID_REACTIVADO`, `DEPRECAR_CON_DEPENDIENTES`, `FAMILIA_CAMBIADA`, `EQUIV_CAMBIADO` | States |
 
     Si la lista no está vacía, el juego no pasa del arranque y muestra los errores (E1).
@@ -153,13 +155,13 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
 
 | Entrada | Campos |
 |---|---|
-| Familia | `id`, `marca` (símbolo; ver Visual/Audio) |
+| Familia | `id`, `marca` (símbolo; ver Visual/Audio), `palo` (Copas / Oros / Espadas / Bastos / Arcanos Mayores, la correspondencia de R1; la usa la Gramática) |
 | Tema base | `id`, `familia`, `estado` (activo / deprecado), `afinidad_por_rol` (reservado: vacío hasta que lo defina el GDD del Generador) |
 | Tema de mapa | `id`, `equivalente`, `estado` (activo / deprecado) |
 | Rol | `id`, `habilitado` (sí / no) |
 | Forma de pregunta | `id`, `habilitada` (sí / no) |
 | Palabra clave *(dato de Cartas)* | carta, orientación, `tema` |
-| Posición *(dato de Tiradas)* | `id`, `rol` (vacío = libre) |
+| Posición *(dato de Tiradas)* | `id`, `rol` o `libre` (exactamente uno de los dos; ver R9) |
 
 Los nombres visibles no están en estas entradas: salen de las tablas de idioma, por identificador. De las dos últimas filas, este documento fija solo los campos que lee.
 
@@ -275,7 +277,7 @@ La comparación (R6) es categórica y no tiene fórmulas. Lo que sigue es la **l
 
 | Perilla | Valor actual | Rango seguro | Qué afecta |
 |---|---|---|---|
-| Asignación de tema a familia | Tabla de R1 (4/4/5/4/3) | Toda familia con el mínimo de temas activos | Probabilidad de parcial por familia y línea base de Formulas |
+| Asignación de tema a familia | Tabla de R1 (4/4/5/4/3) | Toda familia con el mínimo de temas activos. **Solo se toca antes de la primera build publicada**; después, `FAMILIA_CAMBIADA` (D-45) | Probabilidad de parcial por familia y línea base de Formulas |
 | Mínimo de temas activos por familia | 2 (objetivo de diseño: 3) | 2 a 3 con el catálogo actual (con 1 no hay parcial posible; con 4 o más Destino, que tiene 3 temas, queda bajo el mínimo y falla AC-01a) | Lo que acepta el validador, que lee el valor de acá y no lo tiene fijo en el código |
 | Roles habilitados | origen, conflicto, desenlace | Al menos 1 | Cuántos temas genera el Generador por situación |
 | Formas de pregunta habilitadas | sí o no, situación general | Al menos 1 | Tiradas esperadas disponibles |
@@ -309,7 +311,7 @@ No aplica: la Taxonomía no se opera directamente. El feel del acierto exacto o 
 | GDD §5.4 | Tirada esperada según la forma de pregunta |
 | GDD §5.8 | Match 0/1/2 → exacto / parcial / ninguno |
 | D-08, D-37, D-39 | Significado público; desacople entre Generador y Tiradas; paleta de 1909 |
-| D-42, D-43, D-44, D-45 | Criterio Conflicto/Destino; decisiones de las revisiones full y lean |
+| D-42, D-43, D-44, D-45, D-46 | Criterio Conflicto/Destino; decisiones de las revisiones full y lean |
 
 ## Acceptance Criteria
 
@@ -362,8 +364,8 @@ Convenciones de prueba:
 - **AC-35a** (Esquema) — GIVEN un tema `tema.prueba` con `estado` = `pausado`, WHEN se valida, THEN la lista contiene `CAMPO_INVALIDO` con sujeto `tema.prueba`.
 - **AC-35b** (Esquema) — GIVEN un rol `rol.origen` con `habilitado` = `quizás`, WHEN se valida, THEN la lista contiene `CAMPO_INVALIDO` con sujeto `rol.origen`.
 - **AC-35c** (Esquema) — GIVEN un tema `tema.deuda` con `afinidad_por_rol` no vacío, WHEN se valida, THEN la lista contiene `CAMPO_INVALIDO` con sujeto `tema.deuda`. Control: con `afinidad_por_rol` vacío, no lo contiene.
-- **AC-29a** (R10) — GIVEN un catálogo de prueba sin roles habilitados, WHEN se valida, THEN la lista contiene `SIN_ROLES_HABILITADOS`.
-- **AC-29b** (R12) — GIVEN un catálogo de prueba sin formas habilitadas, WHEN se valida, THEN la lista contiene `SIN_FORMAS_HABILITADAS`.
+- **AC-29a** (R10) — GIVEN un catálogo de prueba sin roles habilitados, WHEN se valida, THEN la lista contiene `SIN_ROLES_HABILITADOS` con sujeto `catalogo`.
+- **AC-29b** (R12) — GIVEN un catálogo de prueba sin formas habilitadas, WHEN se valida, THEN la lista contiene `SIN_FORMAS_HABILITADAS` con sujeto `catalogo`.
 
 **Comparación**
 - **AC-06** (R6) — GIVEN leído `tema.traicion` y verdadero `tema.traicion`, WHEN se comparan, THEN el resultado es EXACTO.
@@ -384,6 +386,9 @@ Convenciones de prueba:
 - **AC-14** (E2) — GIVEN una tirada de prueba de una sola posición `p1` con rol `rol.conflicto`, una situación con origen `tema.amor`, conflicto `tema.traicion` y desenlace `tema.muerte`, y leído `tema.engano`, WHEN se resuelve, THEN la lista tiene largo 1 y es [(`p1`, `rol.conflicto`, PARCIAL)].
 - **AC-15** (E4) — GIVEN una tirada de prueba con las posiciones `p1` y `p2`, las dos de rol `rol.origen`, verdadero `tema.traicion` y leídos `tema.engano` en `p1` y `tema.amor` en `p2`, WHEN se resuelve, THEN la lista es [(`p1`, `rol.origen`, PARCIAL), (`p2`, `rol.origen`, NINGUNO)].
 - **AC-31** (E3, R13) — GIVEN la tirada de prueba `tirada_typo` con la posición `p1` de rol `rol.orijen`, WHEN se valida, THEN la lista contiene `ROL_INEXISTENTE` con sujeto `tirada_typo/p1`.
+- **AC-37a** (R9, R13) — GIVEN la tirada de prueba `tirada_ambigua` con la posición `p1` sin rol y sin `libre`, WHEN se valida, THEN la lista contiene `POSICION_AMBIGUA` con sujeto `tirada_ambigua/p1`.
+- **AC-37b** (R9, R13) — GIVEN `tirada_ambigua` con la posición `p1` de rol `rol.origen` y `libre` = sí, WHEN se valida, THEN la lista contiene `POSICION_AMBIGUA` con sujeto `tirada_ambigua/p1`. Control: con `p1` solo de rol `rol.origen`, o solo `libre` = sí, no la contiene.
+- **AC-38** (R9, R13) — GIVEN la tirada de prueba `tirada_libre` con dos posiciones, las dos `libre` = sí, WHEN se valida, THEN la lista contiene `TIRADA_SIN_COMPARABLES` con sujeto `tirada_libre`. Control: con una posición de rol `rol.origen`, no la contiene.
 - **AC-33** (R12, R13) — GIVEN la tirada de prueba `tirada_forma` que declara como esperada `forma.inexistente`, WHEN se valida, THEN la lista contiene `FORMA_INEXISTENTE` con sujeto `tirada_forma`.
 - **AC-34** (E9) — GIVEN un catálogo con `rol.el_otro` deshabilitado, una situación que contiene `rol.el_otro` con verdadero `tema.traicion`, y la posición `p1` de rol `rol.el_otro` con leído `tema.traicion`, WHEN se resuelve, THEN la lista es [(`p1`, `rol.el_otro`, EXACTO)].
 
@@ -401,8 +406,10 @@ Convenciones de prueba:
 - **AC-20f2** (R5) — GIVEN un tema de mapa `mapa_a.prueba` con equivalente `tema.deuda` que declara familia `familia.bienes` (la misma que la del equivalente), WHEN se valida, THEN la lista contiene `MAPA_DECLARA_FAMILIA` con sujeto `mapa_a.prueba`.
 - **AC-20g** (R5, States) — GIVEN un catálogo anterior con `mapa_a.hiperinflacion` activo → `tema.deuda` activo, y uno nuevo con los dos deprecados (y `familia.bienes` sigue con el mínimo), WHEN se valida, THEN la lista no contiene `MAPA_EQUIV_DEPRECADO` ni `DEPRECAR_CON_DEPENDIENTES`.
 - **AC-20h** (R5) — GIVEN los temas de mapa `mapa_a.hiperinflacion` y `mapa_a.usura`, los dos con equivalente `tema.deuda`, WHEN se valida, THEN la lista no contiene errores.
-- **AC-21a** (R5) — GIVEN el archivo del Mapa A con una entrada `tema.deuda` idéntica a la del catálogo base, WHEN se valida, THEN la lista contiene `MAPA_SOBREESCRIBE_BASE` con sujeto `tema.deuda` y no contiene `ID_DUPLICADO`.
-- **AC-21b** (R5) — GIVEN el archivo del Mapa A con una entrada `mapa_b.prueba`, WHEN se valida, THEN la lista contiene `MAPA_ID_AJENO` con sujeto `mapa_b.prueba`.
+- **AC-21a** (R5) — GIVEN el archivo del Mapa A con una entrada `tema.deuda` idéntica a la del catálogo base, WHEN se valida, THEN la lista contiene `MAPA_SOBREESCRIBE_BASE` con sujeto `tema.deuda` y no contiene `ID_DUPLICADO` ni `ID_FORMATO`.
+- **AC-21b** (R5) — GIVEN el archivo del Mapa A con una entrada `mapa_b.prueba`, WHEN se valida, THEN la lista contiene `MAPA_ID_AJENO` con sujeto `mapa_b.prueba` y no contiene `ID_FORMATO`.
+- **AC-21c** (R5) — GIVEN el archivo del Mapa A con una entrada `rol.prueba`, WHEN se valida, THEN la lista contiene `MAPA_ID_AJENO` con sujeto `rol.prueba` y no contiene `ID_FORMATO`.
+- **AC-21d** (R5) — GIVEN el archivo del Mapa A con una entrada `mapa_a_b.prueba`, WHEN se valida, THEN la lista contiene `ID_FORMATO` con sujeto `mapa_a_b.prueba` y no contiene `MAPA_ID_AJENO`.
 - **AC-22** (E7, R6) — GIVEN verdadero `mapa_a.hiperinflacion` (equivalente `tema.deuda`), WHEN se compara contra leído `tema.deuda`, `tema.fortuna` y `tema.amor`, THEN los resultados son EXACTO, PARCIAL y NINGUNO.
 - **AC-23** (E7) — GIVEN `carta_prueba` con la palabra clave derecha asociada a `mapa_a.hiperinflacion`, WHEN se valida, THEN la lista contiene `KW_TEMA_DE_MAPA` con sujeto `carta_prueba/derecha`.
 - **AC-24a** (E7) — GIVEN una tabla de idioma de prueba con `«MAPA:Hiperinflación»` y `«BASE:Deuda»`, WHEN se pide el nombre visible de `mapa_a.hiperinflacion`, THEN es `«MAPA:Hiperinflación»`.
@@ -425,7 +432,7 @@ Convenciones de prueba:
 | Roles posteriores al MVP (el otro, camino A y B) y su mapeo a posiciones | GDD de Tiradas | Al diseñar Tiradas |
 | La exigencia "cada tema aparece en al menos una carta del nivel Aprendiz". **Invariante del Pilar 6:** toda tirada repartida puede llegar al menos a PARCIAL con alguna elección (por ejemplo, que las dos palabras clave de cada carta sean de familias distintas). ¿"Una palabra clave = un tema" deja poca palanca de lector? ¿Hace falta un tema secundario que puntúe como máximo parcial? Destino representa a los 22 Arcanos Mayores pero tiene 3 temas: ¿cuántas cartas la llevan? | GDD de Cartas | Al diseñar Cartas |
 | ¿Qué señal observable distingue a cada tema de los de su familia? Si los tells no separan temas dentro de una familia, el exacto es azar | GDD de Inspección y Tells | Al diseñar Tells |
-| Guardar la versión del catálogo en la partida, para detectar cambios de familia entre versiones | GDD de Guardado | Al diseñar Guardado |
+| Guardar la versión del catálogo en la partida. Ya no hace falta para detectar cambios de familia (D-45 los prohíbe entre builds publicadas y el validador los detecta); queda solo si Guardado la quiere para migraciones | GDD de Guardado | Al diseñar Guardado |
 | La marca de la familia es el símbolo de un palo: en una carta de otro palo (Cinco de Copas con *deuda*) puede leerse como el palo de la carta. Resolverlo en el spec del tooltip | `/ux-design`, `/art-bible` | Antes de las historias del tooltip |
 | Vocabulario: <br>- Glosario de una línea por tema, con la frontera entre vecinos (deseo/amor, poder/rivalidad, engaño/traición, engaño/secreto) y la frontera Conflicto/Destino en los casos ambiguos (violencia sufrida / muerte, traición sufrida, ley / enfermedad): D-42 dice quién controla, pero *traición*, *violencia* y *ley* suelen pasarle al cliente. Sin esto, quien asigne temas a las palabras clave de las 78 cartas decide a ojo.<br>- Nombre visible de Destino. <br>- *Locura*: renombrarla por sensibilidad (estigma de la enfermedad mental), no solo por tono, y pasar el glosario por una lectura de sensibilidad (ESRB/PEGI). <br>- Colisión visible entre la familia "Conflicto" y el rol "conflicto" en el tooltip (D-43 resolvió los ids, no lo que lee el jugador); preferencia: renombrar la familia. <br>- *Fortuna* (¿suerte o dinero?) y *hogar* (¿casa o familia?). <br>- Renombrar *riesgo*, que es una actitud y no un asunto (*apuesta* y *juego* chocan con el "apostar" del Pilar 4). <br>- ¿El equivalente de *hiperinflación* es *deuda* o *fortuna*? | Diseñador | Antes de escribir los datos del catálogo |
 | **Mapa B:** ¿declara temas de mapa para su clientela (juego clandestino, adicción, familia, fe, papeles migratorios)? E7 permite ampliar sin tocar los 20 temas base | GDD de Arquetipos y Pieles, `design/mapas/mapa-b-new-carthage.md` | Al diseñar Arquetipos |
