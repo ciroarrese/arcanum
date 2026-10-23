@@ -119,9 +119,9 @@ entities:
     source: design/gdd/taxonomia-de-temas-y-roles.md
     referenced_by:
       - design/gdd/taxonomia-de-temas-y-roles.md
-    familia: Bienes
+    familia: Destino  # antes: Bienes (D-43, taxonomia-de-temas-y-roles.md)
     added: 2026-10-22
-    revised: ""
+    revised: 2026-10-23
   - name: tema_hogar
     status: active
     source: design/gdd/taxonomia-de-temas-y-roles.md
@@ -129,6 +129,14 @@ entities:
       - design/gdd/taxonomia-de-temas-y-roles.md
     familia: Bienes
     added: 2026-10-22
+    revised: ""
+  - name: tema_trabajo
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Bienes
+    added: 2026-10-23
     revised: ""
   - name: tema_traicion
     status: active
@@ -323,10 +331,10 @@ constants:
     source: design/gdd/taxonomia-de-temas-y-roles.md
     referenced_by:
       - design/gdd/taxonomia-de-temas-y-roles.md
-    value: 19
+    value: 20  # antes: 19 (D-43, taxonomia-de-temas-y-roles.md)
     unit: temas
     added: 2026-10-22
-    revised: ""
+    revised: 2026-10-23
   - name: roles_mvp
     status: active
     source: design/gdd/taxonomia-de-temas-y-roles.md
