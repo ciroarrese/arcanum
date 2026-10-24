@@ -90,3 +90,6 @@ No es una revisión. Al diseñar la Base de Datos de Cartas se amplió R13: el s
 
 ## Nota — 2026-10-24 — Cambio fuera de revisión (D-48)
 No es una revisión. Al contar las 78 cartas contra Waite (1910) para el GDD de Cartas se agregaron 3 temas de resultado: *alegría* (Emoción), *éxito* (Ambición) y *cambio* (Destino). Quedan 23 temas, reparto 5/4/5/5/4; se recalcularon la línea base de Formulas, AC-01b, AC-09 y las perillas. *Culpa* abarca vergüenza y confesión. Sigue en In Review.
+
+## Nota — 2026-10-24 — Cambio fuera de revisión (D-49)
+No es una revisión. La revisión full de Cartas amplió R13: `validar_catalogo` recibe además `config`, `orientaciones_con_una` y `atribuciones_gd` (R12 de Cartas), y se agrega el formato de sujeto de un mazo sin familia (`MAZO_SIN_VERDADES`). Sigue en In Review.

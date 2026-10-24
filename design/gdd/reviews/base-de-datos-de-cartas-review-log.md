@@ -23,3 +23,30 @@ Findings:
 - [NICE] Registro: Cartas no figura en `referenced_by` de los 23 temas — sin cambio.
 Abierto tras las correcciones: el Dos de Copas invertida no tiene significado en Waite y E2 paso 4 no le da salida; `P_cero_max` es una propuesta a confirmar; falta rehacer la tabla por carta con los 23 temas.
 Receipt: sin sello a propósito. El GDD se corrigió después de esta revisión, y un sello de la versión corregida haría pasar el documento nuevo por el que falló.
+
+## Review — 2026-10-24 — Verdict: NEEDS REVISION
+Review mode: full · Workflow: standard
+Scope signal: L
+Specialists: game-designer, systems-designer, qa-lead, creative-director (senior)
+Blocking items: 8 | Recommended: 7
+Summary: La arquitectura de D-48 es correcta, pero fallaban piezas puntuales. F3 usaba un `p_f` que no era el de F1 y un `u_f` anterior a D-48, incompatible con los `q_f` actuales; la cota con *invertir* estaba al revés. Las forzadas generaban verdades. La alarma de 0,30 no distinguía ningún mazo, y `P_cero` empeora al sumar palos. La mitad de los AC no se podía aislar con la firma del validador. Dos de esos errores (`P_pos_inv` y la dirección de la cota) los había introducido la corrección de la pasada lean.
+Prior verdict resolved: Partially — los 4 bloqueantes de la pasada lean se corrigieron, pero dos de las correcciones eran erróneas.
+Findings:
+- [BLOCKING] Formulas F3: `p_f` como parte de `c_f` en vez de Σ p_t de F1; `u_f` viejo incompatible; "a lo sumo 0,27" al revés — corregido.
+- [BLOCKING] R6/F1: semántica de `forzada` — corregido (P1: `w_forz` 0,5, sorteable solo con 1 clara, R7 y `u_f` solo claras).
+- [BLOCKING] F4: `P_cero_max` sin capacidad de discriminar y progresión invertida — corregido (P2/P4: `P_fallo_f` por familia, marca de progresión).
+- [BLOCKING] F1: memorizar frecuencias como estrategia degenerada — corregido (F5 `V_prior`).
+- [BLOCKING] AC/R13: firma del validador sin config ni informe — corregido (R12; R13 de la Taxonomía ajustada).
+- [BLOCKING] AC-11: R6 sin gate bloqueante — corregido (Integration, regla de aprobación, revisor independiente, traducción).
+- [BLOCKING] AC-04c/d, AC-18a, F2: oráculos y borde en coma flotante — corregido.
+- [BLOCKING] AC-15b: cláusula de escape — corregido (4 recetas).
+- [RECOMMENDED] E7: palanca de la carta muda — corregido (P3: relectura pagando UT en Tiradas/Resonancia; `acierto_posible`).
+- [RECOMMENDED] E2: invertida sin fuente — corregido (P5: derecha debilitada, sujeta a citar la práctica).
+- [RECOMMENDED] R5/R11: orientaciones sin elección, temas frágiles — corregido.
+- [RECOMMENDED] Tuning Knobs: `Q_min` sin margen en 0,12 — corregido (hasta 0,11).
+- [RECOMMENDED] Restos de "2 o 3" y UX Flag — corregido.
+- [RECOMMENDED] Higiene de AC (controles vacuos, F2 por familia, ids, AC-20, AC-21, AC-18d) — corregido.
+- [RECOMMENDED] Registro: `w_forz` y excepción de 1 — derivado a /consistency-check.
+- [ADVISORY] Player Fantasy ausente — sin cambio.
+Disputas: G3 (palanca del Pilar 6 como bloqueante de Cartas) — creative-director la asignó a Tiradas/Resonancia; Cartas solo expone `acierto_posible`.
+Receipt: sin sello a propósito. El GDD se corrigió después de esta revisión, y un sello de la versión corregida haría pasar el documento nuevo por el que falló.

@@ -124,11 +124,13 @@ Sin este vocabulario, cada sistema tendría su propio lenguaje. El Generador ten
 
     `validar_catalogo(catálogo, cartas, tiradas, mapas, tablas de idioma, catálogo anterior opcional) → lista de errores`
 
+    Cartas amplía las entradas con `config`, `orientaciones_con_una` y el oráculo `atribuciones_gd` (R12 de Cartas).
+
     Cada error es `{código, sujeto, detalle}`: el código identifica la regla rota y el sujeto dice qué está mal cargado. Los tests verifican el código y el sujeto, nunca el texto del detalle. Formato del sujeto:
     - un identificador del catálogo, tal cual (`tema.deuda`);
     - una palabra clave: su id de Cartas R4, `<id de carta>/<derecha|invertida>/<n>`;
     - una orientación de carta: `<id de carta>/<derecha|invertida>`;
-    - un mazo y una familia (Cartas, F2 y F3): `<palos del mazo en el orden copas, oros, espadas, bastos, unidos por +>/<familia>`, con los Mayores implícitos (`copas+espadas/familia.destino`);
+    - un mazo y una familia (Cartas, F2 y F3): `<palos del mazo en el orden copas, oros, espadas, bastos, unidos por +>/<familia>`, con los Mayores implícitos (`copas+espadas/familia.destino`); un mazo sin familia (Cartas, `MAZO_SIN_VERDADES`), solo la parte de los palos (`copas+espadas`);
     - una tirada: su id; una posición de tirada: `<id de tirada>/<id de posición>`;
     - un error de todo el catálogo, sin una entrada concreta (`SIN_ROLES_HABILITADOS`, `SIN_FORMAS_HABILITADAS`): el sujeto fijo `catalogo`;
     - una entrada sin identificador utilizable (por ejemplo, vacío): `<archivo>#<índice de la entrada>`, con el índice numerado **desde 1**;
