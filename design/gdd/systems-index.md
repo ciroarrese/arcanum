@@ -29,7 +29,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 |---|-------------|----------|----------|--------|------------|------------|
 | 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | In Review | [taxonomia-de-temas-y-roles.md](taxonomia-de-temas-y-roles.md) | — |
 | 2 | Modificadores (inferred) | Core | MVP | Not Started | — | — |
-| 3 | Base de Datos de Cartas | Core | MVP | Needs Revision | [base-de-datos-de-cartas.md](base-de-datos-de-cartas.md) | Taxonomía de Temas y Roles |
+| 3 | Base de Datos de Cartas | Core | MVP | In Review | [base-de-datos-de-cartas.md](base-de-datos-de-cartas.md) | Taxonomía de Temas y Roles |
 | 4 | RNG con Semilla (inferred) | Core | MVP | Not Started | — | — |
 | 5 | Arquetipos y Pieles de Mapa | Core | MVP | Not Started | — | Taxonomía de Temas y Roles |
 | 6 | Flujo de Jornada (inferred) | Core | MVP | Not Started | — | — |
@@ -114,7 +114,7 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 1. Mazo y Robo — depends on: Cartas, RNG
 2. Reloj de Vela — depends on: Flujo de Jornada, Modificadores
 3. Tiradas — depends on: Taxonomía (roles), Mazo y Robo. Traduce posiciones a roles.
-4. Generador de Situaciones — depends on: Taxonomía, Arquetipos, RNG. Produce temas por **rol**, no por posición, porque la tirada se elige después.
+4. Generador de Situaciones — depends on: Taxonomía, Cartas (pesos `p_t` del mazo activo, D-48), Arquetipos, RNG. Produce temas por **rol**, no por posición, porque la tirada se elige después.
 5. Métricas del Cliente — depends on: Arquetipos, Modificadores
 6. Gramática de Combinación — depends on: Taxonomía (familias por palo), Cartas, Tiradas (la forma de la tirada define qué cartas son vecinas)
 7. Textos por Plantillas — depends on: Taxonomía, Arquetipos. Sube a Núcleo porque preguntas y sentencias son texto.
