@@ -87,3 +87,6 @@ Receipt: sin sello a propósito. El GDD se editó después de este review (D-46)
 
 ## Nota — 2026-10-23 — Cambio fuera de revisión (D-47)
 No es una revisión. Al diseñar la Base de Datos de Cartas se amplió R13: el sujeto de una palabra clave pasa a ser su id de Cartas (`<carta>/<orientación>/<n>`) y se agregan los sujetos de orientación y de mazo; AC-03a–c y AC-23 cambian de fixture (`carta.copas_05`). El estado vuelve a In Review por decisión del diseñador: el APPROVED del 2026-10-23 no cubre este cambio.
+
+## Nota — 2026-10-24 — Cambio fuera de revisión (D-48)
+No es una revisión. Al contar las 78 cartas contra Waite (1910) para el GDD de Cartas se agregaron 3 temas de resultado: *alegría* (Emoción), *éxito* (Ambición) y *cambio* (Destino). Quedan 23 temas, reparto 5/4/5/5/4; se recalcularon la línea base de Formulas, AC-01b, AC-09 y las perillas. *Culpa* abarca vergüenza y confesión. Sigue en In Review.

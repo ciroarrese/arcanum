@@ -29,14 +29,14 @@ Arcanum Vulgaris es un roguelite de deducción donde el jugador es un tarotista 
 |---|-------------|----------|----------|--------|------------|------------|
 | 1 | Taxonomía de Temas y Roles (inferred) | Core | MVP | In Review | [taxonomia-de-temas-y-roles.md](taxonomia-de-temas-y-roles.md) | — |
 | 2 | Modificadores (inferred) | Core | MVP | Not Started | — | — |
-| 3 | Base de Datos de Cartas | Core | MVP | Designed | [base-de-datos-de-cartas.md](base-de-datos-de-cartas.md) | Taxonomía de Temas y Roles |
+| 3 | Base de Datos de Cartas | Core | MVP | Needs Revision | [base-de-datos-de-cartas.md](base-de-datos-de-cartas.md) | Taxonomía de Temas y Roles |
 | 4 | RNG con Semilla (inferred) | Core | MVP | Not Started | — | — |
 | 5 | Arquetipos y Pieles de Mapa | Core | MVP | Not Started | — | Taxonomía de Temas y Roles |
 | 6 | Flujo de Jornada (inferred) | Core | MVP | Not Started | — | — |
 | 7 | Mazo y Robo | Gameplay | MVP | Not Started | — | Base de Datos de Cartas, RNG con Semilla |
 | 8 | Reloj de Vela | Gameplay | MVP | Not Started | — | Flujo de Jornada, Modificadores |
 | 9 | Tiradas | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Mazo y Robo |
-| 10 | Generador de Situaciones | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Arquetipos y Pieles de Mapa, RNG con Semilla |
+| 10 | Generador de Situaciones | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Base de Datos de Cartas, Arquetipos y Pieles de Mapa, RNG con Semilla |
 | 11 | Métricas del Cliente | Gameplay | MVP | Not Started | — | Arquetipos y Pieles de Mapa, Modificadores |
 | 12 | Gramática de Combinación | Gameplay | MVP | Not Started | — | Taxonomía de Temas y Roles, Base de Datos de Cartas, Tiradas |
 | 13 | Textos por Plantillas (inferred) | Narrative | MVP | Not Started | — | Taxonomía de Temas y Roles, Arquetipos y Pieles de Mapa |

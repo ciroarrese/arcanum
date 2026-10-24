@@ -54,7 +54,7 @@
 #   in any other shape is reported as unsupported layout, with its number.
 
 version: 1
-last_updated: "2026-10-23"
+last_updated: "2026-10-24"
 
 # ─── ENTITIES ────────────────────────────────────────────────────────────────
 # Named game-world objects: enemies, NPCs, characters, factions, bosses.
@@ -226,6 +226,30 @@ entities:
     familia: Destino
     added: 2026-10-22
     revised: ""
+  - name: tema_alegria
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Emoción  # agregado por D-48
+    added: 2026-10-24
+    revised: ""
+  - name: tema_exito
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Ambición  # agregado por D-48
+    added: 2026-10-24
+    revised: ""
+  - name: tema_cambio
+    status: active
+    source: design/gdd/taxonomia-de-temas-y-roles.md
+    referenced_by:
+      - design/gdd/taxonomia-de-temas-y-roles.md
+    familia: Destino  # agregado por D-48
+    added: 2026-10-24
+    revised: ""
 
 # Example (remove when first real entry is added):
 #
@@ -331,10 +355,10 @@ constants:
     source: design/gdd/taxonomia-de-temas-y-roles.md
     referenced_by:
       - design/gdd/taxonomia-de-temas-y-roles.md
-    value: 20  # antes: 19 (D-43, taxonomia-de-temas-y-roles.md)
+    value: 23  # antes: 20 (D-48, taxonomia-de-temas-y-roles.md); antes: 19 (D-43)
     unit: temas
     added: 2026-10-22
-    revised: 2026-10-23
+    revised: 2026-10-24
   - name: roles_mvp
     status: active
     source: design/gdd/taxonomia-de-temas-y-roles.md
@@ -358,36 +382,45 @@ constants:
     source: design/gdd/base-de-datos-de-cartas.md
     referenced_by:
       - design/gdd/base-de-datos-de-cartas.md
-    value: 3
-    unit: palabras clave
+    value: 3  # máximo; mínimo 2 (D-48). Antes: exactamente 3 (D-47)
+    unit: palabras clave por orientación, como máximo
     added: 2026-10-23
-    revised: ""
+    revised: 2026-10-24
   - name: banda_familia_c_min
-    status: active
+    status: deprecated  # reemplazada por piso_familia_q_min (D-48)
     source: design/gdd/base-de-datos-de-cartas.md
     referenced_by:
       - design/gdd/base-de-datos-de-cartas.md
     value: 36
     unit: orientaciones (mazo de 36 cartas)
     added: 2026-10-23
-    revised: ""
+    revised: 2026-10-24
   - name: banda_familia_c_max
-    status: active
+    status: deprecated  # reemplazada por piso_familia_q_min (D-48)
     source: design/gdd/base-de-datos-de-cartas.md
     referenced_by:
       - design/gdd/base-de-datos-de-cartas.md
     value: 50
     unit: orientaciones (mazo de 36 cartas)
     added: 2026-10-23
-    revised: ""
+    revised: 2026-10-24
   - name: piso_invertir_u_min
-    status: active
+    status: deprecated  # reemplazada por piso_familia_q_min (D-48)
     source: design/gdd/base-de-datos-de-cartas.md
     referenced_by:
       - design/gdd/base-de-datos-de-cartas.md
     value: 0.75
     unit: proporción de cartas
     added: 2026-10-23
+    revised: 2026-10-24
+  - name: piso_familia_q_min
+    status: active
+    source: design/gdd/base-de-datos-de-cartas.md
+    referenced_by:
+      - design/gdd/base-de-datos-de-cartas.md
+    value: 0.10
+    unit: proporción de orientaciones por familia, en cada mazo alcanzable
+    added: 2026-10-24
     revised: ""
 
 # Example:
